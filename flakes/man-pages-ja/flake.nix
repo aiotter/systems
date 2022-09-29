@@ -5,7 +5,7 @@
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     man-pages-ja = {
-      url = "https://linuxjm.osdn.jp/man-pages-ja-20220815.tar.gz";
+      url = "https://linuxjm.osdn.jp/man-pages-ja-20220915.tar.gz";
       flake = false;
     };
   };
