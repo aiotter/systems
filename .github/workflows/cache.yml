@@ -1,7 +1,12 @@
 name: Create cache on cachix
+
 on:
   push:
     branches: [master]
+
+env:
+  NIXPKGS_ALLOW_UNFREE: 1
+
 jobs:
   cache:
     strategy:
