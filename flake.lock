@@ -44,14 +44,19 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-ReQxziTZRwUodE6G6XNVYP+Czhr3++813z3tFRwWpec=",
-        "path": "./flakes/blesh",
-        "type": "path"
+        "dir": "flakes/blesh",
+        "lastModified": 1664467716,
+        "narHash": "sha256-wHlR5L5RvQ2a3flG9znF8VvEf1GhUC5rLzKQfBUg8AU=",
+        "owner": "aiotter",
+        "repo": "systems",
+        "rev": "efc27d534f816a62d5c8a33c90e5803b6ba8e7c9",
+        "type": "github"
       },
       "original": {
-        "path": "./flakes/blesh",
-        "type": "path"
+        "dir": "flakes/blesh",
+        "owner": "aiotter",
+        "repo": "systems",
+        "type": "github"
       }
     },
     "darwin": {
@@ -212,14 +217,19 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-yXqwE9GmutS+35vbEtf3itN4in4dw/KUcziav2s89ZU=",
-        "path": "./flakes/man-pages-ja",
-        "type": "path"
+        "dir": "flakes/man-pages-ja",
+        "lastModified": 1664467716,
+        "narHash": "sha256-wHlR5L5RvQ2a3flG9znF8VvEf1GhUC5rLzKQfBUg8AU=",
+        "owner": "aiotter",
+        "repo": "systems",
+        "rev": "efc27d534f816a62d5c8a33c90e5803b6ba8e7c9",
+        "type": "github"
       },
       "original": {
-        "path": "./flakes/man-pages-ja",
-        "type": "path"
+        "dir": "flakes/man-pages-ja",
+        "owner": "aiotter",
+        "repo": "systems",
+        "type": "github"
       }
     },
     "man-pages-ja_2": {
@@ -635,14 +645,19 @@
         "youtube-dl": "youtube-dl_2"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-isHEPCyFQxr3p5Wy+b+IZxXq5L1FVFlfmBipzvXbXY0=",
-        "path": "./flakes/youtube-dl",
-        "type": "path"
+        "dir": "/flakes/youtube-dl",
+        "lastModified": 1664467716,
+        "narHash": "sha256-wHlR5L5RvQ2a3flG9znF8VvEf1GhUC5rLzKQfBUg8AU=",
+        "owner": "aiotter",
+        "repo": "systems",
+        "rev": "efc27d534f816a62d5c8a33c90e5803b6ba8e7c9",
+        "type": "github"
       },
       "original": {
-        "path": "./flakes/youtube-dl",
-        "type": "path"
+        "dir": "/flakes/youtube-dl",
+        "owner": "aiotter",
+        "repo": "systems",
+        "type": "github"
       }
     },
     "youtube-dl_2": {

@@ -14,11 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blesh = {
-      url = "path:./flakes/blesh";
+      url = "github:aiotter/systems?dir=flakes/blesh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     man-pages-ja = {
-      url = "path:./flakes/man-pages-ja";
+      url = "github:aiotter/systems?dir=flakes/man-pages-ja";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim = {
@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     youtube-dl = {
-      url = "path:./flakes/youtube-dl";
+      url = "github:aiotter/systems?dir=/flakes/youtube-dl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zig = {
