@@ -75,8 +75,6 @@
     # GUI
     # pkgs.alacritty
     # pkgs.viewnior  # picture viewer
-    # https://github.com/kovidgoyal/kitty/issues/5232
-    # ((import <dotfiles/nix/utils/fetchNixpkgs.nix>) "3bb443d5d9029e5bf8ade3d367a9d4ba9065162a").kitty
 
     # Japanese man page
     pkgs.jaman
@@ -179,10 +177,17 @@
     enable = true;
     package =
       # https://github.com/kovidgoyal/kitty/issues/5232
-      (import <dotfiles/nix/utils/fetchNixpkgs.nix> "3bb443d5d9029e5bf8ade3d367a9d4ba9065162a").kitty;
+      (import
+        (pkgs.fetchFromGitHub {
+          owner = "nixos";
+          repo = "nixpkgs";
+          rev = "3bb443d5d9029e5bf8ade3d367a9d4ba9065162a";
+          hash = "sha256-mdX8Ma70HeGntbZa/zHSjILVurWJ3jwPt7OmQF7vAqQ=";
+        })
+        { }).kitty;
     font = {
       name = "HackGenNerd Console";
-      package = (import <dotfiles/nix/packages/fonts/HackGenNerd/default.nix>);
+      package = (import ../packages/fonts { inherit pkgs; }).hackgen-nerd;
       size = 17;
     };
     keybindings = {
