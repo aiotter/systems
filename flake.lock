@@ -45,11 +45,11 @@
       },
       "locked": {
         "dir": "flakes/blesh",
-        "lastModified": 1664467716,
-        "narHash": "sha256-wHlR5L5RvQ2a3flG9znF8VvEf1GhUC5rLzKQfBUg8AU=",
+        "lastModified": 1664476539,
+        "narHash": "sha256-UDi0OJ1ktvWOquXpIGtOrsjI4CeN+IPOxHnZsKYSEdU=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "efc27d534f816a62d5c8a33c90e5803b6ba8e7c9",
+        "rev": "beebe9e609f63643bc7dea12b45264b161a0d9a7",
         "type": "github"
       },
       "original": {
@@ -218,11 +218,11 @@
       },
       "locked": {
         "dir": "flakes/man-pages-ja",
-        "lastModified": 1664467716,
-        "narHash": "sha256-wHlR5L5RvQ2a3flG9znF8VvEf1GhUC5rLzKQfBUg8AU=",
+        "lastModified": 1664476539,
+        "narHash": "sha256-UDi0OJ1ktvWOquXpIGtOrsjI4CeN+IPOxHnZsKYSEdU=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "efc27d534f816a62d5c8a33c90e5803b6ba8e7c9",
+        "rev": "beebe9e609f63643bc7dea12b45264b161a0d9a7",
         "type": "github"
       },
       "original": {
@@ -235,13 +235,17 @@
     "man-pages-ja_2": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-GPxfGzDo9RhQlk67uhfrdhm1VOcyCrFfDOa5gAmxvd8=",
-        "type": "tarball",
-        "url": "https://linuxjm.osdn.jp/man-pages-ja-20220815.tar.gz"
+        "lastModified": 1663127686,
+        "narHash": "sha256-0alIk+A6mkSKWtJFDfEACt+LN78jyXrlw7Kb6cbXL9o=",
+        "ref": "refs/heads/master",
+        "rev": "a97c32caa56a11b5581d8f50e55dab53896920f4",
+        "revCount": 1608,
+        "type": "git",
+        "url": "https://scm.osdn.net/gitroot/linuxjm/jm.git"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://linuxjm.osdn.jp/man-pages-ja-20220815.tar.gz"
+        "type": "git",
+        "url": "https://scm.osdn.net/gitroot/linuxjm/jm.git"
       }
     },
     "neovim": {
@@ -646,11 +650,11 @@
       },
       "locked": {
         "dir": "/flakes/youtube-dl",
-        "lastModified": 1664467716,
-        "narHash": "sha256-wHlR5L5RvQ2a3flG9znF8VvEf1GhUC5rLzKQfBUg8AU=",
+        "lastModified": 1664476539,
+        "narHash": "sha256-UDi0OJ1ktvWOquXpIGtOrsjI4CeN+IPOxHnZsKYSEdU=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "efc27d534f816a62d5c8a33c90e5803b6ba8e7c9",
+        "rev": "beebe9e609f63643bc7dea12b45264b161a0d9a7",
         "type": "github"
       },
       "original": {

@@ -5,7 +5,7 @@
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     man-pages-ja = {
-      url = "https://linuxjm.osdn.jp/man-pages-ja-20220915.tar.gz";
+      url = "git+https://scm.osdn.net/gitroot/linuxjm/jm.git";
       flake = false;
     };
   };
@@ -25,29 +25,22 @@
           {
             name = "man-pages-ja";
             src = man-pages-ja;
-            nativeBuildInputs = with pkgs; [ perl ];
+            # nativeBuildInputs = with pkgs; [ perl ];
             buildInputs = with pkgs; [ makeWrapper groff ];
+            dontBuild = true;
+            installPhase = ''
+              mkdir -p "$out/share/man/man"{1..8}
+              cp -n manual/**/release/man1/* "$out/share/man/man1"
+              cp -n manual/**/release/man2/* "$out/share/man/man2"
+              cp -n manual/**/release/man3/* "$out/share/man/man3"
+              cp -n manual/**/release/man4/* "$out/share/man/man4"
+              cp -n manual/**/release/man5/* "$out/share/man/man5"
+              cp -n manual/**/release/man6/* "$out/share/man/man6"
+              cp -n manual/**/release/man7/* "$out/share/man/man7"
+              cp -n manual/**/release/man8/* "$out/share/man/man8"
 
-            patchPhase = ''
-              cp script/configure.perl{,.orig}
-              export LANG=ja_JP.UTF-8
-              cat script/configure.perl.orig | \
-              sed \
-                -e '/until/ i $ans = "y";' \
-                -e "s#/usr/share/man#$out/share/man#" \
-                -e 's/install -o $OWNER -g $GROUP/install/' \
-                >script/configure.perl
-            '';
-
-            configurePhase = ''
-              set +o pipefail
-              yes "" | make config
-            '';
-
-            postInstall = ''
-              # The manpath executable looks up manpages from PATH. And this package won't
-              # appear in PATH unless it has a /bin folder
-              mkdir -p $out/bin
+              # For manpath
+              mkdir -p "$out/bin"
 
               mkdir -p $out/etc
               echo "JNROFF ${pkgs.groff}/bin/groff -Dutf8 -Tutf8 -mandoc -mja -E" >$out/etc/man.conf

@@ -18,13 +18,17 @@
     "man-pages-ja": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-GPxfGzDo9RhQlk67uhfrdhm1VOcyCrFfDOa5gAmxvd8=",
-        "type": "tarball",
-        "url": "https://linuxjm.osdn.jp/man-pages-ja-20220915.tar.gz"
+        "lastModified": 1663127686,
+        "narHash": "sha256-0alIk+A6mkSKWtJFDfEACt+LN78jyXrlw7Kb6cbXL9o=",
+        "ref": "refs/heads/master",
+        "rev": "a97c32caa56a11b5581d8f50e55dab53896920f4",
+        "revCount": 1608,
+        "type": "git",
+        "url": "https://scm.osdn.net/gitroot/linuxjm/jm.git"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://linuxjm.osdn.jp/man-pages-ja-20220915.tar.gz"
+        "type": "git",
+        "url": "https://scm.osdn.net/gitroot/linuxjm/jm.git"
       }
     },
     "nixpkgs": {
