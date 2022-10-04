@@ -5,6 +5,20 @@
     extraConfig = ''
       ${builtins.readFile ./tmux.conf}
 
+      # prefix-x で何かを kill
+      bind-key x display-menu -T 'Kill what?' \
+        Process p "display-menu -T 'By which signal?' \
+          '1  SIGHUP'  h 'run-shell \"kill -1  $(\"${./get-current-process-pid}\")\"' \
+          '2  SIGINT'  i 'run-shell \"kill -2  $(\"${./get-current-process-pid}\")\"' \
+          '3  SIGQUIT' Q 'run-shell \"kill -3  $(\"${./get-current-process-pid}\")\"' \
+          '9  SIGKILL' k 'run-shell \"kill -9  $(\"${./get-current-process-pid}\")\"' \
+          '15 SIGTERM' t 'run-shell \"kill -15 $(\"${./get-current-process-pid}\")\"' \
+        " \
+        Pane P kill-pane \
+        Window w kill-window \
+        Session s "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'" \
+        Server S kill-server
+
       # 設定ファイルをリロードする
       bind r source-file "${config.xdg.configHome}/tmux/tmux.conf" \; display "Reloaded!"
 

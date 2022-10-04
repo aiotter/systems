@@ -1,34 +1,39 @@
 { lib, config, pkgs, ... }:
 
 {
-  imports = [ ./fonts.nix ./tmux ];
+  imports = [
+    ./bash
+    ./fonts.nix
+    ./git.nix
+    ./tmux
+  ];
 
   home.stateVersion = "22.05";
   home.username = builtins.getEnv "USER";
   home.homeDirectory = /. + (builtins.getEnv "HOME");
 
-  nix.registry =
-    let
-      flakeDir = "${builtins.getEnv "HOME"}/flakes";
-      flakeDirExists = builtins.getEnv "HOME" != "" && (builtins.readDir (builtins.getEnv "HOME")).flakes or "" == "directory";
-      flakeDirNames = builtins.attrNames (lib.attrsets.filterAttrs (_: fileType: fileType == "directory") (builtins.readDir flakeDir));
-      flakeList = map
-        (dirName: {
-          name = dirName;
-          value = {
-            exact = false;
-            to = { type = "path"; path = "${flakeDir}/${dirName}"; };
-          };
-        })
-        flakeDirNames;
-      flakes = lib.attrsets.optionalAttrs flakeDirExists (builtins.listToAttrs flakeList);
-    in
-    # Add exact=false to all the nix.registry.<name> defined here
-    flakes // builtins.mapAttrs (_: val: val // { exact = false; }) {
-      zig.to = { type = "github"; owner = "aiotter"; repo = "zig-on-nix"; };
-      local.to = { type = "path"; path = builtins.getEnv "HOME" + "/repo/github.com/NixOS/nixpkgs"; };
-      repo.to = { type = "path"; path = builtins.getEnv "HOME" + "/repo/github.com"; };
-    };
+  # nix.registry =
+  #   let
+  #     flakeDir = "${builtins.getEnv "HOME"}/flakes";
+  #     flakeDirExists = builtins.getEnv "HOME" != "" && (builtins.readDir (builtins.getEnv "HOME")).flakes or "" == "directory";
+  #     flakeDirNames = builtins.attrNames (lib.attrsets.filterAttrs (_: fileType: fileType == "directory") (builtins.readDir flakeDir));
+  #     flakeList = map
+  #       (dirName: {
+  #         name = dirName;
+  #         value = {
+  #           exact = false;
+  #           to = { type = "path"; path = "${flakeDir}/${dirName}"; };
+  #         };
+  #       })
+  #       flakeDirNames;
+  #     flakes = lib.attrsets.optionalAttrs flakeDirExists (builtins.listToAttrs flakeList);
+  #   in
+  #   # Add exact=false to all the nix.registry.<name> defined here
+  #   flakes // builtins.mapAttrs (_: val: val // { exact = false; }) {
+  #     zig.to = { type = "github"; owner = "aiotter"; repo = "zig-on-nix"; };
+  #     local.to = { type = "path"; path = builtins.getEnv "HOME" + "/repo/github.com/NixOS/nixpkgs"; };
+  #     repo.to = { type = "path"; path = builtins.getEnv "HOME" + "/repo/github.com"; };
+  #   };
 
   home.packages = [
     pkgs.neovim
@@ -80,94 +85,9 @@
     pkgs.jaman
   ];
 
-  # home.activation = {
-  #   # Change login shell
-  #   changeShell = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #     if [ "$SHELL" != '${pkgs.bashInteractive}/bin/bash' ]; then
-  #       $DRY_RUN_CMD chsh -s '${pkgs.bashInteractive}/bin/bash'
-  #     fi
-  #   '';
-  # };
-
-  home.sessionVariables =
-    let
-      dotpathEnv = builtins.getEnv "DOTPATH";
-    in
-    {
-      DOTPATH = if dotpathEnv == "" then "$HOME/dotfiles" else dotpathEnv;
-      LESS = "--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS";
-      MANPAGER = "less -is";
-      EDITOR = "nvim";
-    };
-
   home.sessionPath = [
-    "$DOTPATH/bin"
-    "$HOME/.local/bin"
+    (toString ./bin)
   ];
-
-  # programs.home-manager.enable = true;
-
-  programs.bash = {
-    enable = true;
-
-    bashrcExtra = ''
-      # https://github.com/akinomyoga/ble.sh/commit/021e0330d127c254560976ac208c0b39ecebc2dd
-      export HISTCONTROL="''${HISTCONTROL:+$HISTCONTROL:}strip"
-      export HISTIGNORE="''${HISTIGNORE:+$HISTIGNORE:}&:&[[:blank:]]"
-    '';
-
-    initExtra = ''
-      # Load plugins
-      source "$DOTPATH"/bash/plugins/*.plugin.sh
-
-      bind 'set completion-ignore-case on'
-      bind 'set visible-stats on'
-      # bind '"\t{": complete-into-braces'
-
-      # switch to tmux
-      tmux=${pkgs.tmux}/bin/tmux
-      if command -v $tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ $tmux ]] && [ -z "$TMUX" ]; then
-        $tmux new-session -A -s main
-      fi
-    '';
-
-    shellAliases = {
-      ls = "ls -H --color=auto";
-      lg = "lazygit";
-      icat = "kitty +kitten icat";
-      jaman = "nix run man-pages-ja --";
-    };
-  };
-
-  programs.starship = {
-    enable = true;
-    enableBashIntegration = true;
-    # settings = lib.trivial.importTOML ./starship.toml;
-  };
-  xdg.configFile."starship.toml" = { source = ./starship.toml; };
-
-  programs.blesh = {
-    enable = true;
-    options = {
-      prompt_rps1 = "$RPROMPT";
-      # complete_auto_history = "";
-      prompt_ps1_transient = "trim:same-dir";
-      prompt_ruler = "empty-line";
-    };
-    faces = {
-      auto_complete = "fg=240";
-    };
-    imports = [ "contrib/bash-preexec" ];
-    blercExtra = ''
-      function my/complete-load-hook {
-        bleopt complete_auto_history=
-        bleopt complete_ambiguous=
-        # bleopt complete_auto_complete=
-        bleopt complete_menu_maxlines=10
-      };
-      blehook/eval-after-load complete my/complete-load-hook
-    '';
-  };
 
   programs.direnv = {
     enable = true;

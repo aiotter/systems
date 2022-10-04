@@ -170,7 +170,7 @@ command = '''
 echo "${PATH//:/$'\n'}" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\1#p'
 '''
 when = '''
-[ -z "$IN_NIX_SHELL" -a -n "$(echo "${PATH//:/$'\n'}" | grep '/nix/store')" ]
+[ -z "$IN_NIX_SHELL" -a -n "$(echo "${PATH//:/$'\n'}" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\1#p' | grep -v 'source')" ]
 '''
 shell = ["bash", "-c"]
 use_stdin = false
