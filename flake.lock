@@ -45,11 +45,11 @@
       },
       "locked": {
         "dir": "flakes/blesh",
-        "lastModified": 1664859425,
-        "narHash": "sha256-i9BxUt2j08dQIpAxjqOgJwTxsbBOZKXR7JqiPc3DfeY=",
+        "lastModified": 1664866366,
+        "narHash": "sha256-BWLBw//R5poYlo8WxYXeF2RqvkbWP+xIjX2H551m5FU=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "3348af35bbb08440853d8bd7be496d494cfe72a0",
+        "rev": "8ca8b49d11b706d398a296ff908d2447a14c9d57",
         "type": "github"
       },
       "original": {
@@ -57,6 +57,18 @@
         "owner": "aiotter",
         "repo": "systems",
         "type": "github"
+      }
+    },
+    "blesh-module": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-Ma2FSiul4MW/o4aijWcIJrxdMl+wyfyL0gRPO3CAFAU=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/aiotter/home-manager/2016b87406652a7a5e97fd5756db2195225d1f93/modules/programs/blesh.nix"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/aiotter/home-manager/2016b87406652a7a5e97fd5756db2195225d1f93/modules/programs/blesh.nix"
       }
     },
     "darwin": {
@@ -317,6 +329,7 @@
     "root": {
       "inputs": {
         "blesh": "blesh",
+        "blesh-module": "blesh-module",
         "darwin": "darwin",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
@@ -646,11 +659,11 @@
       },
       "locked": {
         "dir": "/flakes/youtube-dl",
-        "lastModified": 1664859425,
-        "narHash": "sha256-i9BxUt2j08dQIpAxjqOgJwTxsbBOZKXR7JqiPc3DfeY=",
+        "lastModified": 1664866366,
+        "narHash": "sha256-BWLBw//R5poYlo8WxYXeF2RqvkbWP+xIjX2H551m5FU=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "3348af35bbb08440853d8bd7be496d494cfe72a0",
+        "rev": "8ca8b49d11b706d398a296ff908d2447a14c9d57",
         "type": "github"
       },
       "original": {

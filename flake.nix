@@ -17,6 +17,10 @@
       url = "github:aiotter/systems?dir=flakes/blesh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    blesh-module = {
+      url = "https://raw.githubusercontent.com/aiotter/home-manager/2016b87406652a7a5e97fd5756db2195225d1f93/modules/programs/blesh.nix";
+      flake = false;
+    };
     man-pages-ja = {
       url = "github:aiotter/man-pages-ja";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +39,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, darwin, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, darwin, home-manager, blesh-module, ... }@inputs:
     let
       overlays = with inputs; [
         youtube-dl.overlays.default
@@ -54,6 +58,7 @@
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
               ./home-configuration
+              blesh-module.outPath
               { nixpkgs.overlays = overlays; }
             ];
           };
