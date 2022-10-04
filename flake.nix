@@ -58,13 +58,13 @@
             ];
           };
 
-          packages.home.home-manager = home-manager.packages.${system}.default;
-          packages.home.switch = (
+          packages.home-manager = home-manager.packages.${system}.default;
+          packages.home-switch = (
             assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER and $HOME, this derivation must be built in impure mode.";
             homeConfigurations.default.activationPackage
           );
 
-          apps.home.switch = (
+          apps.home-switch = (
             assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER and $HOME, this derivation must be run in impure mode.";
             {
               type = "app";
@@ -86,23 +86,23 @@
               modules = [ ./darwin-configuration ];
             };
 
-          packages.darwin.system = darwinConfigurations.default.system;
-          packages.darwin.switch = import ./utils/darwin-switch.nix {
+          packages.darwin-system = darwinConfigurations.default.system;
+          packages.darwin-switch = import ./utils/darwin-switch.nix {
             pkgs = nixpkgs.legacyPackages.${system};
             darwinConfiguration = darwinConfigurations.default;
           };
 
-          apps.darwin.help = {
+          apps.darwin-help = {
             type = "app";
-            program = "${packages.darwin.system}/sw/bin/darwin-help";
+            program = "${packages.darwin-system}/sw/bin/darwin-help";
           };
-          apps.darwin.option = {
+          apps.darwin-option = {
             type = "app";
-            program = "${packages.darwin.system}/sw/bin/darwin-option";
+            program = "${packages.darwin-system}/sw/bin/darwin-option";
           };
-          apps.darwin.rebuild = {
+          apps.darwin-rebuild = {
             type = "app";
-            program = "${packages.darwin.system}/sw/bin/darwin-rebuild";
+            program = "${packages.darwin-system}/sw/bin/darwin-rebuild";
           };
         })
       )
