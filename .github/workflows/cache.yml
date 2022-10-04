@@ -13,15 +13,16 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
+        build:
+          - .#home.switch
+          - .#home.home-manager
         include:
           - build: .#home.switch
             impure: true
-          - build: .#home.home-manager
-            impure: false
-          - build: .#darwin.system
-            impure: false
-          - build: .#darwin.switch
-            impure: false
+          - os: macos-latest
+            build: .#darwin.system
+          - os: macos-latest
+            build: .#darwin.switch
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.4.0
