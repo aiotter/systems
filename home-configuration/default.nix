@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 
 {
-  imports = [ ./fonts.nix ./tmux ];
+  imports = [ ./fonts.nix ./tmux ./blesh.nix ];
 
   home.stateVersion = "22.05";
   home.username = builtins.getEnv "USER";
