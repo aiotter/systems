@@ -5,6 +5,7 @@
     ./bash
     ./fonts.nix
     ./git.nix
+    ./mackup
     ./tmux
   ];
 
