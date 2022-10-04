@@ -1,148 +1,201 @@
-"$schema" = "https://starship.rs/config-schema.json"
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[($nix_shell${custom.nix-shell})](fg:#9A348E bg:#DA627D)\
+[ ](bg:#DA627D)\
+$directory\
+[](fg:#DA627D bg:#FCA17D)\
+$git_branch\
+$git_commit\
+$git_status\
+$git_state\
+[](fg:#FCA17D bg:#86BBD8)\
+$deno\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nim\
+$rust\
+$zig\
+[](fg:#86BBD8 bg:#06969A)\
+$docker_context\
+[](fg:#06969A bg:#33658A)\
+[$status](bg:#33658A)\
+$cmd_duration\
+[ ](fg:#33658A)\
+$line_break\
+\\$ \
+"""
+
+# Not supported on bash
+right_format = """
+[](bg:#9A348E)\
+$cmd_duration\
+"""
+
+# Enable the blank line at the start of the prompt
 add_newline = true
-format = "[($nix_shell${custom.nix-shell})](fg:#9A348E bg:#DA627D)[ ](bg:#DA627D)$directory[](fg:#DA627D bg:#FCA17D)$git_branch$git_commit$git_status$git_state[](fg:#FCA17D bg:#86BBD8)$deno$elixir$elm$golang$haskell$java$julia$nim$rust$zig[](fg:#86BBD8 bg:#06969A)$docker_context[](fg:#06969A bg:#33658A)[$status](bg:#33658A)$cmd_duration[ ](fg:#33658A)$line_break\\$ "
-right_format = "[](bg:#9A348E)$cmd_duration"
 
-[c]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
-symbol = " "
-
-[cmd_duration]
-format = "[$duration  ]($style)"
-style = "bg:#33658A"
-
-[custom.nix-shell]
-command = "echo \"${PATH//:/$'\\n'}\" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\\1#p'\n"
-description = "Detect inside Nix Shell"
-format = "[ $symbol SHELL( \\($output\\)) ]($style)"
-shell = ["bash", "-c"]
-style = "bg:#9A348E"
-symbol = "❄️"
-use_stdin = false
-when = "[ -z \"$IN_NIX_SHELL\" -a -n \"$(echo \"${PATH//:/$'\\n'}\" | grep '/nix/store')\" ]\n"
-
-[deno]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
-symbol = "🦕 "
+# You can also replace your username with a neat symbol like  to save some space
+[username]
+show_always = true
+style_user = "bg:#9A348E"
+style_root = "bg:#9A348E"
+format = '[$user ]($style)'
 
 [directory]
-format = "[ $path ]($style)"
-repo_root_format = "[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)[ ]($style)"
-repo_root_style = "fg:black bg:#DA627D bold"
 style = "fg:black bg:#DA627D"
+format = "[ $path ]($style)"
+repo_root_style = "fg:black bg:#DA627D bold"
+repo_root_format = "[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)[ ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
-Documents = " "
-Downloads = " "
-Music = " "
-Pictures = " "
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
+
+[c]
+symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
+
+[cmd_duration]
+# style = "bg:#9A348E"
+style = "bg:#33658A"
+format = '[$duration  ]($style)'
+
+[deno]
+symbol = "🦕 "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [docker_context]
-format = "[ $symbol$context ]($style) $path"
-style = "bg:#06969A"
 symbol = " "
+style = "bg:#06969A"
+format = '[ $symbol$context ]($style) $path'
 
 [elixir]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [elm]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [git_branch]
-format = "[ $symbol$branch]($style)"
-style = "fg:black bg:#FCA17D"
 symbol = " "
+style = "fg:black bg:#FCA17D"
+format = '[ $symbol$branch]($style)'
 
 [git_commit]
-format = "[(@$hash)( $tag)]($style)"
-only_detached = true
 style = "fg:black bg:#FCA17D"
-tag_disabled = false
+format = '[(@$hash)( $tag)]($style)'
 tag_symbol = " "
+only_detached = true
+tag_disabled = false
 
 [git_state]
-format = "[\\($state( $progress_current/$progress_total)\\) ]($style)"
 style = "fg:black bg:#FCA17D"
+format = '[\($state( $progress_current/$progress_total)\) ]($style)'
 
 [git_status]
-ahead = "⇡ $count "
-behind = "⇣ $count "
-conflicted = " $count "
-deleted = "✘ $count "
-diverged = "⇡ $ahead_count ⇣ $behind_count "
-format = "[( $all_status$ahead_behind\b) ]($style)"
-modified = " $count "
-renamed = "» $count "
-staged = " $count "
-stashed = " $count "
 style = "fg:black bg:#FCA17D"
-untracked = " $count "
+format = "[( $all_status$ahead_behind\b) ]($style)"
+conflicted = ' $count '
+stashed = ' $count '
+deleted = '✘ $count '
+renamed = '» $count '
+modified = ' $count '
+staged = ' $count '
+# untracked = ' $count '
+untracked = ' $count '
+ahead = '⇡ $count '
+behind = '⇣ $count '
+diverged = '⇡ $ahead_count ⇣ $behind_count '
+# up_to_date = ' '
 
 [golang]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [haskell]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [java]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [julia]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = " "
-
-[nim]
-format = "[ $symbol($version) ]($style)"
 style = "fg:black bg:#86BBD8"
-symbol = " "
-
-[nix_shell]
-format = "[ $symbol DEVSHELL \\($state\\) ]($style)"
-style = "bg:#9A348E"
-symbol = "❄️"
+format = '[ $symbol($version) ]($style)'
 
 [nodejs]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = ""
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
+
+[nim]
+symbol = " "
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
+
+[nix_shell]
+symbol = "❄️"
+style = "bg:#9A348E"
+format = '[ $symbol DEVSHELL \($state\) ]($style)'
+
+[custom.nix-shell]
+command = '''
+echo "${PATH//:/$'\n'}" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\1#p'
+'''
+when = '''
+[ -z "$IN_NIX_SHELL" -a -n "$(echo "${PATH//:/$'\n'}" | grep '/nix/store')" ]
+'''
+shell = ["bash", "-c"]
+use_stdin = false
+description = "Detect inside Nix Shell"
+symbol = "❄️"
+style = "bg:#9A348E"
+format = '[ $symbol SHELL( \($output\)) ]($style)'
 
 [rust]
-format = "[ $symbol($version) ]($style)"
-style = "fg:black bg:#86BBD8"
 symbol = ""
+style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'
 
 [status]
+# styling bug: https://github.com/starship/starship/issues/4090
 disabled = false
-format = " $symbol $common_meaning(SIG$signal_name) "
-pipestatus = true
-pipestatus_format = "[\\[$pipestatus\\]]($style) => $symbol $common_meaning(SIG$signal_name) "
-pipestatus_separator = "\b|"
+symbol = "✘ $int"
+success_symbol = "✓"
 recognize_signal_code = true
 style = "bg:#33658A"
-success_symbol = "✓"
-symbol = "✘ $int"
-
-[username]
-format = "[$user ]($style)"
-show_always = true
-style_root = "bg:#9A348E"
-style_user = "bg:#9A348E"
+format = ' $symbol $common_meaning(SIG$signal_name) '
+pipestatus_separator = "\b|"
+pipestatus = true
+pipestatus_format = '[\[$pipestatus\]]($style) => $symbol $common_meaning(SIG$signal_name) '
 
 [zig]
-format = "[ $symbol($version) ]($style)"
 style = "fg:black bg:#86BBD8"
+format = '[ $symbol($version) ]($style)'

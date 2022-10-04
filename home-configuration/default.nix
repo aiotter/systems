@@ -142,8 +142,9 @@
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
-    settings = lib.trivial.importTOML ./starship.toml;
+    # settings = lib.trivial.importTOML ./starship.toml;
   };
+  xdg.configFile."starship.toml" = { source = ./starship.toml; };
 
   programs.blesh = {
     enable = true;
