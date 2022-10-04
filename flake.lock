@@ -19,11 +19,11 @@
     "ble-sh": {
       "flake": false,
       "locked": {
-        "lastModified": 1663313564,
-        "narHash": "sha256-LmTVSPQFK3GEJShblODVGHe0q2Nv170KMd34e74zn9o=",
+        "lastModified": 1664666425,
+        "narHash": "sha256-2Is77oMiKcfJYkNeV3seuSB9CNoJQ13Q9LzX/tOr+qk=",
         "ref": "refs/heads/master",
-        "rev": "49e55f40dc09cff0fa6412e4a8971cac61dd2dbe",
-        "revCount": 1820,
+        "rev": "a144ffa807b40baa2b58f558cdd3b22bca44d38e",
+        "revCount": 1833,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/akinomyoga/ble.sh.git"
@@ -45,11 +45,11 @@
       },
       "locked": {
         "dir": "flakes/blesh",
-        "lastModified": 1664852376,
-        "narHash": "sha256-QWBstqDFAV27gTrMZYvu32WjOw1JDzwuUc3SJebYzcU=",
+        "lastModified": 1664859425,
+        "narHash": "sha256-i9BxUt2j08dQIpAxjqOgJwTxsbBOZKXR7JqiPc3DfeY=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "86fbdacfe96316e19de49e92b46ed553c85f76d7",
+        "rev": "3348af35bbb08440853d8bd7be496d494cfe72a0",
         "type": "github"
       },
       "original": {
@@ -646,11 +646,11 @@
       },
       "locked": {
         "dir": "/flakes/youtube-dl",
-        "lastModified": 1664852376,
-        "narHash": "sha256-QWBstqDFAV27gTrMZYvu32WjOw1JDzwuUc3SJebYzcU=",
+        "lastModified": 1664859425,
+        "narHash": "sha256-i9BxUt2j08dQIpAxjqOgJwTxsbBOZKXR7JqiPc3DfeY=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "86fbdacfe96316e19de49e92b46ed553c85f76d7",
+        "rev": "3348af35bbb08440853d8bd7be496d494cfe72a0",
         "type": "github"
       },
       "original": {
