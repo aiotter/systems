@@ -45,11 +45,11 @@
       },
       "locked": {
         "dir": "flakes/blesh",
-        "lastModified": 1664476539,
-        "narHash": "sha256-UDi0OJ1ktvWOquXpIGtOrsjI4CeN+IPOxHnZsKYSEdU=",
+        "lastModified": 1664478344,
+        "narHash": "sha256-WUeVRcIAY0IIJ2iybMJgZinIdoZ1J6KnuDv6xnUSUAc=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "beebe9e609f63643bc7dea12b45264b161a0d9a7",
+        "rev": "7268ff51e76f4bbc091e429307f16fb9f9384867",
         "type": "github"
       },
       "original": {
@@ -217,35 +217,29 @@
         ]
       },
       "locked": {
-        "dir": "flakes/man-pages-ja",
-        "lastModified": 1664476539,
-        "narHash": "sha256-UDi0OJ1ktvWOquXpIGtOrsjI4CeN+IPOxHnZsKYSEdU=",
+        "lastModified": 1664844741,
+        "narHash": "sha256-GoU+uR0zq5GrsFO0Uc4mn9erIOE/bxXiFIg6QK0Km8U=",
         "owner": "aiotter",
-        "repo": "systems",
-        "rev": "beebe9e609f63643bc7dea12b45264b161a0d9a7",
+        "repo": "man-pages-ja",
+        "rev": "2a174a52ba6d71939ca3ba223a03e28700fa04b1",
         "type": "github"
       },
       "original": {
-        "dir": "flakes/man-pages-ja",
         "owner": "aiotter",
-        "repo": "systems",
+        "repo": "man-pages-ja",
         "type": "github"
       }
     },
     "man-pages-ja_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1663127686,
-        "narHash": "sha256-0alIk+A6mkSKWtJFDfEACt+LN78jyXrlw7Kb6cbXL9o=",
-        "ref": "refs/heads/master",
-        "rev": "a97c32caa56a11b5581d8f50e55dab53896920f4",
-        "revCount": 1608,
-        "type": "git",
-        "url": "https://scm.osdn.net/gitroot/linuxjm/jm.git"
+        "narHash": "sha256-8lPdOG7BpixVpFtxGIOmR7b+GyC/TU307vysKLAaDDo=",
+        "type": "file",
+        "url": "https://linuxjm.osdn.jp/man-pages-ja-20220815.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://scm.osdn.net/gitroot/linuxjm/jm.git"
+        "type": "file",
+        "url": "https://linuxjm.osdn.jp/man-pages-ja-20220815.tar.gz"
       }
     },
     "neovim": {
@@ -288,11 +282,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1664432844,
-        "narHash": "sha256-/7YydlQfYeSN//5Q/nceSDeeBa5ZuO5c8wv9IULbOPg=",
+        "lastModified": 1664787379,
+        "narHash": "sha256-gfKKtflfRcyxUPeTQ1JwyF1vXdyVvjO6Zy7GVyDdPro=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c4d0026e7346ad2006c2ba730d5a712c18195aab",
+        "rev": "2c2c0afe1b5b31ed6a559ec4687b58608fa9069d",
         "type": "github"
       },
       "original": {
@@ -650,11 +644,11 @@
       },
       "locked": {
         "dir": "/flakes/youtube-dl",
-        "lastModified": 1664476539,
-        "narHash": "sha256-UDi0OJ1ktvWOquXpIGtOrsjI4CeN+IPOxHnZsKYSEdU=",
+        "lastModified": 1664478344,
+        "narHash": "sha256-WUeVRcIAY0IIJ2iybMJgZinIdoZ1J6KnuDv6xnUSUAc=",
         "owner": "aiotter",
         "repo": "systems",
-        "rev": "beebe9e609f63643bc7dea12b45264b161a0d9a7",
+        "rev": "7268ff51e76f4bbc091e429307f16fb9f9384867",
         "type": "github"
       },
       "original": {
@@ -689,11 +683,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1664411838,
-        "narHash": "sha256-T3tEX3R02HtVTcdJSgb9APuzfpQrb5Iv5WReNVX+l84=",
+        "lastModified": 1664843876,
+        "narHash": "sha256-JrBWKuvCCmrNdknUfMToAgfco3h1IuDnDrA+kJESjrY=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "b0a00d46daa7b10f5d8c511c145a9ea2a4d248ad",
+        "rev": "04a454703ef1d9d7fed82e28ec28c7ba8077595c",
         "type": "github"
       },
       "original": {

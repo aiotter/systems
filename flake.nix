@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     man-pages-ja = {
-      url = "github:aiotter/systems?dir=flakes/man-pages-ja";
+      url = "github:aiotter/man-pages-ja";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim = {
