@@ -26,13 +26,12 @@
         {
           name = "ble.sh";
           src = ble-sh;
-          # nativeBuildInputs = with pkgs; [ git ];
           patchPhase = ''
-            sed -iE "/git submodule update/d" GNUmakefile
+            sed -i"" "/git submodule update/d" GNUmakefile
           '';
+          installFlags = [ "PREFIX=$(out)" ];
           checkInputs = with pkgs; [ bashInteractive glibcLocales ];
           preCheck = "export LC_ALL=en_US.UTF-8";
-          installFlags = [ "INSDIR=$(out)/share" ];
           postInstall = ''
             mkdir -p "$out/bin"
             cat <<EOF >"$out/bin/blesh-share"
