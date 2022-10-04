@@ -15,6 +15,7 @@
       "\$HOME/.nix-defexpr/channels"
     ];
     settings = {
+      sandbox = true;
       substituters = [
         "https://nix-community.cachix.org"
         "https://aiotter.cachix.org"

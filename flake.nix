@@ -49,7 +49,6 @@
     builtins.foldl' nixpkgs.lib.attrsets.recursiveUpdate { } [
       (
         # Home manager
-        assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER, this derivation must be exexuted in impure mode.";
         flake-utils.lib.eachDefaultSystem (system: rec {
           homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
@@ -60,7 +59,10 @@
           };
 
           packages.home.home-manager = home-manager.packages.${system}.default;
-          packages.home.switch = homeConfigurations.default.activationPackage;
+          packages.home.switch = (
+            assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER, this derivation must be exexuted in impure mode.";
+            homeConfigurations.default.activationPackage
+          );
 
           apps.home.switch = {
             type = "app";
@@ -78,7 +80,7 @@
           darwinConfigurations.default = darwin.lib.darwinSystem
             {
               inherit system;
-              modules = [ ./darwin-configuration.nix ];
+              modules = [ ./darwin-configuration ];
             };
 
           packages.darwin.system = darwinConfigurations.default.system;
