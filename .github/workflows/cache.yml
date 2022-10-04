@@ -13,6 +13,15 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
+        include:
+          - build: .#home.switch
+            impure: true
+          - build: .#home.home-manager
+            impure: false
+          - build: .#darwin.system
+            impure: false
+          - build: .#darwin.switch
+            impure: false
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.4.0
@@ -26,10 +35,7 @@ jobs:
           name: aiotter
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      # Home manager
-      - run: nix build .#home.switch --impure
-      - run: nix build .#home.home-manager
-
-      # Nix-Darwin
-      - run: nix build .#darwin.system .#darwin.switch
-        if: matrix.os == 'macos-latest'
+      - run: nix build ${{ matrix.build }} ${{ matrix.impure && '--impure' || '' }}
+        id: build
+      - run: nix log ${{ matrix.build }} ${{ matrix.impure && '--impure' || '' }}
+        if: ${{ failure() && steps.build.conclusion == 'failure' }}
