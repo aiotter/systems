@@ -9,8 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      # PR #3238 over PR #3210
-      url = "github:aiotter/home-manager/merged-pr";
+      # https://github.com/nix-community/home-manager/pull/3210
+      url = "github:RonnyPfannschmidt/home-manager/flake-profile-replace";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blesh = {
@@ -23,7 +23,7 @@
     };
     neovim = {
       url = "github:aiotter/neovim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     youtube-dl = {
       url = "github:aiotter/systems?dir=/flakes/youtube-dl";
@@ -60,14 +60,17 @@
 
           packages.home.home-manager = home-manager.packages.${system}.default;
           packages.home.switch = (
-            assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER, this derivation must be exexuted in impure mode.";
+            assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER and $HOME, this derivation must be built in impure mode.";
             homeConfigurations.default.activationPackage
           );
 
-          apps.home.switch = {
-            type = "app";
-            program = "${homeConfigurations.default.activationPackage}/activate";
-          };
+          apps.home.switch = (
+            assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER and $HOME, this derivation must be run in impure mode.";
+            {
+              type = "app";
+              program = "${homeConfigurations.default.activationPackage}/activate";
+            }
+          );
         })
       )
 
