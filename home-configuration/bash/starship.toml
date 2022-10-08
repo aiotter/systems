@@ -10,7 +10,18 @@ $git_branch\
 $git_commit\
 $git_status\
 $git_state\
-[](fg:#FCA17D bg:#86BBD8)\
+[](fg:#FCA17D bg:#33658A)\
+[$status](bg:#33658A)\
+$cmd_duration\
+[ ](fg:#33658A)\
+$line_break\
+\\$ \
+"""
+
+# Not supported on bash
+right_format = """
+(\
+[](fg:#86BBD8)\
 $deno\
 $elixir\
 $elm\
@@ -21,24 +32,12 @@ $julia\
 $nim\
 $rust\
 $zig\
-[](fg:#86BBD8 bg:#06969A)\
-$docker_context\
-[](fg:#06969A bg:#33658A)\
-[$status](bg:#33658A)\
-$cmd_duration\
-[ ](fg:#33658A)\
-$line_break\
-\\$ \
-"""
-
-# Not supported on bash
-right_format = """
-[](bg:#9A348E)\
-$cmd_duration\
+)\
+([](bg:#86BBD8 fg:#06969A)$docker_context)\
 """
 
 # Enable the blank line at the start of the prompt
-add_newline = true
+# add_newline = true
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
@@ -120,15 +119,16 @@ format = "[( $all_status$ahead_behind\b) ]($style)"
 conflicted = ' $count '
 stashed = ' $count '
 deleted = '✘ $count '
-renamed = '» $count '
+renamed = '»$count '
 modified = ' $count '
 staged = ' $count '
 # untracked = ' $count '
 untracked = ' $count '
-ahead = '⇡ $count '
-behind = '⇣ $count '
-diverged = '⇡ $ahead_count ⇣ $behind_count '
+ahead = '⇡$count '
+behind = '⇣$count '
+diverged = '⇡$ahead_count ⇣$behind_count '
 # up_to_date = ' '
+up_to_date = '⇕ '
 
 [golang]
 symbol = " "

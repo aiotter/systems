@@ -57,10 +57,13 @@
   programs.blesh = {
     enable = true;
     options = {
-      prompt_rps1 = "$RPROMPT";
+      prompt_rps1 = "$(STARSHIP_SHELL= ${config.programs.starship.package}/bin/starship prompt --right)";
       # complete_auto_history = "";
       prompt_ps1_transient = "trim:same-dir";
       prompt_ruler = "empty-line";
+      prompt_eol_mark="\\e[7m¶\\e0m";
+      exec_errexit_mark="\\e[91m[EXIT %d]\\e[m";
+      exec_elapsed_mark="\\e[94m[ELAPSED %s (CPU %s%%)]\\e[m";
     };
     faces = {
       auto_complete = "fg=240";
