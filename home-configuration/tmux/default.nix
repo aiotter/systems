@@ -30,16 +30,12 @@
       set -g pane-border-status bottom
       set -g pane-border-format "#(bash ${./responsive-pane-status.sh} '#{pane_width}' '#{pane_current_command}' '#{pane_pid}' '#{pane_current_path}')"
 
-      # 左パネルを設定する
-      set -g status-left-length 40
-      set -g status-left "#{prefix_highlight}#(bash ${./responsive-window-status-l.sh} '#{client_width}')"
       # 右パネルを設定する
       set -g status-right-length 60
       set -g status-right "#(bash ${./responsive-window-status-r.sh} '#{client_width}')"
     '';
 
     plugins = with pkgs.tmuxPlugins; [
-      sensible
       yank
       {
         plugin = prefix-highlight;
@@ -49,6 +45,10 @@
           set -g @prefix_highlight_copy_prompt 'Copy'
           set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow'
           set -g @prefix_highlight_empty_prompt ' TMUX '
+
+          # 左パネルを設定する
+          set -g status-left-length 40
+          set -g status-left "#{prefix_highlight}#(bash ${./responsive-window-status-l.sh} '#{client_width}')"
         '';
       }
     ];
