@@ -95,6 +95,41 @@
         bleopt complete_menu_maxlines=10
       };
       blehook/eval-after-load complete my/complete-load-hook
+
+      function my/overwrite-update-textmap {
+        function ble/widget/.update-textmap {
+          # rps1 がある時の幅の再現
+          local cols=''${COLUMNS:-80} render_opts=
+          # if [[ $_ble_prompt_rps1_enabled ]]; then
+          #   local rps1_width=''${_ble_prompt_rps1_data[11]}
+          #   render_opts=relative
+          #   ((cols-=rps1_width+1,_ble_term_xenl||cols--))
+          # fi
+
+          local x=$_ble_textmap_begx y=$_ble_textmap_begy
+          COLUMNS=$cols ble/textmap#update "$_ble_edit_str" "$render_opts"
+        }
+
+        function ble/prompt/unit:_ble_prompt_rps1/update {
+          ble/prompt/unit/add-hash '$prompt_rps1'
+          ble/prompt/unit/add-hash '$_ble_prompt_ps1_data'
+          local cols=''${COLUMNS-80}
+          local ps1x=''${_ble_prompt_ps1_data[3]}
+          local ps1y=''${_ble_prompt_ps1_data[4]}
+          local prompt_rows=$((ps1y+1)) prompt_cols=$cols
+          ble/prompt/unit:{section}/update _ble_prompt_rps1 "$prompt_rps1" confine:relative:right:measure-gbox || return 1
+
+          local esc=''${_ble_prompt_rps1_data[8]} width=
+          # if [[ $esc ]]; then
+          #   ((width=_ble_prompt_rps1_gbox[2]-_ble_prompt_rps1_gbox[0]))
+          #   ((width&&20+width<cols&&ps1x+10+width<cols)) || esc= width=
+          # fi
+          _ble_prompt_rps1_data[10]=$esc
+          _ble_prompt_rps1_data[11]=$width
+          return 0
+        }
+      }
+      blehook/eval-after-load keymap my/overwrite-update-textmap
     '';
   };
 }
