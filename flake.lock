@@ -243,11 +243,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1664850165,
-        "narHash": "sha256-dpiq2xyBeX2GqOgkS8G0z8QQFUFIbK0IILw1Wz9M3DU=",
+        "lastModified": 1665424101,
+        "narHash": "sha256-8p91ykAAIeyvgrF5fiP1gmH5rEfqj59TmF4F9nkCtVM=",
         "owner": "aiotter",
         "repo": "man-pages-ja",
-        "rev": "38aea2281b21eb7e189fdffd9f42c425d2d827aa",
+        "rev": "cbca572de511f607e0d80c96bce241f4ae93e7ed",
         "type": "github"
       },
       "original": {
@@ -713,11 +713,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1665275467,
-        "narHash": "sha256-VYPIIqkedF+waiZqKCDVx0vW3Jd5pEMFmbl1KMDj3Gg=",
+        "lastModified": 1665403914,
+        "narHash": "sha256-29XrSu0zTmroSvg5kK8WihQPdxSMyzqBG2zOqyATW18=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "364e4d4cec17889aeb73d5a1afa3bfb55fd7976f",
+        "rev": "334530b3d3f3291608d63ebc86c664182d964295",
         "type": "github"
       },
       "original": {
