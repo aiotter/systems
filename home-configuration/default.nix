@@ -108,8 +108,8 @@
         })
         { }).kitty;
     font = {
-      name = "HackGenNerd Console";
-      package = (import ../packages/fonts { inherit pkgs; }).hackgen-nerd;
+      name = "UDEV Gothic 35NFLG";
+      package = (import ../packages/fonts { inherit pkgs; }).udev-gothic-nf;
       size = 17;
     };
     keybindings = {

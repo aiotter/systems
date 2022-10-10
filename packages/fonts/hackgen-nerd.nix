@@ -1,18 +1,18 @@
 { stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation rec {
-  pname = "HackGenNerd";
-  version = "2.3.5";
+  pname = "HackGenNF";
+  version = "2.7.1";
 
   src = fetchurl {
-      url = "https://github.com/yuru7/HackGen/releases/download/v${version}/HackGenNerd_v${version}.zip";
-      sha256 = "55370c08d4d528b57a52024efee835dfe337169c7e5f20089cf4e596aa9a3525";
+      url = "https://github.com/yuru7/HackGen/releases/download/v${version}/HackGen_NF_v${version}.zip";
+      hash = "sha256-PBlJaCVn+LTUmEwwsUOfBR8gYqMTjdvyJiwS0If2DZI=";
   };
 
   nativeBuildInputs = [ unzip ];
 
   installPhase = ''
-    install -m644 --target $out/share/fonts/truetype/HackGenNerd -D HackGen*.ttf
+    install -m644 --target $out/share/fonts/truetype/HackGenNF -D HackGen*.ttf
   '';
 
   meta = {
