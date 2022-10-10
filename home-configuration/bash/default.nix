@@ -29,6 +29,13 @@
 
       # https://github.com/akinomyoga/ble.sh/commit/021e0330d127c254560976ac208c0b39ecebc2dd
       export HISTCONTROL=ignoredups:strip
+
+      echo "''${PATH//:/$'\n'}" | awk -F '/' '
+        /^\/nix\/store\/[a-z0-9]+-[^\/]+\/.*$/ && $4 !~ /-source$/ {
+          printf "PATH added: %s\n",$0; RUN=1
+        }
+        END { if (RUN==1) printf "\n" }
+      '
     '';
 
     shellAliases = {
