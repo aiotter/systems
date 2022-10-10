@@ -14,11 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blesh = {
-      url = "github:aiotter/systems?dir=flakes/blesh";
+      url = "github:aiotter/flakes/blesh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blesh-module = {
-      url = "https://raw.githubusercontent.com/aiotter/home-manager/2016b87406652a7a5e97fd5756db2195225d1f93/modules/programs/blesh.nix";
+      url = "https://raw.githubusercontent.com/aiotter/home-manager/9e8d03d4d4d728c8128328f62c04209d7a6e1ae3/modules/programs/blesh.nix";
       flake = false;
     };
     man-pages-ja = {
@@ -30,7 +30,7 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
     youtube-dl = {
-      url = "github:aiotter/systems?dir=/flakes/youtube-dl";
+      url = "github:aiotter/flakes/youtube-dl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zig = {
