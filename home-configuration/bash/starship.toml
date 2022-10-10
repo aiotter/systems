@@ -2,7 +2,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[($nix_shell${custom.nix-shell})](fg:#9A348E bg:#DA627D)\
 [ ](bg:#DA627D)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
@@ -21,6 +20,10 @@ $line_break\
 # Not supported on bash
 right_format = """
 (\
+[](fg:#9A348E)
+($nix_shell${custom.nix-shell})\
+)\
+(\
 [](fg:#86BBD8)\
 $deno\
 $elixir\
@@ -37,7 +40,7 @@ $zig\
 """
 
 # Enable the blank line at the start of the prompt
-# add_newline = true
+add_newline = false
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
@@ -167,7 +170,7 @@ format = '[ $symbol DEVSHELL \($state\) ]($style)'
 
 [custom.nix-shell]
 command = '''
-echo "${PATH//:/$'\n'}" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\1#p'
+echo "${PATH//:/$'\n'}" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\1#p' | awk '$0 != "source" {printf "%s%s",sep,$0; sep="|"}'
 '''
 when = '''
 [ -z "$IN_NIX_SHELL" -a -n "$(echo "${PATH//:/$'\n'}" | sed -En 's#^/nix/store/[a-z0-9]+-([^/]+).*$#\1#p' | grep -v 'source')" ]

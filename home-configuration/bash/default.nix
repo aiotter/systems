@@ -57,19 +57,30 @@
   programs.blesh = {
     enable = true;
     options = {
-      prompt_rps1 = "$(STARSHIP_SHELL= ${config.programs.starship.package}/bin/starship prompt --right)";
+      prompt_rps1 = ''
+        $(STARSHIP_SHELL= ${config.programs.starship.package}/bin/starship prompt --right \
+          --terminal-width="$COLUMNS" \
+          --keymap="''${KEYMAP:-}" \
+          --status="$STARSHIP_CMD_STATUS" \
+          --pipestatus="''${STARSHIP_PIPE_STATUS[*]}" \
+          --cmd-duration="''${STARSHIP_DURATION:-}" \
+          --jobs="$STARSHIP_JOBS_COUNT" \
+        )
+      '';
       # complete_auto_history = "";
       prompt_ps1_transient = "trim:same-dir";
       prompt_ruler = "empty-line";
-      prompt_eol_mark="\\e[7m¶\\e0m";
-      exec_errexit_mark="\\e[91m[EXIT %d]\\e[m";
-      exec_elapsed_mark="\\e[94m[ELAPSED %s (CPU %s%%)]\\e[m";
     };
     faces = {
       auto_complete = "fg=240";
     };
     imports = [ "contrib/bash-preexec" ];
+
     blercExtra = ''
+      bleopt prompt_eol_mark=$'\e[7m¶\e[m'
+      bleopt exec_errexit_mark=$'\e[91m[EXIT %d]\e[m'
+      bleopt exec_elapsed_mark=$'\e[94m[ELAPSED %s (CPU %s%%)]\e[m';
+
       function my/complete-load-hook {
         bleopt complete_auto_history=
         bleopt complete_ambiguous=
