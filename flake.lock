@@ -220,16 +220,15 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1663785204,
-        "narHash": "sha256-EjucTkCgN16VVFPUf9FaRCS/s/G9QBFcHG+Hm7yeC8Y=",
-        "owner": "RonnyPfannschmidt",
+        "lastModified": 1666649150,
+        "narHash": "sha256-kINnLxC0KFalUk4tVO/H5hUU7FVAOYYcUSWrsBpnl+I=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3c7a025a834e0a973a3a4b9c5d764404ee1b947c",
+        "rev": "7dc4e4ebd71280842b4d30975439980baaac9db8",
         "type": "github"
       },
       "original": {
-        "owner": "RonnyPfannschmidt",
-        "ref": "flake-profile-replace",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
@@ -310,11 +309,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1666688649,
-        "narHash": "sha256-i1Tq2VgXbEZKgjM2p2OqZdxcnK4FZjRZ9Oy4Ewx8gjA=",
+        "lastModified": 1666753130,
+        "narHash": "sha256-Wff1dGPFSneXJLI2c0kkdWTgxnQ416KE6X4KnFkgPYQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "03a00f66fc4e893dccba1579df6d0c83852e1c2c",
+        "rev": "f540aeda6f677354f1e7144ab04352f61aaa0118",
         "type": "github"
       },
       "original": {
@@ -713,11 +712,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1666613499,
-        "narHash": "sha256-kdzazArGy067Z8G6SbnQHVRCIKbsSiKnyq+s2OcEL4Y=",
+        "lastModified": 1666744216,
+        "narHash": "sha256-BE/gaiMQvKC7BF+cBHPgpAroTLjOZEInxAIhmHFvBdc=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "9fe7a7038a5115cf00f2f91b2541caeab93779f8",
+        "rev": "1d0d78decebd30fd8ace7bddedd7e7d05ee59120",
         "type": "github"
       },
       "original": {

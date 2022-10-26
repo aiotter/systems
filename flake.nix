@@ -9,8 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      # https://github.com/nix-community/home-manager/pull/3210
-      url = "github:RonnyPfannschmidt/home-manager/flake-profile-replace";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blesh = {
@@ -60,6 +59,8 @@
               ./home-configuration
               blesh-module.outPath
               { nixpkgs.overlays = overlays; }
+              # https://github.com/nix-community/home-manager/pull/3210
+              ./home-configuration/replace-profile.nix
             ];
           };
 
