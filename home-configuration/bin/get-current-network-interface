@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if which networksetup 2>&1 >/dev/null; then
-  networksetup -listallhardwareports | grep -C1 $(route get default | grep interface | awk '{print $2}') | head -1 | awk -F ': ' '{print $2}'
-else
-  echo 'Not supported yet' 1>&2 
-fi

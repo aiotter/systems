@@ -1,26 +1,11 @@
-aiotter's system & user configurations
+aiotter's system configurations for macOS
 =====
-
-# Home configurations
-System-irrelevant home configuration files including `.bashrc` goes here.
-
-```bash
-# Activation
-$ nix run github:aiotter/systems#home-switch --impure
-
-# Run CLI
-$ nix run github:aiotter/systems#home-manager packages
-```
-
-# Darwin system
-Darwin system configuration.
-
 ```bash
 # Actication
-$ nix run github:aiotter/systems#darwin-switch
+$ nix run github:aiotter/systems/darwin#switch
 
-# Run CLI
-$ nix run github:aiotter/systems#darwin-help
-$ nix run github:aiotter/systems#darwin-option launchd.agents
-$ nix run github:aiotter/systems#darwin-rebuild changelog
+# Run nix-darwin CLI
+$ nix run github:aiotter/systems/darwin#darwin-help
+$ nix run github:aiotter/systems/darwin#darwin-option launchd.agents
+$ nix run github:aiotter/systems/darwin#darwin-rebuild changelog
 ```

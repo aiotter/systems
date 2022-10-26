@@ -1,3 +1,0 @@
-#!/bin/bash
-rm -rfv ~/"${XDG_CONFIG_HOME:-.config}"/{google-chrome,BraveSoftware/Brave-Browser}/Default/Local\ Extension\ Settings/nngceckbapebfimnlniiiahkandclblb
-rm -rfv ~/"${XDG_CONFIG_HOME:-.config}"/Bitwarden\ CLI
