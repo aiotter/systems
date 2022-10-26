@@ -1,9 +1,8 @@
 { pkgs, config, ... }: {
   home.sessionVariables = {
     LESS = "--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS";
-    MANPAGER = "less -is";
+    MANPAGER = "less -isr";
     EDITOR = "nvim";
-    # HISTCONTROL = "\${HISTCONTROL:+$HISTCONTROL:}ignoredups:strip";
   };
 
   home.sessionPath = [
@@ -27,9 +26,6 @@
         $tmux new-session -A -s main
       fi
 
-      # https://github.com/akinomyoga/ble.sh/commit/021e0330d127c254560976ac208c0b39ecebc2dd
-      export HISTCONTROL=ignoredups:strip
-
       echo "''${PATH//:/$'\n'}" | awk -F '/' '
         /^\/nix\/store\/[a-z0-9]+-[^\/]+\/.*$/ && $4 !~ /-source$/ {
           printf "PATH added: %s\n",$0; RUN=1
@@ -42,6 +38,12 @@
       ls = "ls -H --color=auto";
       lg = "lazygit";
       icat = "kitty +kitten icat";
+    };
+
+    sessionVariables = {
+      # https://github.com/akinomyoga/ble.sh/commit/021e0330d127c254560976ac208c0b39ecebc2dd
+      HISTCONTROL = "ignoredups:strip";
+      HISTTIMEFORMAT = "%FT%T ";
     };
   };
 
