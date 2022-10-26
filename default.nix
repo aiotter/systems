@@ -57,7 +57,7 @@
   # Cachix deploy
   # services.cachix-agent.enable = true;
 
-  services.karabiner-elements.enable
+  services.karabiner-elements.enable = true;
 
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
