@@ -36,22 +36,34 @@
 
   outputs = { self, nixpkgs, flake-utils, home-manager, blesh-module, ... }@inputs:
     let
-      overlays = with inputs; [
-        youtube-dl.overlays.default
-        # (final: prev: { zig = zig.packages.${system}.master; })
-        zig.overlays.default
-        man-pages-ja.overlays.default
-        blesh.overlays.default
-        neovim.overlays.default
-      ];
+      overlays = with inputs; map (input: input.overlays.default)
+        [ youtube-dl zig man-pages-ja blesh neovim ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+      homeConfigurations.default = home-manager.lib.homeManagerConfiguration rec {
+        pkgs = import nixpkgs.outPath {
+          inherit system;
+          config = { allowUnfree = true; };
+        };
         modules = [
+          rec {
+            home.username = "aiotter";
+            nixpkgs.overlays = overlays ++ [
+              # https://github.com/kovidgoyal/kitty/issues/5232
+              (self: super: {
+                kitty = (import
+                  (pkgs.fetchFromGitHub {
+                    owner = "nixos";
+                    repo = "nixpkgs";
+                    rev = "3bb443d5d9029e5bf8ade3d367a9d4ba9065162a";
+                    hash = "sha256-mdX8Ma70HeGntbZa/zHSjILVurWJ3jwPt7OmQF7vAqQ=";
+                  })
+                  { inherit system; }).kitty;
+              })
+            ];
+          }
           ./default.nix
           blesh-module.outPath
-          { nixpkgs.overlays = overlays; }
           # https://github.com/nix-community/home-manager/pull/3210
           ./replace-profile.nix
         ];
@@ -59,12 +71,9 @@
 
       packages.home-manager = home-manager.packages.${system}.default;
 
-      apps.switch = (
-        assert nixpkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "In order to get $USER and $HOME, this derivation must be run in impure mode.";
-        {
-          type = "app";
-          program = "${homeConfigurations.default.activationPackage}/activate";
-        }
-      );
+      apps.switch = {
+        type = "app";
+        program = "${homeConfigurations.default.activationPackage}/activate";
+      };
     });
 }

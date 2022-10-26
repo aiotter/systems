@@ -10,13 +10,19 @@
   ];
 
   home.stateVersion = "22.05";
-  home.username = builtins.getEnv "USER";
-  home.homeDirectory = /. + (builtins.getEnv "HOME");
+  home.username = lib.mkOptionDefault (
+    assert pkgs.lib.asserts.assertMsg (builtins ? "currentSystem") "Because home.username is not defined, this derivation must be run in impure mode to get it from $HOME.";
+    builtins.getEnv "USER"
+  );
+  home.homeDirectory =
+    if pkgs.stdenv.isDarwin
+    then "/Users/${config.home.username}"
+    else "/home/${config.home.username}";
 
   # nix.registry =
   #   let
-  #     flakeDir = "${builtins.getEnv "HOME"}/flakes";
-  #     flakeDirExists = builtins.getEnv "HOME" != "" && (builtins.readDir (builtins.getEnv "HOME")).flakes or "" == "directory";
+  #     flakeDir = "${config.home.homeDirectory}/flakes";
+  #     flakeDirExists = config.home.homeDirectory != "" && (builtins.readDir (config.home.homeDirectory)).flakes or "" == "directory";
   #     flakeDirNames = builtins.attrNames (lib.attrsets.filterAttrs (_: fileType: fileType == "directory") (builtins.readDir flakeDir));
   #     flakeList = map
   #       (dirName: {
@@ -32,8 +38,8 @@
   #   # Add exact=false to all the nix.registry.<name> defined here
   #   flakes // builtins.mapAttrs (_: val: val // { exact = false; }) {
   #     zig.to = { type = "github"; owner = "aiotter"; repo = "zig-on-nix"; };
-  #     local.to = { type = "path"; path = builtins.getEnv "HOME" + "/repo/github.com/NixOS/nixpkgs"; };
-  #     repo.to = { type = "path"; path = builtins.getEnv "HOME" + "/repo/github.com"; };
+  #     local.to = { type = "path"; path = config.home.homeDirectory + "/repo/github.com/NixOS/nixpkgs"; };
+  #     repo.to = { type = "path"; path = config.home.homeDirectory + "/repo/github.com"; };
   #   };
 
   home.packages = [
@@ -97,19 +103,9 @@
 
   programs.kitty = {
     enable = true;
-    package =
-      # https://github.com/kovidgoyal/kitty/issues/5232
-      (import
-        (pkgs.fetchFromGitHub {
-          owner = "nixos";
-          repo = "nixpkgs";
-          rev = "3bb443d5d9029e5bf8ade3d367a9d4ba9065162a";
-          hash = "sha256-mdX8Ma70HeGntbZa/zHSjILVurWJ3jwPt7OmQF7vAqQ=";
-        })
-        { }).kitty;
     font = {
       name = "UDEV Gothic 35NFLG";
-      package = (import ../packages/fonts { inherit pkgs; }).udev-gothic-nf;
+      package = (import ./packages/fonts { inherit pkgs; }).udev-gothic-nf;
       size = 17;
     };
     keybindings = {
@@ -166,7 +162,7 @@
     controlPersist = "10m";
     extraOptionOverrides = {
       # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
-      IdentityAgent = "${builtins.getEnv "HOME"}/.cache/yubikey-agent/agent.sock";
+      IdentityAgent = "${config.home.homeDirectory}/.cache/yubikey-agent/agent.sock";
       ForwardAgent = "yes";
     };
     matchBlocks = {
@@ -186,14 +182,15 @@
         ProgramArguments = [
           (pkgs.yubikey-agent + /bin/yubikey-agent)
           "-l"
-          "${builtins.getEnv "HOME"}/.cache/yubikey-agent/agent.sock"
+          "${config.home.homeDirectory}/.cache/yubikey-agent/agent.sock"
         ];
         RunAtLoad = true;
         KeepAlive = true;
-        StandardOutPath = "${builtins.getEnv "HOME"}/Library/Logs/yubikey-agent.log";
-        StandardErrorPath = "${builtins.getEnv "HOME"}/Library/Logs/yubikey-agent.log";
+        StandardOutPath = "${config.home.homeDirectory}/Library/Logs/yubikey-agent.log";
+        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/yubikey-agent.log";
       };
     };
+
 
     # cachix-watch-store = {
     #   enable = true;
@@ -205,8 +202,8 @@
     #     ];
     #     RunAtLoad = true;
     #     KeepAlive = true;
-    #     StandardOutPath = "${builtins.getEnv "HOME"}/Library/Logs/cachix-watch-store.log";
-    #     StandardErrorPath = "${builtins.getEnv "HOME"}/Library/Logs/cachix-watch-store.log";
+    #     StandardOutPath = "${config.home.homeDirectory}/Library/Logs/cachix-watch-store.log";
+    #     StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/cachix-watch-store.log";
     #   };
     # };
   };
