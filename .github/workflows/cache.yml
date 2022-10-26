@@ -2,7 +2,7 @@ name: Create cache on cachix
 
 on:
   push:
-    branches: [master]
+    branches: [home]
 
 env:
   NIXPKGS_ALLOW_UNFREE: 1
@@ -26,15 +26,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         build:
-          - .#home-switch
+          - .#switch
           - .#home-manager
-        include:
-          - build: .#home-switch
-            impure: true
-          - os: macos-latest
-            build: .#darwin-system
-          - os: macos-latest
-            build: .#darwin-switch
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.4.0

@@ -63,32 +63,11 @@
       "locked": {
         "narHash": "sha256-Ll7r5Ts8bWmzEuQMET5qhA7oxn6sf+hZkiOfuVm5Kd0=",
         "type": "file",
-        "url": "https://raw.githubusercontent.com/aiotter/home-manager/9e8d03d4d4d728c8128328f62c04209d7a6e1ae3/modules/programs/blesh.nix"
+        "url": "https://raw.githubusercontent.com/aiotter/home-manager/master/modules/programs/blesh.nix"
       },
       "original": {
         "type": "file",
-        "url": "https://raw.githubusercontent.com/aiotter/home-manager/9e8d03d4d4d728c8128328f62c04209d7a6e1ae3/modules/programs/blesh.nix"
-      }
-    },
-    "darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1666614183,
-        "narHash": "sha256-R5+bCtUquwSfQmRBbCYc6FT6xtCaAebh0KE187e8458=",
-        "owner": "lnl7",
-        "repo": "nix-darwin",
-        "rev": "0f90e1c34caedd0bf765ebe47b92dd1ceffafcc8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lnl7",
-        "ref": "master",
-        "repo": "nix-darwin",
-        "type": "github"
+        "url": "https://raw.githubusercontent.com/aiotter/home-manager/master/modules/programs/blesh.nix"
       }
     },
     "denops-vim": {
@@ -343,7 +322,6 @@
       "inputs": {
         "blesh": "blesh",
         "blesh-module": "blesh-module",
-        "darwin": "darwin",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "man-pages-ja": "man-pages-ja",

@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  fonts = import ../packages/fonts { inherit pkgs; };
+  fonts = import ./packages/fonts { inherit pkgs; };
 in
 {
   fonts.fontconfig.enable = true;
