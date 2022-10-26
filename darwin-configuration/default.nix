@@ -57,6 +57,8 @@
   # Cachix deploy
   # services.cachix-agent.enable = true;
 
+  services.karabiner-elements.enable
+
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
   # programs.fish.enable = true;
@@ -120,6 +122,7 @@
     ];
     casks = [
       "raycast"
+      "lunar"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
