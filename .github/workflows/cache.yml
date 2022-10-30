@@ -9,9 +9,9 @@ env:
 
 jobs:
   check:
-    uses: ./.github/workflows/check.yml
+    uses: aiotter/systems/.github/workflows/check.yml@master
 
-  build:
+  cache:
     strategy:
       fail-fast: false
       matrix:
@@ -19,7 +19,7 @@ jobs:
         target:
           - .#home-manager
           - .#homeConfigurations.$(nix eval --expr builtins.currentSystem --impure).default.activationPackage
-    uses: ./.github/workflows/build.yml
+    uses: aiotter/systems/.github/workflows/cache.yml@master
     with:
       runs_on: ${{ matrix.os }}
       target: ${{ matrix.target }}
