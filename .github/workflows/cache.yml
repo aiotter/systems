@@ -9,38 +9,17 @@ env:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: cachix/install-nix-action@v17
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - run: nix flake check
+    uses: ./.github/workflows/check.yml
 
   build:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        build:
+        target:
           - .#home-manager
           - .#homeConfigurations.$(nix eval --expr builtins.currentSystem --impure).default.activationPackage
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: cachix/install-nix-action@v18
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: cachix/cachix-action@v11
-        with:
-          name: aiotter
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
-      - run: nix build ${{ matrix.build }} ${{ matrix.impure && '--impure' || '' }}
-        id: build
-      - run: nix log ${{ matrix.build }} ${{ matrix.impure && '--impure' || '' }}
-        if: ${{ failure() && steps.build.conclusion == 'failure' }}
+    uses: ./.github/workflows/build.yml
+    with:
+      runs_on: ${{ matrix.os }}
+      target: ${{ matrix.target }}
