@@ -8,40 +8,18 @@ env:
   NIXPKGS_ALLOW_UNFREE: 1
 
 jobs:
-  # https://github.com/NixOS/nix/issues/4265
-  # check:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2.4.0
-  #     - uses: cachix/install-nix-action@v17
-  #       with:
-  #         nix_path: nixpkgs=channel:nixos-unstable
-  #         extra_nix_config: |
-  #           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-  #     - run: nix flake check --impure
+  check:
+    uses: aiotter/systems/.github/workflows/check.yml@master
 
-  build:
+  cache:
     strategy:
       fail-fast: false
       matrix:
         os: [macos-latest]
-        build:
+        target:
           - .#switch
           - .#darwin-system
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: cachix/install-nix-action@v18
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: cachix/cachix-action@v11
-        with:
-          name: aiotter
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
-      - run: nix build ${{ matrix.build }} ${{ matrix.impure && '--impure' || '' }}
-        id: build
-      - run: nix log ${{ matrix.build }} ${{ matrix.impure && '--impure' || '' }}
-        if: ${{ failure() && steps.build.conclusion == 'failure' }}
+    uses: aiotter/systems/.github/workflows/cache.yml@master
+    with:
+      runs_on: ${{ matrix.os }}
+      target: ${{ matrix.target }}
