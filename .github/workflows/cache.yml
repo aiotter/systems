@@ -26,8 +26,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         build:
-          - .#switch
           - .#home-manager
+          - .#homeConfigurations.$(nix eval --expr builtins.currentSystem --impure).default.activationPackage
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.4.0
