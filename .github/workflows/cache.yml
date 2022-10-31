@@ -63,7 +63,7 @@ jobs:
 
       - name: Create job summary
         run: |
-          RESULT='${{ steps.check-buildable.outcome != 'success' && 'Skipped' || ( job.status == 'success' && '⭕️ Success' || '❌ Failure' ) }}'
+          RESULT='${{ job.status == 'success' && '⭕️ Success' || '❌ Failure' }}'
           function create-list () {
             for i in "$@"; do
               echo '- `'$i'` '
@@ -74,7 +74,7 @@ jobs:
           ### ${RESULT}
           $(create-list ${{ inputs.targets }})
           EOF
-        if: ${{ success() || failure() }}
+        if: ${{ steps.check-buildable.outcome == 'success' && ( success() || failure() ) }}
 
   not-built:
     needs: cache
