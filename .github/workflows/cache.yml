@@ -8,18 +8,9 @@ env:
   NIXPKGS_ALLOW_UNFREE: 1
 
 jobs:
-  check:
-    uses: aiotter/systems/.github/workflows/check.yml@master
-
   cache:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        target:
-          - .#home-manager
-          - .#homeConfigurations.$(nix eval --expr builtins.currentSystem --impure).default.activationPackage
     uses: aiotter/systems/.github/workflows/cache.yml@master
     with:
-      runs_on: ${{ matrix.os }}
-      target: ${{ matrix.target }}
+      targets: .#home-manager .#homeConfigurations.$(nix eval --expr builtins.currentSystem --impure).default.activationPackage
+    secrets:
+      cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
