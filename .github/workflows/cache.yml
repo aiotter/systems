@@ -8,18 +8,9 @@ env:
   NIXPKGS_ALLOW_UNFREE: 1
 
 jobs:
-  check:
-    uses: aiotter/systems/.github/workflows/check.yml@master
-
   cache:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest]
-        target:
-          - .#switch
-          - .#darwin-system
     uses: aiotter/systems/.github/workflows/cache.yml@master
     with:
-      runs_on: ${{ matrix.os }}
-      target: ${{ matrix.target }}
+      targets: .#switch .#darwin-system
+    secrets:
+      cachix-auth-token: ${{ secrets.CAHIX_AUTH_TOKEN }}
