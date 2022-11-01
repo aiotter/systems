@@ -24,10 +24,12 @@ jobs:
         runs-on:
           - macos-latest  # X64-macOS
           - ubuntu-latest # X64-Linux
+          - self-hosted   # ARM64-Linux
 
     outputs:
       X64-macOS: ${{ steps.output.outputs.X64-macOS }}
       X64-Linux: ${{ steps.output.outputs.X64-Linux }}
+      ARM64-Linux: ${{ steps.output.outputs.ARM64-Linux }}
 
     runs-on: ${{ matrix.runs-on }}
 
