@@ -91,10 +91,11 @@
       bleopt exec_elapsed_mark=$'\e[94m[ELAPSED %s (CPU %s%%)]\e[m';
 
       function my/complete-load-hook {
-        bleopt complete_auto_history=
+        # bleopt complete_auto_history=
         bleopt complete_ambiguous=
-        # bleopt complete_auto_complete=
+        bleopt complete_auto_complete=
         bleopt complete_menu_maxlines=10
+        bleopt complete_menu_style=align
       };
       blehook/eval-after-load complete my/complete-load-hook
 
