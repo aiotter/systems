@@ -20,10 +20,6 @@
       url = "github:aiotter/man-pages-ja";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim = {
-      url = "github:aiotter/neovim";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
     youtube-dl = {
       url = "github:aiotter/flakes/youtube-dl";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +33,7 @@
   outputs = { self, nixpkgs, flake-utils, home-manager, blesh-module, ... }@inputs:
     let
       overlays = with inputs; map (input: input.overlays.default)
-        [ youtube-dl zig man-pages-ja blesh neovim ];
+        [ youtube-dl zig man-pages-ja blesh ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration rec {

@@ -43,7 +43,6 @@
   #   };
 
   home.packages = [
-    pkgs.neovim
     pkgs.gh
     pkgs.git
     pkgs.bat
