@@ -80,7 +80,7 @@
     # pkgs.nodejs-12_x
     pkgs.rustup
     # pkgs.zig
-    pkgs.zigpkgs.master
+    pkgs.zigpkgs.default
     pkgs.zls
     pkgs.rnix-lsp
 
