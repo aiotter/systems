@@ -7,6 +7,8 @@
     ./git.nix
     ./mackup
     ./tmux
+
+    ./modules/yubikey-agent
   ];
 
   home.stateVersion = "22.05";
@@ -161,7 +163,6 @@
     controlPersist = "10m";
     extraOptionOverrides = {
       # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
-      IdentityAgent = "${config.home.homeDirectory}/.cache/yubikey-agent/agent.sock";
       ForwardAgent = "yes";
     };
     matchBlocks = {
@@ -173,22 +174,6 @@
       };
     };
   };
-
-  launchd.agents = {
-    yubikey-agent = {
-      enable = true;
-      config = {
-        ProgramArguments = [
-          (pkgs.yubikey-agent + /bin/yubikey-agent)
-          "-l"
-          "${config.home.homeDirectory}/.cache/yubikey-agent/agent.sock"
-        ];
-        RunAtLoad = true;
-        KeepAlive = true;
-        StandardOutPath = "${config.home.homeDirectory}/Library/Logs/yubikey-agent.log";
-        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/yubikey-agent.log";
-      };
-    };
 
 
     # cachix-watch-store = {
@@ -206,4 +191,5 @@
     #   };
     # };
   };
+  services.yubikey-agent.enable = true;
 }
