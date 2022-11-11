@@ -8,7 +8,7 @@
     ./mackup
     ./tmux
 
-    ./modules/yubikey-agent
+    ./modules/pivy-agent
   ];
 
   home.stateVersion = "22.05";
@@ -175,21 +175,8 @@
     };
   };
 
-
-    # cachix-watch-store = {
-    #   enable = true;
-    #   config = {
-    #     ProgramArguments = [
-    #       (pkgs.cachix + /bin/cachix)
-    #       "watch-store"
-    #       "aiotter"
-    #     ];
-    #     RunAtLoad = true;
-    #     KeepAlive = true;
-    #     StandardOutPath = "${config.home.homeDirectory}/Library/Logs/cachix-watch-store.log";
-    #     StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/cachix-watch-store.log";
-    #   };
-    # };
+  services.pivy-agent = {
+    enable = true;
+    guid = "26C3F8E165B498BCFCFE75B53683401E";
   };
-  services.yubikey-agent.enable = true;
 }

@@ -101,6 +101,21 @@
     },
     "flake-utils_4": {
       "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_5": {
+      "locked": {
         "lastModified": 1659877975,
         "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
@@ -114,7 +129,7 @@
         "type": "github"
       }
     },
-    "flake-utils_5": {
+    "flake-utils_6": {
       "locked": {
         "lastModified": 1659877975,
         "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
@@ -200,6 +215,45 @@
         "type": "github"
       }
     },
+    "pivy": {
+      "inputs": {
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pivy": "pivy_2"
+      },
+      "locked": {
+        "lastModified": 1668147274,
+        "narHash": "sha256-I5XKaxM5PdigAfkUpXDEY4QP1DR1ucFJX33KBNVWdZ4=",
+        "owner": "aiotter",
+        "repo": "flakes",
+        "rev": "5f493f115467db284b085504130baa47a89ceb83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aiotter",
+        "ref": "pivy",
+        "repo": "flakes",
+        "type": "github"
+      }
+    },
+    "pivy_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1663032796,
+        "narHash": "sha256-Y9+Brtr25TjCkyUQPal4zC+0CMVuQqsSRx2DyTUkDPE=",
+        "owner": "arekinath",
+        "repo": "pivy",
+        "rev": "039b02d8c9807eb1c34a37a84ee65fbff4320a65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arekinath",
+        "repo": "pivy",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "blesh": "blesh",
@@ -208,6 +262,7 @@
         "home-manager": "home-manager",
         "man-pages-ja": "man-pages-ja",
         "nixpkgs": "nixpkgs",
+        "pivy": "pivy",
         "youtube-dl": "youtube-dl",
         "zig": "zig"
       }
@@ -229,7 +284,7 @@
     },
     "youtube-dl": {
       "inputs": {
-        "flake-utils": "flake-utils_4",
+        "flake-utils": "flake-utils_5",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -269,7 +324,7 @@
     },
     "zig": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_6",
         "nixpkgs": [
           "nixpkgs"
         ]
