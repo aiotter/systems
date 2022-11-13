@@ -32,12 +32,16 @@
       url = "github:aiotter/flakes/pivy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    usbutils = {
+      url = "github:aiotter/flakes/usbutils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, blesh-module, ... }@inputs:
     let
       overlays = with inputs; map (input: input.overlays.default)
-        [ youtube-dl zig man-pages-ja blesh pivy ];
+        [ youtube-dl zig man-pages-ja blesh pivy usbutils ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration rec {

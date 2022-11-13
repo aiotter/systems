@@ -75,6 +75,7 @@
     pkgs.less
     pkgs.starship
     pkgs.fzf
+    pkgs.usbutils
 
     # Programming
     pkgs.deno
