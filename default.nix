@@ -50,6 +50,7 @@
     # pkgs.home-manager
     pkgs.bashInteractive
     pkgs.bash-completion
+    pkgs.git
   ];
 
   # Auto upgrade nix package and the daemon service.
