@@ -127,6 +127,7 @@
       "karabiner-elements"
       "lunar"
       "raycast"
+      "google-japanese-ime"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
