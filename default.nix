@@ -30,6 +30,10 @@
       && source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
   '';
 
+  environment.systemPath = [
+    "/opt/homebrew/bin"
+  ];
+
   # environment.shells = [ "${pkgs.bashInteractive}/bin/bash" ];
 
   # Use a custom configuration.nix location.
