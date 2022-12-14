@@ -52,19 +52,21 @@
         modules = [
           rec {
             home.username = "aiotter";
-            nixpkgs.overlays = overlays ++ [
-              # https://github.com/kovidgoyal/kitty/issues/5232
-              (self: super: {
-                kitty = (import
-                  (pkgs.fetchFromGitHub {
-                    owner = "nixos";
-                    repo = "nixpkgs";
-                    rev = "3bb443d5d9029e5bf8ade3d367a9d4ba9065162a";
-                    hash = "sha256-mdX8Ma70HeGntbZa/zHSjILVurWJ3jwPt7OmQF7vAqQ=";
-                  })
-                  { inherit system; }).kitty;
-              })
-            ];
+            nixpkgs.overlays = overlays;
+            # FIXME: Need bugfix
+            # nixpkgs.overlays = overlays ++ [
+            #   (self: super: {
+            #     kitty = pkgs.kitty.overrideAttrs (prev: rec {
+            #       version = "0.26.5";
+            #       src = pkgs.fetchFromGitHub {
+            #         owner = "kovidgoyal";
+            #         repo = "kitty";
+            #         rev = "v${version}";
+            #         hash = "sha256-UloBlV26HnkvbzP/NynlPI77z09MBEVgtrg5SeTmwB4=";
+            #       };
+            #     });
+            #   })
+            # ];
           }
           ./default.nix
           blesh-module.outPath
