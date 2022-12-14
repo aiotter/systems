@@ -128,6 +128,7 @@
       "lunar"
       "raycast"
       "google-japanese-ime"
+      "launchcontrol"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
