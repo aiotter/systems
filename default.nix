@@ -124,11 +124,12 @@
       "mackup"
     ];
     casks = [
+      "alt-tab"
+      "google-japanese-ime"
       "karabiner-elements"
+      "launchcontrol"
       "lunar"
       "raycast"
-      "google-japanese-ime"
-      "launchcontrol"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
