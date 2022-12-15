@@ -32,8 +32,8 @@ in
           "-a"
           cfg.socket
         ];
-        RunAtLoad = true;
-        KeepAlive = true;
+        # Wait until Nix store is mounted
+        KeepAlive.PathState.${builtins.storeDir} = true;
         StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/pivy-agent.log";
       };
     };
