@@ -46,11 +46,11 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
     pkgs.cachix
-    pkgs.neovim
     # pkgs.home-manager
     pkgs.bashInteractive
     pkgs.bash-completion
     pkgs.git
+    pkgs.vim
   ];
 
   # Auto upgrade nix package and the daemon service.
