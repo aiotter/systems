@@ -122,6 +122,7 @@
     # onActivation.autoUpdate = true;
     brews = [
       "mackup"
+      "telnet"
     ];
     casks = [
       "alt-tab"
@@ -130,6 +131,7 @@
       "launchcontrol"
       "lunar"
       "raycast"
+      "ubersicht"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
