@@ -2,6 +2,10 @@
 
 {
   # imports = [ <home-manager/nix-darwin> ];
+  imports = [
+    modules/snmp
+  ];
+
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
@@ -73,49 +77,6 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
-
-  # SNMP
-  launchd.agents."org.net-snmp.snmpd" = {
-    serviceConfig = {
-      Disabled = true;
-      Label = "org.net-snmp.snmpd";
-      OnDemand = false;
-      Program = "/usr/sbin/snmpd";
-      ProgramArguments = [ "snmpd" "-f" ];
-      # ServiceIPC = false;
-    };
-  };
-  environment.etc."snmp/snmpd.conf".text = ''
-    com2sec local     localhost       COMMUNITY
-    com2sec mynetwork NETWORK/24      COMMUNITY
-
-    group MyRWGroup	v1         local
-    group MyRWGroup	v2c        local
-    group MyRWGroup	usm        local
-    group MyROGroup v1         mynetwork
-    group MyROGroup v2c        mynetwork
-    group MyROGroup usm        mynetwork
-
-    view all    included  .1                               80
-
-    access MyROGroup ""      any       noauth    exact  all    none   none
-    access MyRWGroup ""      any       noauth    exact  all    all    none
-
-    rwuser  admin  
-
-    rocommunity  public default .1.3.6.1.2.1.1.4 
-
-    syslocation Right here, right now.
-    syscontact Administrator <postmaster@example.com>
-    sysservices 76
-
-    proc httpd
-
-    exec web_status /Applications/Server.app/Contents/ServerRoot/usr/sbin/serveradmin status web 
-    exec netboot /Applications/Server.app/Contents/ServerRoot/usr/sbin/serveradmin status netboot
-
-    disk / 10000
-  '';
 
   homebrew = {
     enable = true;
