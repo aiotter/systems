@@ -117,6 +117,7 @@
       # DaltonLens = 1222737651;
       Bitwarden = 1352778147;
       "AdGuard for Safari" = 1440147259;
+      Hush = 1544743900;
       GoodNotes = 1444383602;
       "Hidden bar" = 1452453066;
       "Tab Closer: close multiple tabs once on Safari" = 1485958094;
