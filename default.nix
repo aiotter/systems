@@ -78,6 +78,21 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
+  # create locate database
+  launchd.daemons.locate = {
+    command = "/usr/libexec/locate.updatedb";
+    serviceConfig = {
+      ProcessType = "Background";
+      KeepAlive.PathState."/var/db/locate.database" = false;
+      StartCalendarInterval = [{
+        Hour = 3;
+        Minute = 15;
+        Weekday = 6;
+      }];
+      AbandonProcessGroup = true;
+    };
+  };
+
   homebrew = {
     enable = true;
     # onActivation.autoUpdate = true;
