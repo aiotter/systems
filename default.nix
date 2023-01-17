@@ -102,6 +102,7 @@
     ];
     casks = [
       "alt-tab"
+      "betterdisplay"
       "google-japanese-ime"
       "karabiner-elements"
       "launchcontrol"
