@@ -102,6 +102,7 @@
     ];
     casks = [
       "alt-tab"
+      "appcleaner"
       "betterdisplay"
       "google-japanese-ime"
       "karabiner-elements"
@@ -119,11 +120,13 @@
       Bitwarden = 1352778147;
       "AdGuard for Safari" = 1440147259;
       Hush = 1544743900;
+      iPreview = 1519213509;
       GoodNotes = 1444383602;
       "Hidden bar" = 1452453066;
       "Tab Closer: close multiple tabs once on Safari" = 1485958094;
       "Keepa - Price Tracker" = 1533805339;
       "Raindrop.io" = 1549370672;
+      ScreenPosition = 1229498568;
       Telephone = 406825478;
       "LadioCast: sound mixer" = 411213048;
       LilyView = 529490330;
