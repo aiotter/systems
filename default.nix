@@ -45,7 +45,6 @@
   #   };
 
   home.packages = [
-    pkgs.gh
     pkgs.git
     pkgs.bat
     pkgs.dogdns
@@ -178,6 +177,7 @@
 
   services.pivy-agent = {
     enable = true;
-    guid = "26C3F8E165B498BCFCFE75B53683401E";
+    # guid = "26C3F8E165B498BCFCFE75B53683401E";  # Yubikey NEO
+    guid = "E3ADCCBA7F8C7A0F2BFC6410E8566F95";  # Yubikey 5C NFC
   };
 }
