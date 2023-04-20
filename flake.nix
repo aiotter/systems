@@ -70,8 +70,6 @@
           }
           ./default.nix
           blesh-module.outPath
-          # https://github.com/nix-community/home-manager/pull/3210
-          ./replace-profile.nix
         ];
       };
 
