@@ -1,13 +1,14 @@
-{ pkgs, config, ... }: {
+{ pkgs, lib, config, ... }: {
   home.sessionVariables = {
     LESS = "--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS";
     MANPAGER = "less -isr";
     EDITOR = "nvim";
   };
 
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
+  # # This one adds the path at the end of $PATH
+  # home.sessionPath = [
+  #   # "$HOME/.local/bin"
+  # ];
 
   programs.bash = {
     enable = true;
@@ -34,6 +35,13 @@
       '
     '';
 
+    bashrcExtra = lib.mkAfter ''
+      # Add .local and .nix-profile to the top of the PATH
+      export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:$PATH"
+
+      source ${pkgs.bash-preexec}/share/bash/bash-preexec.sh
+    '';
+
     shellAliases = {
       ls = "ls -H --color=auto";
       lg = "lazygit";
@@ -44,6 +52,7 @@
       # https://github.com/akinomyoga/ble.sh/commit/021e0330d127c254560976ac208c0b39ecebc2dd
       HISTCONTROL = "ignoredups:strip";
       HISTTIMEFORMAT = "%FT%T ";
+      GOPATH = "$HOME/.go";
     };
   };
 

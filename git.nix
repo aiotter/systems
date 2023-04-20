@@ -75,8 +75,9 @@
         root = "~/repo";
         user = "aiotter";
       };
+      credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";
     };
   };
 
-  programs.gh.enable = true;
+  home.packages = [ pkgs.gh ];
 }

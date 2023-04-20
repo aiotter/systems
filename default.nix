@@ -77,13 +77,17 @@
     pkgs.usbutils
 
     # Programming
+    pkgs.cmake
+    pkgs.pkg-config
     pkgs.deno
     # pkgs.nodejs-12_x
-    pkgs.rustup
+    pkgs.rustc
+    pkgs.cargo
     # pkgs.zig
     pkgs.zigpkgs.default
     pkgs.zls
     pkgs.rnix-lsp
+    pkgs.go
 
     # GUI
     # pkgs.alacritty
@@ -101,6 +105,16 @@
     enable = true;
     nix-direnv.enable = true;
   };
+  programs.bash.bashrcExtra = ''
+    _direnv_hook() {
+      local previous_exit_status=$?;
+      trap -- "" SIGINT;
+      eval "$("${pkgs.direnv}/bin/direnv" export bash)";
+      trap - SIGINT;
+      return $previous_exit_status;
+    };
+    precmd_functions+=(_direnv_hook)
+  '';
 
   programs.kitty = {
     enable = true;
