@@ -74,6 +74,13 @@
 
   programs.blesh = {
     enable = true;
+    package = pkgs.blesh.overrideAttrs (final: rec {
+      version = "0.4.0-devel3";
+      src = pkgs.fetchzip {
+        url = "https://github.com/akinomyoga/ble.sh/releases/download/v${version}/ble-${version}.tar.xz";
+        hash = "sha256-kGLp8RaInYSrJEi3h5kWEOMAbZV/gEPFUjOLgBuMhCI=";
+      };
+    });
     options = {
       prompt_rps1 = ''
         $(STARSHIP_SHELL= ${config.programs.starship.package}/bin/starship prompt --right \
