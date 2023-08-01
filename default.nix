@@ -95,7 +95,7 @@
     # pkgs.viewnior  # picture viewer
 
     # Japanese man page
-    pkgs.jaman
+    # pkgs.jaman
   ];
 
   home.sessionPath = [
