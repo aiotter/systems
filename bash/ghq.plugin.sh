@@ -26,8 +26,12 @@ function repo() {
   
     get )
       shift
-      \ghq get -p "$@"
-      [ $? = 0 ] || return 1
+      if [[ "$@" =~ ^https://github\.com/.* ]]; then
+        # Force SSH
+        \ghq get -p "$@" || return 1
+      else
+        \ghq get "$@" || return 1
+      fi
       repo="$(ghq list --full-path --exact ${@:$#:1})"
       cd $repo
       ;;
