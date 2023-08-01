@@ -3,11 +3,11 @@
     "ble-sh": {
       "flake": false,
       "locked": {
-        "lastModified": 1664666425,
-        "narHash": "sha256-2Is77oMiKcfJYkNeV3seuSB9CNoJQ13Q9LzX/tOr+qk=",
+        "lastModified": 1690361972,
+        "narHash": "sha256-QZ/ebAPVRW9vQHq3vDWs0xET+EWKCca2kPEuSHbt7vs=",
         "ref": "refs/heads/master",
-        "rev": "a144ffa807b40baa2b58f558cdd3b22bca44d38e",
-        "revCount": 1833,
+        "rev": "dc0cdb30718dba23057556cf88ce832ecfde2491",
+        "revCount": 1980,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/akinomyoga/ble.sh.git"
@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1665399118,
-        "narHash": "sha256-9rQw3riE53qEV4I0cTnLnl2Z7lxUeGIBcdUU5KukrKQ=",
+        "lastModified": 1690865159,
+        "narHash": "sha256-2fBr2hjCTx1kp9EnBHF+neGlLh/gQAKJZWiQFTzIITg=",
         "owner": "aiotter",
         "repo": "flakes",
-        "rev": "00c14752ffbea0c2f5862106275e605dbf14f446",
+        "rev": "503c9f4d796ec0c78134a03e10eb1e279034f868",
         "type": "github"
       },
       "original": {
@@ -59,12 +59,15 @@
       }
     },
     "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1689068808,
+        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
         "type": "github"
       },
       "original": {
@@ -75,7 +78,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1689068808,
@@ -108,7 +111,7 @@
     },
     "flake-utils_4": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1689068808,
@@ -312,6 +315,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
