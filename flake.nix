@@ -12,10 +12,6 @@
       url = "github:aiotter/flakes/blesh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    blesh-module = {
-      url = "https://raw.githubusercontent.com/aiotter/home-manager/master/modules/programs/blesh.nix";
-      flake = false;
-    };
     man-pages-ja = {
       url = "github:aiotter/man-pages-ja";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +38,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, blesh-module, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       overlays = with inputs; map (input: input.overlays.default)
         [ youtube-dl zig man-pages-ja blesh pivy usbutils python-build ];
@@ -73,7 +69,7 @@
             # ];
           }
           ./default.nix
-          blesh-module.outPath
+          ./modules/blesh
         ];
       };
 
