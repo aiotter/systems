@@ -131,6 +131,24 @@
       }
     },
     "flake-utils_5": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1689068808,
+        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_6": {
       "locked": {
         "lastModified": 1667395993,
         "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
@@ -145,7 +163,7 @@
         "type": "github"
       }
     },
-    "flake-utils_6": {
+    "flake-utils_7": {
       "locked": {
         "lastModified": 1678901627,
         "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
@@ -160,7 +178,7 @@
         "type": "github"
       }
     },
-    "flake-utils_7": {
+    "flake-utils_8": {
       "locked": {
         "lastModified": 1659877975,
         "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
@@ -285,6 +303,45 @@
         "type": "github"
       }
     },
+    "pyenv": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690140557,
+        "narHash": "sha256-Rs4FWbJ5zVpGNYQlILaJPCGXs64ZU5zoLyvqd6GFjrM=",
+        "owner": "pyenv",
+        "repo": "pyenv",
+        "rev": "8aabba94854293738aea9e8d034cc981250ed7de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyenv",
+        "repo": "pyenv",
+        "type": "github"
+      }
+    },
+    "python-build": {
+      "inputs": {
+        "flake-utils": "flake-utils_5",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pyenv": "pyenv"
+      },
+      "locked": {
+        "lastModified": 1690254131,
+        "narHash": "sha256-/msu/5W+HAUPH9PTlJeVInV8LPh9etHEge/r5h5Bpc4=",
+        "owner": "aiotter",
+        "repo": "flakes",
+        "rev": "5904616d042e824b7805f395efa643f2e50980b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aiotter",
+        "ref": "python-build",
+        "repo": "flakes",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "blesh": "blesh",
@@ -294,14 +351,30 @@
         "man-pages-ja": "man-pages-ja",
         "nixpkgs": "nixpkgs",
         "pivy": "pivy",
+        "python-build": "python-build",
         "usbutils": "usbutils",
         "youtube-dl": "youtube-dl",
         "zig": "zig"
       }
     },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "usbutils": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_6",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -338,7 +411,7 @@
     },
     "youtube-dl": {
       "inputs": {
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_7",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -379,7 +452,7 @@
     "zig": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_7",
+        "flake-utils": "flake-utils_8",
         "nixpkgs": [
           "nixpkgs"
         ]

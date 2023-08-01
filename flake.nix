@@ -36,12 +36,16 @@
       url = "github:aiotter/flakes/usbutils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    python-build = {
+      url = "github:aiotter/flakes/python-build";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, blesh-module, ... }@inputs:
     let
       overlays = with inputs; map (input: input.overlays.default)
-        [ youtube-dl zig man-pages-ja blesh pivy usbutils ];
+        [ youtube-dl zig man-pages-ja blesh pivy usbutils python-build ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration rec {
