@@ -1,4 +1,8 @@
 { pkgs, lib, config, ... }: {
+  imports = [
+    ../modules/blesh
+  ];
+
   home.sessionVariables = {
     LESS = "--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS";
     MANPAGER = "less -isr";
@@ -24,7 +28,18 @@
       # switch to tmux
       tmux=${pkgs.tmux}/bin/tmux
       if command -v $tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ $tmux ]] && [ -z "$TMUX" ]; then
-        $tmux new-session -A -s main
+        # if not inside tmux session already
+        if [ $($tmux ls -F '#{session_attached}' -f '#{session_attached}' | head -n1) -gt 0 ]; then
+          # if some session is already attached
+          if [ $($tmux ls -F '#{session_attached}' -f '#{==:main,#{session_name}}') -gt 0 ]; then
+            echo 'tmux "main" session exists. To attach: tmux attach -t main'
+          else
+            echo 'Available tmux settions:'
+            $tmux ls
+          fi
+        else
+          $tmux new-session -A -s main
+        fi
       fi
 
       echo "''${PATH//:/$'\n'}" | awk -F '/' '

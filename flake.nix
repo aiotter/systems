@@ -65,7 +65,6 @@
             # ];
           }
           ./default.nix
-          ./modules/blesh
         ];
       };
 
