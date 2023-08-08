@@ -128,6 +128,17 @@
       "shift+tab" = "send_text all [9;2u";
       "ctrl+tab" = "send_text all [9;5u";
       "ctrl+shift+tab" = "send_text all [9;6u";
+      "cmd+left" = "previous_tab";
+      "cmd+right" = "next_tab";
+      "cmd+b" = "previous_tab";
+      "cmd+f" = "next_tab";
+      "cmd+enter" = "no_op";
+    };
+    settings = {
+      confirm_os_window_close = 0;
+      # tab_bar_edge = "top";
+      inactive_tab_foreground = "#222222";
+      inactive_tab_background = "#555555";
     };
     # theme = "Dot Gov";
     # theme = "Espresso Libre";
@@ -174,6 +185,8 @@
 
   programs.ssh = {
     enable = true;
+    includes = [ "config.local" ];
+    compression = true;
     controlMaster = "auto";
     controlPersist = "10m";
     extraOptionOverrides = {
@@ -193,6 +206,6 @@
   services.pivy-agent = {
     enable = true;
     # guid = "26C3F8E165B498BCFCFE75B53683401E";  # Yubikey NEO
-    guid = "E3ADCCBA7F8C7A0F2BFC6410E8566F95";  # Yubikey 5C NFC
+    guid = "E3ADCCBA7F8C7A0F2BFC6410E8566F95"; # Yubikey 5C NFC
   };
 }
