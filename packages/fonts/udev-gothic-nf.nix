@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "UDEV-gothic";
-  version = "1.0.1";
+  version = "1.3.1";
 
   src = fetchurl {
       url = "https://github.com/yuru7/udev-gothic/releases/download/v${version}/UDEVGothic_NF_v${version}.zip";
-      hash = "sha256-uKdtRWKPnmIQRL6VRWINYu+vdJp5O2v6ObOKzn374PE=";
+      hash = "sha256-hABKMDi99SgoahE7TbB22EErtMpncdAqJAMYRz+bn84=";
   };
 
   nativeBuildInputs = [ unzip ];

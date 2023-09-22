@@ -9,6 +9,7 @@ $git_branch\
 $git_commit\
 $git_status\
 $git_state\
+$terraform\
 [](fg:#FCA17D bg:#33658A)\
 [$status](bg:#33658A)\
 $cmd_duration\
@@ -199,6 +200,11 @@ format = ' $symbol $common_meaning(SIG$signal_name) '
 pipestatus_separator = "\b|"
 pipestatus = true
 pipestatus_format = '[\[$pipestatus\]]($style) => $symbol $common_meaning(SIG$signal_name) '
+
+[terraform]
+symbol = "󱁢"
+style = "fg:black bg:#FCA17D"
+format = '[| $symbol $workspace ]($style)'
 
 [zig]
 style = "fg:black bg:#86BBD8"
