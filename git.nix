@@ -47,6 +47,7 @@
 
       # General development
       ".env"
+      ".direnv/"
 
       # Python
       "__pycache__/"
