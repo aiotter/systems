@@ -42,6 +42,9 @@
         fi
       fi
 
+      # Load Rust
+      [ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
       echo "''${PATH//:/$'\n'}" | awk -F '/' '
         /^\/nix\/store\/[a-z0-9]+-[^\/]+\/.*$/ && $4 !~ /-source$/ {
           printf "PATH added: %s\n",$0; RUN=1
@@ -58,9 +61,10 @@
     '';
 
     shellAliases = {
-      ls = "ls -H --color=auto";
-      lg = "lazygit";
       icat = "kitty +kitten icat";
+      lg = "lazygit";
+      ls = "ls -H --color=auto";
+      tf = "terraform";
     };
 
     sessionVariables = {

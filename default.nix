@@ -81,8 +81,8 @@
     pkgs.pkg-config
     pkgs.deno
     # pkgs.nodejs-12_x
-    pkgs.rustc
-    pkgs.cargo
+    # pkgs.rustc
+    # pkgs.cargo
     # pkgs.zig
     pkgs.zigpkgs.default
     pkgs.zls
