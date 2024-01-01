@@ -38,8 +38,8 @@ in
       };
     };
 
-    programs.ssh.extraOptionOverrides.IdentityAgent = cfg.socket;
+    # programs.ssh.extraOptionOverrides.IdentityAgent = cfg.socket;
 
-    programs.bash.sessionVariables.SSH_AUTH_SOCK = cfg.socket;
+    programs.bash.profileExtra = "export SSH_AUTH_SOCK=\${SSH_AUTH_SOCK:-${cfg.socket}}";
   };
 }
