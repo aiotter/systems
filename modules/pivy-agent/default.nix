@@ -40,6 +40,10 @@ in
 
     # programs.ssh.extraOptionOverrides.IdentityAgent = cfg.socket;
 
-    programs.bash.profileExtra = "export SSH_AUTH_SOCK=\${SSH_AUTH_SOCK:-${cfg.socket}}";
+    programs.bash.profileExtra = ''
+      if [[ ! -e "$SSH_AUTH_SOCK" || "$SSH_AUTH_SOCK" == *${if pkgs.stdenv.isDarwin then "launchd" else "/keyring/"}* ]]; then
+        export SSH_AUTH_SOCK="${cfg.socket}"
+      fi
+    '';
   };
 }
