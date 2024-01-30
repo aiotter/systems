@@ -18,6 +18,8 @@
 
   environment.systemPackages = with pkgs; [
     curl
+    gcc
+    gnumake
     vim
     wget
   ];
