@@ -41,27 +41,24 @@
     };
 
     ignores = [
-      "*~"
       "*.swp"
+      "*~"
       ".DS_Store"
 
       # General development
-      ".env"
       ".direnv/"
+      ".env"
 
       # Python
+      "*.egg-info/"
+      ".ipynb_checkpoints"
+      ".ropeproject"
+      ".venv"
       "__pycache__/"
       "build/"
       "develop-eggs/"
       "dist/"
       "wheels/"
-      "*.egg-info/"
-
-      # Jupyter Notebooks
-      ".ipynb_checkpoints"
-
-      # Virturl environment
-      ".venv"
 
       # IntelliJ
       ".idea/"
@@ -80,5 +77,5 @@
     };
   };
 
-  home.packages = [ pkgs.gh ];
+  home.packages = with pkgs; [ gh ];
 }
