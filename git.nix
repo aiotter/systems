@@ -8,15 +8,16 @@
     userEmail = "git@aiotter.com";
 
     aliases = {
+      delete-squashed = ''
+        !f() { local targetBranch=''${1:-master} && git checkout -q $targetBranch && git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done; }; f
+      '';
       fpush = "push --force-with-lease";
       get = "!ghq get";
       graph = "log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative";
       list = "!ghq list";
       one = "!git log --oneline --color=always | head";
+      sync = "!git fetch && git reset --hard origin/$(git branch --show-current)";
       unstage = "reset HEAD";
-      delete-squashed = ''
-        !f() { local targetBranch=''${1:-master} && git checkout -q $targetBranch && git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done; }; f
-      '';
     };
 
     delta = {
