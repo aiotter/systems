@@ -8,9 +8,13 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, darwin, ... }:
+  outputs = { self, nixpkgs, flake-utils, darwin, mac-app-util, ... }:
     let
       darwinSystems = with flake-utils.lib.system; [ x86_64-darwin aarch64-darwin ];
     in
@@ -18,7 +22,7 @@
       darwinConfigurations.default = darwin.lib.darwinSystem
         {
           inherit system;
-          modules = [ ./. ];
+          modules = [ ./. mac-app-util.darwinModules.default ];
         };
 
       packages.darwin-system = darwinConfigurations.default.system;

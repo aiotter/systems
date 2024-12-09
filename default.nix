@@ -7,7 +7,7 @@
   ];
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
       bash-prompt = [nix]\W$ 
@@ -71,7 +71,7 @@
   # programs.fish.enable = true;
   programs.bash = {
     enable = true;
-    enableCompletion = true;
+    completion.enable = true;
   };
 
   # Used for backwards compatibility, please read the changelog before changing.
