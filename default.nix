@@ -57,6 +57,15 @@
     pkgs.vim
   ];
 
+  # Midget does not work properly when installed with mac-app-util
+  system.activationScripts.postActivation.text =
+    let
+      midget = pkgs.callPackage ./packages/midget { };
+    in
+    ''
+      cp -r "${midget}/Applications/Midget.app" "/Applications"
+    '';
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon = {
     enable = true;
