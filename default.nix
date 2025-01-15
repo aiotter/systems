@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, flakeInputs, ... }:
 
 {
   # imports = [ <home-manager/nix-darwin> ];
@@ -8,6 +8,9 @@
 
   nix = {
     package = pkgs.nixVersions.latest;
+    registry = {
+      nixpkgs.flake = flakeInputs.nixpkgs;
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
       bash-prompt = [nix]\W$ 

@@ -14,7 +14,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, darwin, mac-app-util, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, darwin, mac-app-util, ... }:
     let
       darwinSystems = with flake-utils.lib.system; [ x86_64-darwin aarch64-darwin ];
     in
@@ -23,6 +23,7 @@
         {
           inherit system;
           modules = [ ./. mac-app-util.darwinModules.default ];
+          specialArgs = { flakeInputs = inputs; };
         };
 
       packages.darwin-system = darwinConfigurations.default.system;
