@@ -7,7 +7,7 @@
   ];
 
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs.nixVersions.stable;
     registry = {
       nixpkgs.flake = flakeInputs.nixpkgs;
     };
@@ -127,7 +127,7 @@
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
-      "Day One" = 1055511498;
+      # "Day One" = 1055511498;
       # "Countdown Timer Plus" = 1150771803;
       # "AmorphousDiskMark: benchmark storage devices" = 1168254295;
       # DaltonLens = 1222737651;
