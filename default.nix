@@ -32,6 +32,9 @@
       && source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
     [ -e /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ] \
       && source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+
+    # Use system CC
+    export CC=/usr/bin/cc
   '';
 
   environment.systemPath = [
