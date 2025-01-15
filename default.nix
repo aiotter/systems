@@ -1,7 +1,6 @@
 { config, pkgs, lib, flakeInputs, ... }:
 
 {
-  # imports = [ <home-manager/nix-darwin> ];
   imports = [
     modules/snmp
   ];
@@ -44,17 +43,12 @@
 
   # environment.shells = [ "${pkgs.bashInteractive}/bin/bash" ];
 
-  # Use a custom configuration.nix location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/path/to/configuration.nix
-  # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
-
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
     pkgs.cachix
-    # pkgs.home-manager
     pkgs.bashInteractive
     pkgs.bash-completion
     pkgs.git
@@ -81,7 +75,6 @@
 
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
-  # programs.fish.enable = true;
   programs.bash = {
     enable = true;
     completion.enable = true;
