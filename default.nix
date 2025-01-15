@@ -11,11 +11,6 @@
     registry = {
       nixpkgs.flake = flakeInputs.nixpkgs;
     };
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      bash-prompt = [nix]\W$ 
-      warn-dirty = false
-    '';
     settings = {
       sandbox = true;
       substituters = [
@@ -26,6 +21,9 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="
       ];
+      experimental-features = "nix-command flakes";
+      bash-prompt = ''[nix]\W$ '';
+      warn-dirty = false;
     };
   };
 
