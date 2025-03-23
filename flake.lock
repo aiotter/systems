@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "aiotter-system": {
+    "aiotter-systems": {
       "locked": {
         "lastModified": 1742713198,
         "narHash": "sha256-JWhHv66NIjHVARJK82wqQ3CNoFlLMf3tKMMHtqk6lWM=",
@@ -18,7 +18,7 @@
     },
     "root": {
       "inputs": {
-        "aiotter-system": "aiotter-system"
+        "aiotter-systems": "aiotter-systems"
       }
     }
   },
