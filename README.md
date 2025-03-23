@@ -14,20 +14,46 @@ Make sure to add the following to the local config file (`./configuration.nix`).
 system.stateVersion = "23.11"; # Did you read the comment?
 ```
 
+## RasPi
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    aiotter-system.url = "github:aiotter/systems/nixos";
+  };
+
+  outputs = { self, nixpkgs, nixos-hardware, aiotter-system }: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        aiotter-system.nixosModules.raspi
+        nixos-hardware.nixosModules.raspberry-pi-4
+        ./configuration.nix # local config
+      ];
+    };
+  };
+}
+```
+
 ## WSL
 
 ```nix
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-  inputs.aiotter-system.url = "github:aiotter/systems/nixos";
-  inputs.aiotter-system.inputs.nixpkgs.follows = "nixpkgs";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    wsl.url = "github:nix-community/NixOS-WSL";
+    aiotter-system.url = "github:aiotter/systems/nixos";
+  }
 
-  outputs = {self, nixpkgs, aiotter-system}: {
+  outputs = { self, nixpkgs, aiotter-system }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         aiotter-system.nixosModules.wsl
-        ./configuration.nix  # add local config
+        wsl.nixosModules.wsl
+        ./configuration.nix # local config
       ];
     };
   };

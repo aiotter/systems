@@ -1,17 +1,14 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-  inputs.wsl.url = "github:nix-community/NixOS-WSL";
-  inputs.wsl.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.aiotter-system.url = "github:aiotter/systems/master";
 
-  outputs = { self, nixpkgs, wsl }: {
-    nixosModules = {
-      wsl = _: {
-        imports = [
-          wsl.nixosModules.wsl
-          hosts/wsl.nix
-          ./common.nix
-        ];
+  outputs = { self, aiotter-system }: {
+    nixosModules =
+      let
+        common-modules = [ aiotter-system.nixosModules.default ./common.nix ];
+      in
+      {
+        raspi.imports = common-modules ++ [ hosts/raspi.nix ];
+        wsl.imports = common-modules ++ [ hosts/wsl.nix ];
       };
-    };
   };
 }
