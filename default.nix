@@ -102,6 +102,47 @@
     (toString ./bin)
   ];
 
+  targets.darwin = {
+    keybindings = {
+      "@^v" = "pasteAsPlainText:"; # cmd-ctrl-v
+      "^u" = "deleteToBeginningOfParagraph:"; # ctrl-u
+
+      # https://gist.github.com/yujiod/9823541
+      "¥" = [ "insertText:" "\\\\" ];
+      "~\\\\" = [ "insertText:" "¥" ];
+    };
+
+    currentHostDefaults = {
+      "com.apple.controlcenter".BatteryShowPercentage = true;
+    };
+
+    defaults = {
+      NSGlobalDomain.ApplePressAndHoldEnabled = true;
+      NSGlobalDomain.AppleShowAllExtensions = true;
+      NSGlobalDomain.KeyRepeat = 10;
+      NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
+      NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
+      NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
+      "com.apple.Safari".IncludeDevelopMenu = true;
+      "com.apple.Safari".ShowOverlayStatusBar = true;
+      "com.apple.desktopservices".DSDontWriteNetworkStores = true;
+      "com.apple.desktopservices".DSDontWriteUSBStores = true;
+      "com.apple.finder".AppleShowAllFiles = true;
+      "com.apple.finder".FXRemoveOldTrashItems = true;
+      "com.apple.finder".ShowPathBar = true;
+
+      # https://apple.stackexchange.com/a/462849
+      NSGlobalDomain.NSInitialToolTipDelay = 800;
+
+      # tweaks
+      "com.apple.finder".QuitMenuItem = true;
+      "com.apple.finder".PathBarRootAtHome = true;
+      "com.apple.finder".QLEnableTextSelection = true;
+      "com.apple.finder".QLHidePanelOnDeactivate = true;
+      "com.apple.CrashReporter".DialogType = "none";
+    };
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
