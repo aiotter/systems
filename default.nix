@@ -117,49 +117,6 @@
     precmd_functions+=(_direnv_hook)
   '';
 
-  programs.kitty = {
-    enable = true;
-    font = {
-      name = "UDEV Gothic 35NFLG";
-      package = (import ./packages/fonts { inherit pkgs; }).udev-gothic-nf;
-      size = 17;
-    };
-    keybindings = {
-      "shift+tab" = "send_text all [9;2u";
-      "ctrl+tab" = "send_text all [9;5u";
-      "ctrl+shift+tab" = "send_text all [9;6u";
-      "cmd+left" = "previous_tab";
-      "cmd+right" = "next_tab";
-      "cmd+b" = "previous_tab";
-      "cmd+f" = "next_tab";
-      "cmd+enter" = "no_op";
-    };
-    settings = {
-      confirm_os_window_close = 0;
-      # tab_bar_edge = "top";
-      inactive_tab_foreground = "#222222";
-      inactive_tab_background = "#555555";
-      clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
-    };
-    themeFile = "OceanicMaterial";
-    # theme = "Dot Gov";
-    # theme = "Espresso Libre";
-    # theme = "Flat";
-    # theme = "Galaxy";
-    # theme = "Liquid Carbon";
-    # theme = "Misterioso";
-    # theme = "Monokai Soda";
-    # theme = "Obsidian";
-    # theme = "Oceanic Material";
-    # theme = "Royal";
-    # theme = "Sakura Night";
-    # theme = "Seti";
-    # theme = "Spacedust";
-    # theme = "Toy Chest";
-    # theme = "Ubuntu";
-    # theme = "Wez";
-  };
-
   programs.lazygit = {
     enable = true;
     settings = {

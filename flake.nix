@@ -46,23 +46,9 @@
           config = { allowUnfree = true; };
         };
         modules = [
-          rec {
+          {
             home.username = "aiotter";
             nixpkgs.overlays = overlays;
-            # FIXME: Need bugfix
-            # nixpkgs.overlays = overlays ++ [
-            #   (self: super: {
-            #     kitty = pkgs.kitty.overrideAttrs (prev: rec {
-            #       version = "0.26.5";
-            #       src = pkgs.fetchFromGitHub {
-            #         owner = "kovidgoyal";
-            #         repo = "kitty";
-            #         rev = "v${version}";
-            #         hash = "sha256-UloBlV26HnkvbzP/NynlPI77z09MBEVgtrg5SeTmwB4=";
-            #       };
-            #     });
-            #   })
-            # ];
           }
           ./default.nix
         ];
