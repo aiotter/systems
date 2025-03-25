@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./bash
+    # ./bash
+    ./zsh
     ./fonts.nix
     ./git.nix
     ./mackup

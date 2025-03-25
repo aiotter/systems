@@ -45,5 +45,7 @@ in
         export SSH_AUTH_SOCK="${cfg.socket}"
       fi
     '';
+
+    programs.zsh.profileExtra = config.programs.bash.profileExtra;
   };
 }
