@@ -275,14 +275,6 @@
       # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
       ForwardAgent = "yes";
     };
-    matchBlocks = {
-      "aws" = {
-        hostname = "3.143.178.205";
-        user = "ec2-user";
-        port = 22;
-        addressFamily = "inet";
-      };
-    };
   };
 
   services.pivy-agent = {
