@@ -20,7 +20,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     launchd.agents.pivy-agent = {
       enable = true;
       config = {
