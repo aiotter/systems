@@ -36,7 +36,6 @@
     '';
 
     plugins = with pkgs.tmuxPlugins; [
-      yank
       {
         plugin = prefix-highlight;
         extraConfig = ''

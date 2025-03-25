@@ -27,11 +27,11 @@
 
       # switch to tmux
       tmux=${pkgs.tmux}/bin/tmux
-      if command -v $tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ $tmux ]] && [ -z "$TMUX" ]; then
+      if command -v $tmux &> /dev/null && [[ -n "$PS1" ]] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ $tmux ]] && [[ -z "$TMUX" ]]; then
         # if not inside tmux session already
-        if [ $($tmux ls -F '#{session_attached}' -f '#{session_attached}' | head -n1) -gt 0 ]; then
+        if [[ $($tmux ls -F '#{session_attached}' -f '#{session_attached}' | head -n1) -gt 0 ]]; then
           # if some session is already attached
-          if [ $($tmux ls -F '#{session_attached}' -f '#{==:main,#{session_name}}') -gt 0 ]; then
+          if [[ $($tmux ls -F '#{session_attached}' -f '#{==:main,#{session_name}}') -gt 0 ]]; then
             echo 'tmux "main" session exists. To attach: tmux attach -t main'
           else
             echo 'Available tmux settions:'
@@ -43,7 +43,7 @@
       fi
 
       # Load Rust
-      [ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+      [[ -e "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
       echo "''${PATH//:/$'\n'}" | awk -F '/' '
         /^\/nix\/store\/[a-z0-9]+-[^\/]+\/.*$/ && $4 !~ /-source$/ {
@@ -61,12 +61,15 @@
     '';
 
     shellAliases = {
-      awk-csv = ''awk -v FPAT='([^,]*)|("[^"]+")' -v RS="\r?\n"'';
+      awk-csv = ''
+        awk -v FPAT='([^,]*)|("[^"]+")' -v RS="\r?\n" -i <(echo '{for (i=1; i<=NF; i++) gsub(/^"|"$/, "", $i)}')
+      '';
       icat = "kitty +kitten icat";
       lg = "lazygit";
       ls = "ls -H --color=auto";
       ls-ports = "lsof -Pi 4tcp -s TCP:LISTEN";
       tf = "terraform";
+      update-rust = "nix build nixpkgs#rustc.unwrapped.out --out-link \${RUSTUP_HOME:-~/.rustup}/toolchains/nix";
     };
 
     sessionVariables = {
