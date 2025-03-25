@@ -92,6 +92,7 @@
     # GUI
     # pkgs.alacritty
     # pkgs.viewnior  # picture viewer
+    pkgs.dive # docker container inspector
 
     # Japanese man page
     # pkgs.jaman
