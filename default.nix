@@ -124,21 +124,41 @@
         theme = {
           activeBorderColor = [ "yellow" "bold" ];
           inactiveBorderColor = [ "white" ];
-          optionsTextColor = [ "blue" ];
+          unstagedChangesColor = [ "default" ];
         };
         commitLength.show = true;
         showFileTree = true;
         showListFooter = false;
         showRandomTip = false;
+        timeFormat = "2002/01/06";
+        shortTimeFormat = "15:04";
+        nerdFontsVersion = "3";
       };
-      git.paging = {
-        colorArg = "always";
-        pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
+      git = {
+        autoStageResolvedConflicts = false;
+        autoFetch = false;
+        commit.autoWrapCommitMessage = false;
+        paging = {
+          colorArg = "always";
+          pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
+        };
+        branchLogCmd = "git log --graph --color=always --decorate --date=relative --pretty=full {{branchName}} --";
+        truncateCopiedCommitHashesTo = 40;
+      };
+      os = {
+        copyToClipboardCmd = ''printf "\033]52;c;$(printf {{text}} | base64)\a" > /dev/tty'';
       };
       reporting = "off";
       disableStartupPopups = true;
       startuppopupversion = 1;
-      confirmOnQuit = true;
+      # confirmOnQuit = true;
+
+      # keybinding = {
+      #   universal.copyToClipboard = "c";
+      #   files.commitChanges = "c";
+      # };
+    };
+  };
 
   programs.lazydocker = {
     enable = true;
