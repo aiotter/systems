@@ -86,7 +86,6 @@
     # pkgs.zig
     pkgs.zigpkgs.default
     pkgs.zls
-    pkgs.rnix-lsp
     pkgs.go
     pkgs.python-build
 
