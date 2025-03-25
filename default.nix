@@ -8,6 +8,7 @@
     ./mackup
 
     ./modules/pivy-agent
+    ./modules/lazydocker
   ];
 
   home.stateVersion = "22.05";
@@ -179,6 +180,13 @@
       disableStartupPopups = true;
       startuppopupversion = 1;
       confirmOnQuit = true;
+
+  programs.lazydocker = {
+    enable = true;
+    settings = {
+      gui = {
+        inherit (config.programs.lazygit.settings.gui) theme;
+      };
     };
   };
 
