@@ -139,7 +139,9 @@
       # tab_bar_edge = "top";
       inactive_tab_foreground = "#222222";
       inactive_tab_background = "#555555";
+      clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
     };
+    themeFile = "OceanicMaterial";
     # theme = "Dot Gov";
     # theme = "Espresso Libre";
     # theme = "Flat";
@@ -148,7 +150,7 @@
     # theme = "Misterioso";
     # theme = "Monokai Soda";
     # theme = "Obsidian";
-    theme = "Oceanic Material";
+    # theme = "Oceanic Material";
     # theme = "Royal";
     # theme = "Sakura Night";
     # theme = "Seti";
