@@ -8,6 +8,7 @@
     userEmail = "git@aiotter.com";
 
     aliases = {
+      delete-merged = ''!f() { git branch --merged ''${1:-master} | grep -v "^[ *]*''${1:-master}$" | xargs git branch -d; }; f'';
       delete-squashed = ''
         !f() { local targetBranch=''${1:-master} && git checkout -q $targetBranch && git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done; }; f
       '';
