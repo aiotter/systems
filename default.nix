@@ -2,12 +2,10 @@
 
 {
   imports = [
-    # ./bash
     ./zsh
     ./fonts.nix
     ./git.nix
     ./mackup
-    ./tmux
 
     ./modules/pivy-agent
   ];
