@@ -25,13 +25,14 @@ in
       enable = true;
       config = {
         EnvironmentVariables.SSH_ASKPASS = toString ./ssh-askpass;
-        ProgramArguments = [
-          (cfg.package + /bin/pivy-agent)
-          "-ig"
-          cfg.guid
-          "-a"
-          cfg.socket
-        ];
+        Program = lib.getExe (pkgs.writeShellApplication {
+          name = "pivy-agent";
+          runtimeInputs = [ cfg.package ];
+          text = ''
+            [[ -p "${cfg.socket}" ]] && rm "${cfg.socket}"
+            pivy-agent -ig "${cfg.guid}" -a "${cfg.socket}"
+          '';
+        });
         # Wait until Nix store is mounted
         KeepAlive.PathState.${builtins.storeDir} = true;
         StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/pivy-agent.log";
