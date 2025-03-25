@@ -61,9 +61,11 @@
     '';
 
     shellAliases = {
+      awk-csv = ''awk -v FPAT='([^,]*)|("[^"]+")' -v RS="\r?\n"'';
       icat = "kitty +kitten icat";
       lg = "lazygit";
       ls = "ls -H --color=auto";
+      ls-ports = "lsof -Pi 4tcp -s TCP:LISTEN";
       tf = "terraform";
     };
 
