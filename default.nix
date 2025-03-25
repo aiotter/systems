@@ -20,28 +20,6 @@
     then "/Users/${config.home.username}"
     else "/home/${config.home.username}";
 
-  # nix.registry =
-  #   let
-  #     flakeDir = "${config.home.homeDirectory}/flakes";
-  #     flakeDirExists = config.home.homeDirectory != "" && (builtins.readDir (config.home.homeDirectory)).flakes or "" == "directory";
-  #     flakeDirNames = builtins.attrNames (lib.attrsets.filterAttrs (_: fileType: fileType == "directory") (builtins.readDir flakeDir));
-  #     flakeList = map
-  #       (dirName: {
-  #         name = dirName;
-  #         value = {
-  #           exact = false;
-  #           to = { type = "path"; path = "${flakeDir}/${dirName}"; };
-  #         };
-  #       })
-  #       flakeDirNames;
-  #     flakes = lib.attrsets.optionalAttrs flakeDirExists (builtins.listToAttrs flakeList);
-  #   in
-  #   # Add exact=false to all the nix.registry.<name> defined here
-  #   flakes // builtins.mapAttrs (_: val: val // { exact = false; }) {
-  #     zig.to = { type = "github"; owner = "aiotter"; repo = "zig-on-nix"; };
-  #     local.to = { type = "path"; path = config.home.homeDirectory + "/repo/github.com/NixOS/nixpkgs"; };
-  #     repo.to = { type = "path"; path = config.home.homeDirectory + "/repo/github.com"; };
-  #   };
 
   home.packages = [
     pkgs.git
