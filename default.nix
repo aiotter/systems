@@ -169,6 +169,62 @@
     };
   };
 
+  programs.k9s = {
+    enable = true;
+    package =
+      let
+        k9s = pkgs.k9s.overrideAttrs (prev: {
+          patches = prev.patches or [ ] ++ [
+            (pkgs.fetchpatch {
+              name = "override-keybinds.patch";
+              url = "https://github.com/aiotter/k9s/commit/8ff090b6131387f29145a3b63597e4321b6db44b.patch";
+              hash = "sha256-1CSli1lZdfg3IkDUBZYwYyDoxa6Yk9W0ulM90U++RXY=";
+            })
+          ];
+          postInstall = [ ]; # Avoid sandbox bug
+        });
+      in
+      pkgs.writeShellScriptBin "k9s" "K9S_FEATURE_GATE_NODE_SHELL=true ${k9s}/bin/k9s \"$@\"";
+    settings = {
+      k9s = {
+        liveViewAutoRefresh = true;
+        noExitOnCtrlC = true;
+        ui = {
+          enableMouse = true;
+          logoless = true;
+          noIcons = true;
+        };
+        shellPod = {
+          image = "alpine/k8s:1.31.3";
+          namespace = "default";
+          limits = {
+            cpu = "100m";
+            memory = "100Mi";
+          };
+        };
+      };
+    };
+    views.views = {
+      "v1/events" = {
+        sortColumn = "LAST_SEEN:asc";
+        columns = [ "LAST SEEN" "TYPE" "REASON" "OBJECT" "MESSAGE" ];
+      };
+    };
+    plugin.plugins = {
+      hostname = {
+        shortCut = "Shift-H";
+        description = "external-dns";
+        scopes = [ "all" ];
+        command = "sh";
+        background = false;
+        args = [
+          "-c"
+          "kubectl --kubeconfig=$KUBECONFIG get service,ingress --all-namespaces --context=$CONTEXT --sort-by=.metadata.namespace --output=custom-columns=SERVICE:.metadata.name,HOSTNAME:'.metadata.annotations.external-dns\\.alpha\\.kubernetes\\.io/hostname' | awk '$2!=\"<none>\" {print $0}' | column -t | ${pkgs.less}/bin/less --clear-screen --lesskey-content='\\e\\e quit' --tilde --header=1 --no-search-headers --color=H-_"
+        ];
+      };
+    };
+  };
+
   programs.ssh = {
     enable = true;
     includes = [ "config.local" ];
