@@ -8,7 +8,6 @@
     ./mackup
 
     ./modules/pivy-agent
-    ./modules/lazydocker
   ];
 
   home.stateVersion = "22.05";
