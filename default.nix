@@ -109,12 +109,13 @@
     casks = [
       "alt-tab"
       "betterdisplay"
-      "google-japanese-ime"
+      # "google-japanese-ime"
       "karabiner-elements"
       "launchcontrol"
       "lunar"
       "raycast"
-      "ubersicht"
+      "scroll-reverser"
+      # "ubersicht"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
@@ -134,6 +135,8 @@
       "LadioCast: sound mixer" = 411213048;
       LilyView = 529490330;
       # "Amphetamine: prevent sleeping" = 937984704;
+      Shareful = 1522267256;
+      CommandX = 6448461551;
     };
   };
 }
