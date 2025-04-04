@@ -95,9 +95,10 @@
     };
 
     defaults = {
-      NSGlobalDomain.ApplePressAndHoldEnabled = true;
+      NSGlobalDomain.ApplePressAndHoldEnabled = false;
       NSGlobalDomain.AppleShowAllExtensions = true;
-      NSGlobalDomain.KeyRepeat = 10;
+      NSGlobalDomain.KeyRepeat = 4;
+      NSGlobalDomain.InitialKeyRepeat = 15;
       NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
       NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
       NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
