@@ -32,12 +32,16 @@
       url = "github:aiotter/flakes/python-build";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    reload = {
+      url = "github:aiotter/flakes/reload";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       overlays = with inputs; map (input: input.overlays.default)
-        [ youtube-dl zig pivy usbutils python-build ];
+        [ youtube-dl zig pivy usbutils python-build reload ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration rec {

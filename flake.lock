@@ -232,6 +232,27 @@
         "type": "github"
       }
     },
+    "reload": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743763581,
+        "narHash": "sha256-ZS5aGV2O23qlTMb/FvGcnN+MCqOXjBPNfE9Mt9Y4W0c=",
+        "owner": "aiotter",
+        "repo": "flakes",
+        "rev": "df7aadd31a15f771a1034bb4fbf53281fa7544bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aiotter",
+        "ref": "reload",
+        "repo": "flakes",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -239,6 +260,7 @@
         "nixpkgs": "nixpkgs",
         "pivy": "pivy",
         "python-build": "python-build",
+        "reload": "reload",
         "usbutils": "usbutils",
         "youtube-dl": "youtube-dl",
         "zig": "zig"

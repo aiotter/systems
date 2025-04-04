@@ -52,6 +52,7 @@
     pkgs.starship
     pkgs.fzf
     pkgs.usbutils
+    pkgs.reload
 
     # Programming
     pkgs.cmake
