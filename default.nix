@@ -20,7 +20,8 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="
       ];
-      experimental-features = "nix-command flakes";
+      trusted-users = [ "@admin" ];
+      experimental-features = "nix-command flakes pipe-operators";
       bash-prompt = ''[nix]\W$ '';
       warn-dirty = false;
     };
@@ -64,11 +65,7 @@
       cp -r "${midget}/Applications/Midget.app" "/Applications"
     '';
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon = {
-    enable = true;
-    logFile = "/var/log/nix-daemon.log";
-  };
+  services.nix-daemon.logFile = "/var/log/nix-daemon.log";
 
   # Cachix deploy
   # services.cachix-agent.enable = true;
