@@ -50,6 +50,7 @@
       # General development
       ".direnv/"
       ".env"
+      ".envrc"
 
       # Python
       "*.egg-info/"
