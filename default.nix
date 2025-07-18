@@ -83,6 +83,7 @@
   targets.darwin = {
     keybindings = {
       "@^v" = "pasteAsPlainText:"; # cmd-ctrl-v
+      "@V" = "pasteAsPlainText:"; # cmd-shift-v
       "^u" = "deleteToBeginningOfParagraph:"; # ctrl-u
 
       # https://gist.github.com/yujiod/9823541
