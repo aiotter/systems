@@ -141,6 +141,15 @@
   programs.lazygit = {
     enable = true;
     settings = {
+      customCommands = [
+        {
+          key = "E";
+          context = "commits";
+          description = "Open editor and start interactive rebase";
+          command = "git rebase -i {{.SelectedLocalCommit.Hash}}~";
+          subprocess = true;
+        }
+      ];
       gui = {
         theme = {
           activeBorderColor = [ "yellow" "bold" ];
