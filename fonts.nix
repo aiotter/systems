@@ -11,5 +11,6 @@ in
     cica
     hackgen-nerd
     udev-gothic
+    udev-gothic-nf
   ];
 }
