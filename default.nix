@@ -265,6 +265,15 @@
       # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
       ForwardAgent = "yes";
     };
+    matchBlocks = {
+      home.hostname = "home.aiotter.com";
+      "home.aiotter.com" = {
+        match = ''host home.aiotter.com exec "${pkgs.cloudflared}/bin/cloudflared access ssh-gen --hostname %h"'';
+        proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+        # identityFile = "~/.cloudflared/%h-cf_key";
+        # certificateFile = "~/.cloudflared/%h-cf_key-cert.pub";
+      };
+    };
   };
 
   services.pivy-agent = {
