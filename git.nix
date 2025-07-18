@@ -17,6 +17,7 @@
       graph = "log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative";
       list = "!ghq list";
       one = "!git log --oneline --color=always | head";
+      root = "rev-parse --show-toplevel";
       sync = "!git fetch && git reset --hard origin/$(git branch --show-current)";
       unstage = "reset HEAD";
     };
