@@ -207,7 +207,7 @@
           patches = prev.patches or [ ] ++ [
             (pkgs.fetchpatch {
               name = "override-keybinds.patch";
-              url = "https://github.com/aiotter/k9s/commit/8ff090b6131387f29145a3b63597e4321b6db44b.patch";
+              url = "https://github.com/derailed/k9s/compare/master...aiotter:k9s:master.patch";
               hash = "sha256-1CSli1lZdfg3IkDUBZYwYyDoxa6Yk9W0ulM90U++RXY=";
             })
           ];
