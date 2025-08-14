@@ -29,7 +29,7 @@ in
           name = "pivy-agent";
           runtimeInputs = [ cfg.package ];
           text = ''
-            [[ -p "${cfg.socket}" ]] && rm "${cfg.socket}"
+            [[ -e "${cfg.socket}" ]] && rm "${cfg.socket}"
             pivy-agent -ig "${cfg.guid}" -a "${cfg.socket}"
           '';
         });
