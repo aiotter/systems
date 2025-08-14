@@ -53,6 +53,7 @@
     pkgs.fzf
     pkgs.usbutils
     pkgs.reload
+    pkgs.tio # serial device I/O tool
 
     # Programming
     pkgs.cmake

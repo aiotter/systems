@@ -40,7 +40,7 @@
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
-      overlays = with inputs; map (input: input.overlays.default)
+      overlays = with inputs; [ (import ./overlay.nix) ] ++ map (input: input.overlays.default)
         [ youtube-dl zig pivy usbutils python-build reload ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
