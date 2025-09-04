@@ -12,6 +12,8 @@
     wget
   ];
 
+  environment.enableAllTerminfo = true;
+
   services.openssh = {
     enable = true;
     settings = {
