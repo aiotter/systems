@@ -5,6 +5,8 @@
     modules/snmp
   ];
 
+  system.primaryUser = "aiotter";
+
   nix = {
     package = pkgs.nixVersions.stable;
     registry = {
