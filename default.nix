@@ -51,7 +51,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
-    pkgs.cachix
     pkgs.bashInteractive
     pkgs.bash-completion
     pkgs.git
