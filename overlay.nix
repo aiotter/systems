@@ -5,6 +5,11 @@ let
 in
 
 {
+
+  tig = final.writeShellScriptBin "tig" ''
+    ESCDELAY=''${ESCDELAY:-80} ${lib.getExe prev.tig}
+  '';
+
   tio = prev.tio.overrideAttrs (old: {
     src = final.fetchFromGitHub {
       owner = "tio";

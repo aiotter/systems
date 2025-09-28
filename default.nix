@@ -23,6 +23,7 @@
 
   home.packages = [
     pkgs.git
+    pkgs.tig
     pkgs.bat
     pkgs.dogdns
     pkgs.jq
