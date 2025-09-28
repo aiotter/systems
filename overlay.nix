@@ -5,6 +5,14 @@ let
 in
 
 {
+  git-filter-repo = prev.git-filter-repo.overrideAttrs {
+    src = final.fetchFromGitHub {
+      owner = "newren";
+      repo = "git-filter-repo";
+      rev = "c1d8461ee34c6d3f987e0f19191f2105cb2a33c8";
+      hash = "sha256-s+TTTVoOsADBkmSvdhUELGB5Kv+Arx4KP5EM6p+afHg=";
+    };
+  };
 
   tig = final.writeShellScriptBin "tig" ''
     ESCDELAY=''${ESCDELAY:-80} ${lib.getExe prev.tig}
