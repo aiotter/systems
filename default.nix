@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./nix.nix
     ./zsh
     ./fonts.nix
     ./git.nix

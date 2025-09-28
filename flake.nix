@@ -44,7 +44,7 @@
         [ youtube-dl zig pivy usbutils python-build reload ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration rec {
+      homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs.outPath {
           inherit system;
           config = { allowUnfree = true; };
@@ -56,6 +56,7 @@
           }
           ./default.nix
         ];
+        extraSpecialArgs.flakeInputs = inputs;
       };
 
       packages.home-manager = home-manager.packages.${system}.default;
