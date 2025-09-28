@@ -239,6 +239,9 @@
         sortColumn = "LAST_SEEN:asc";
         columns = [ "LAST SEEN" "TYPE" "REASON" "OBJECT" "MESSAGE" ];
       };
+      "v1/containers" = {
+        columns = [ "IDX" "NAME" "PF" "READY" "STATE" "RESTARTS" "AGE" "PROBES(L:R:S)" "CPU" "MEM" "CPU/RL" "MEM/RL" "%CPU/R" "%CPU/L" "%MEM/R" "%MEM/L" "PORTS" "IMAGE" ];
+      };
     };
     plugin.plugins = {
       hostname = {
