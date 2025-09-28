@@ -57,8 +57,6 @@
     pkgs.tio # serial device I/O tool
 
     # Programming
-    pkgs.cmake
-    pkgs.pkg-config
     pkgs.deno
     # pkgs.nodejs-12_x
     # pkgs.rustc
