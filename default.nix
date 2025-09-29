@@ -139,6 +139,41 @@
     precmd_functions+=(_direnv_hook)
   '';
 
+  programs.ghostty = {
+    enable = true;
+    package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
+    settings = {
+      config-file = "?config.local";
+
+      theme = "Dark Pastel";
+      font-family = "UDEV Gothic 35NFLG";
+      adjust-cell-height = 3;
+      unfocused-split-opacity = 0.6;
+      window-padding-color = "extend";
+      window-padding-balance = true;
+      macos-titlebar-style = "native";
+      font-size = 16;
+      split-divider-color = "#3f3f3f";
+      quit-after-last-window-closed = true;
+      window-save-state = "never";
+      mouse-hide-while-typing = true;
+
+      keybind = [
+        "cmd+shift+equal=decrease_font_size:1"
+        "cmd+\\=new_split:right"
+        "cmd+shift+\\=new_split:left"
+        "cmd+-=new_split:down"
+        "cmd+shift+-=new_split:up"
+        "cmd+f=write_screen_file:open"
+        "cmd+h=goto_split:left"
+        "cmd+j=goto_split:down"
+        "cmd+k=goto_split:up"
+        "cmd+l=goto_split:right"
+        "global:cmd+ctrl+t=toggle_quick_terminal"
+      ];
+    };
+  };
+
   programs.lazygit = {
     enable = true;
     settings = {
