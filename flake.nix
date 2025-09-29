@@ -2,7 +2,8 @@
   description = "aiotter's system settings for macOS";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    nixpkgs.follows = "determinate/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -14,7 +15,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-utils, darwin, mac-app-util, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, darwin, determinate, mac-app-util, ... }:
     let
       darwinSystems = with flake-utils.lib.system; [ x86_64-darwin aarch64-darwin ];
     in
@@ -22,7 +23,11 @@
       darwinConfigurations.default = darwin.lib.darwinSystem
         {
           inherit system;
-          modules = [ ./. mac-app-util.darwinModules.default ];
+          modules = [
+            determinate.darwinModules.default
+            mac-app-util.darwinModules.default
+            ./.
+          ];
           specialArgs = { flakeInputs = inputs; };
         };
 
