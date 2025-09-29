@@ -87,7 +87,7 @@
       "alt-tab"
       "betterdisplay"
       # "google-japanese-ime"
-      "karabiner-elements"
+      # "karabiner-elements"
       "launchcontrol"
       "lunar"
       "raycast"
