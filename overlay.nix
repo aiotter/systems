@@ -14,6 +14,11 @@ in
     };
   };
 
+  p11-kit = prev.p11-kit.overrideAttrs {
+    # https://github.com/NixOS/nixpkgs/issues/72838
+    doCheck = !final.stdenv.isDarwin;
+  };
+
   tig = final.writeShellScriptBin "tig" ''
     ESCDELAY=''${ESCDELAY:-80} ${lib.getExe prev.tig}
   '';

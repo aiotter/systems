@@ -183,7 +183,7 @@
           context = "commits";
           description = "Open editor and start interactive rebase";
           command = "git rebase -i {{.SelectedLocalCommit.Hash}}~";
-          subprocess = true;
+          output = "terminal";
         }
       ];
       gui = {

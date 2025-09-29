@@ -2,10 +2,10 @@
   description = "aiotter's user settings";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # man-pages-ja = {
@@ -46,7 +46,7 @@
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs.outPath {
-          inherit system;
+          inherit system overlays;
           config = { allowUnfree = true; };
         };
         modules = [
@@ -65,5 +65,10 @@
         type = "app";
         program = "${homeConfigurations.default.activationPackage}/activate";
       };
-    });
+    }) // {
+      nixConfig = {
+        extra-substituters = ["https://aiotter.cachix.org"];
+        extra-trusted-public-keys = ["aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="];
+      };
+    };
 }
