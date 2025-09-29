@@ -113,7 +113,7 @@
       LilyView = 529490330;
       # "Amphetamine: prevent sleeping" = 937984704;
       Shareful = 1522267256;
-      CommandX = 6448461551;
+      # CommandX = 6448461551;
     };
   };
 }
