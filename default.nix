@@ -97,6 +97,7 @@
     };
 
     defaults = {
+      # https://macos-defaults.com/
       NSGlobalDomain.ApplePressAndHoldEnabled = false;
       NSGlobalDomain.AppleShowAllExtensions = true;
       NSGlobalDomain.KeyRepeat = 4;
@@ -115,6 +116,10 @@
       # https://apple.stackexchange.com/a/462849
       NSGlobalDomain.NSInitialToolTipDelay = 800;
 
+      # https://apple.stackexchange.com/a/424110
+      # This requires to grant full disk access to the terminal!
+      "com.apple.universalaccess".showWindowTitlebarIcons = true;
+
       # tweaks
       "com.apple.finder".QuitMenuItem = true;
       "com.apple.finder".PathBarRootAtHome = true;
@@ -123,6 +128,16 @@
       "com.apple.CrashReporter".DialogType = "none";
     };
   };
+
+  home.activation.checkFullDiskAccess = lib.mkIf pkgs.stdenv.isDarwin (
+    lib.hm.dag.entryBefore [ "setDarwinDefaults" "writeBoundary" ] ''
+      if ! run --quiet plutil -lint /Library/Preferences/com.apple.TimeMachine.plist; then
+        errorEcho "Full Disk Access is not granted to the current terminal!"
+        run open "x-apple.systempreferences:com.apple.preference.security?Privacy_All"
+        exit 1
+      fi
+    ''
+  );
 
   programs.direnv = {
     enable = true;
