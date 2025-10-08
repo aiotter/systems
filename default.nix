@@ -86,6 +86,7 @@
     casks = [
       "alt-tab"
       "betterdisplay"
+      "dash"
       # "google-japanese-ime"
       # "karabiner-elements"
       "launchcontrol"
