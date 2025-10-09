@@ -115,6 +115,7 @@
       # "Amphetamine: prevent sleeping" = 937984704;
       Shareful = 1522267256;
       # CommandX = 6448461551;
+      "Pasteboard Viewer" = 1499215709;
     };
   };
 }
