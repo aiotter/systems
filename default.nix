@@ -94,6 +94,7 @@
       "raycast"
       "scroll-reverser"
       # "ubersicht"
+      "uninstallpkg"
     ];
     masApps = {
       # ColorBlindPal = 1023111433;
