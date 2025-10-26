@@ -78,6 +78,10 @@
         user = "aiotter";
       };
       credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";
+      url."git@github.com".pushInsteadOf = [
+        "git://github.com/"
+        "https://github.com/"
+      ];
     };
   };
 
