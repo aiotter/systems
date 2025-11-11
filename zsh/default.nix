@@ -42,6 +42,7 @@
 
       # Load plugins
       source "${./ghq.plugin.sh}"
+      source "${./disable-space-removal.plugin.sh}"
       source "${./local_history.plugin.zsh}"
       # source "$${pkgs.asdf-vm}/etc/profile.d/asdf-prepare.sh"
 
