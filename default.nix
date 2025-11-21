@@ -7,6 +7,7 @@
     ./fonts.nix
     ./git.nix
     ./mackup
+    ./haskell.nix
 
     ./modules/pivy-agent
   ];
