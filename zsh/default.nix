@@ -46,6 +46,13 @@
       source "${./local_history.plugin.zsh}"
       # source "$${pkgs.asdf-vm}/etc/profile.d/asdf-prepare.sh"
 
+      # starship with transient prompt
+      eval "$(${lib.getExe config.programs.starship.package} init zsh)"
+      TRANSIENT_PROMPT_PROMPT=$PROMPT
+      TRANSIENT_PROMPT_RPROMPT=$RPROMPT
+      TRANSIENT_PROMPT_TRANSIENT_RPROMPT=
+      source "${pkgs.callPackage ./transient-prompt.nix {}}/transient-prompt.zsh-theme"
+
       # When in `nix shell` environments, print loaded PATH
       echo "''${PATH//:/$'\n'}" | awk -F '/' '
         /^\/nix\/store\/[a-z0-9]+-[^\/]+\/.*$/ && $4 !~ /-source$/ {
@@ -81,8 +88,8 @@
 
   programs.starship = {
     enable = true;
-    enableZshIntegration = true;
     settings = lib.trivial.importTOML ./starship.toml;
+    # enableZshIntegration = true;
   };
   # xdg.configFile."starship.toml" = { source = ./starship.toml; };
 }
