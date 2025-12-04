@@ -20,7 +20,7 @@
   programs.zsh = {
     enable = true;
 
-    initExtra = lib.mkAfter ''
+    initContent = lib.mkAfter ''
       # Load Rust
       [[ -e "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
