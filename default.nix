@@ -57,6 +57,8 @@
     pkgs.usbutils
     pkgs.reload
     pkgs.tio # serial device I/O tool
+    pkgs.with-shell
+    pkgs.jwt-cli
 
     # Programming
     pkgs.deno
