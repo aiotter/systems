@@ -190,6 +190,26 @@
     };
   };
 
+  programs.ranger = {
+    enable = true;
+
+    # Use the latest source to support Ghostty
+    # https://github.com/ranger/ranger/pull/3036
+    package = pkgs.ranger.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "ranger";
+        repo = "ranger";
+        rev = "08913377c968d39f11fa2d546aa8d53a99bb5e98";
+        hash = "sha256-vn1rAOFB2vq04Y/WAE44iH/b/zamAmvq8putUKwNqR8=";
+      };
+    };
+
+    settings = {
+      preview_images = true;
+      preview_images_method = "kitty";
+    };
+  };
+
   programs.lazygit = {
     enable = true;
     settings = {
