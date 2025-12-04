@@ -88,8 +88,10 @@
 
   programs.starship = {
     enable = true;
-    settings = lib.trivial.importTOML ./starship.toml;
     # enableZshIntegration = true;
+    # settings = lib.trivial.importTOML ./starship.toml;
   };
-  # xdg.configFile."starship.toml" = { source = ./starship.toml; };
+  xdg.configFile."starship.toml" = {
+    source = ./starship.toml;
+  };
 }
