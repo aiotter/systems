@@ -60,6 +60,7 @@
     pkgs.tio # serial device I/O tool
     pkgs.with-shell
     pkgs.jwt-cli
+    pkgs.devbox
 
     # Programming
     pkgs.deno
