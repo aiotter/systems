@@ -308,6 +308,10 @@
         "darwin": "darwin",
         "determinate": "determinate",
         "mac-app-util": "mac-app-util",
+        "nix-src": [
+          "determinate",
+          "nix"
+        ],
         "nixpkgs": [
           "determinate",
           "nixpkgs"

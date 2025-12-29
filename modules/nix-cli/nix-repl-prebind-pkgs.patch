@@ -1,0 +1,22 @@
+diff --git a/src/libcmd/repl.cc b/src/libcmd/repl.cc
+index 841c75737..82a51838a 100644
+--- a/src/libcmd/repl.cc
++++ b/src/libcmd/repl.cc
+@@ -770,6 +770,17 @@ void NixRepl::initEnv()
+     varNames.clear();
+     for (auto & i : state->staticBaseEnv->vars)
+         varNames.emplace(state->symbols[i.first]);
++
++    // Pre-bind pkgs for convenience (best-effort).
++    // Keep the REPL usable even if <nixpkgs> is missing.
++    notice("Binding pkgs...");
++    try {
++        processLine("pkgs = import <nixpkgs> {}");
++    } catch (const Error &e) {
++        warn("failed to initialize pkgs: %s", e.what());
++    } catch (...) {
++        warn("failed to initialize pkgs (unknown error)");
++    }
+ }
+ 
+ void NixRepl::showLastLoaded()

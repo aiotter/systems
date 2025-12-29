@@ -4,6 +4,7 @@
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     nixpkgs.follows = "determinate/nixpkgs";
+    nix-src.follows = "determinate/nix";
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +18,7 @@
   };
 
   outputs =
-    flakeInputs@{ self, nixpkgs, darwin, determinate, mac-app-util }:
+    flakeInputs@{ self, nixpkgs, nix-src, darwin, determinate, mac-app-util }:
     let
       inherit (nixpkgs) lib;
       darwinSystems = lib.systems.doubles.darwin;
@@ -35,7 +36,7 @@
               mac-app-util.darwinModules.default
               ./.
             ];
-            specialArgs = { inherit flakeInputs; };
+            specialArgs = { inherit flakeInputs system; };
           };
         in
         {

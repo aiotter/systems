@@ -4,6 +4,7 @@
   imports = [
     modules/nix-conf.nix
     modules/snmp
+    modules/nix-cli
   ];
 
   system.primaryUser = "aiotter";
