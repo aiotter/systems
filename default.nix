@@ -239,10 +239,12 @@
       startuppopupversion = 1;
       # confirmOnQuit = true;
 
-      # keybinding = {
-      #   universal.copyToClipboard = "c";
-      #   files.commitChanges = "c";
-      # };
+      keybinding = {
+        universal = {
+          copyToClipboard = "C";
+          fetch = "f";
+        };
+      };
     };
   };
 
