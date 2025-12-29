@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   flakeInputs,
   system,
@@ -26,6 +27,15 @@ let
     buildInputs = patchDeps (prev.buildInputs or [ ]);
     nativeBuildInputs = patchDeps (prev.nativeBuildInputs or [ ]);
     propagatedBuildInputs = patchDeps (prev.propagatedBuildInputs or [ ]);
+
+    patches = (prev.patches or [ ]) ++ [
+      (pkgs.fetchpatch {
+        url = "https://github.com/DeterminateSystems/nix-src/pull/180.patch";
+        hash = "sha256-7G9nX8YT+B9nZXEBICwkAyj2vmSHNqC2C2+dlOpQuIg=";
+        relative = "src/nix";
+        revert = true;
+      })
+    ];
   });
 in
 
