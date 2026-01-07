@@ -23,6 +23,7 @@
     then "/Users/${config.home.username}"
     else "/home/${config.home.username}";
 
+  xdg.enable = true;
 
   home.packages = [
     pkgs.git
