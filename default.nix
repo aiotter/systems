@@ -9,6 +9,7 @@
     ./mackup
     ./haskell.nix
     ./ranger.nix
+    ./process-compose.nix
 
     ./modules/pivy-agent
   ];
