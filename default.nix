@@ -226,10 +226,12 @@
         autoStageResolvedConflicts = false;
         autoFetch = false;
         commit.autoWrapCommitMessage = false;
-        paging = {
-          colorArg = "always";
-          pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
-        };
+        pagers = [
+          {
+            pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
+            colorArg = "always";
+          }
+        ];
         branchLogCmd = "git log --graph --color=always --decorate --date=relative --pretty=full {{branchName}} --";
         truncateCopiedCommitHashesTo = 40;
       };
@@ -294,7 +296,7 @@
         };
       };
     };
-    views.views = {
+    views = {
       "v1/events" = {
         sortColumn = "LAST_SEEN:asc";
         columns = [ "LAST SEEN" "TYPE" "REASON" "OBJECT" "MESSAGE" ];
@@ -303,7 +305,7 @@
         columns = [ "IDX" "NAME" "PF" "READY" "STATE" "RESTARTS" "AGE" "PROBES(L:R:S)" "CPU" "MEM" "CPU/RL" "MEM/RL" "%CPU/R" "%CPU/L" "%MEM/R" "%MEM/L" "PORTS" "IMAGE" ];
       };
     };
-    plugin.plugins = {
+    plugins = {
       hostname = {
         shortCut = "Shift-H";
         description = "external-dns";
@@ -321,14 +323,16 @@
   programs.ssh = {
     enable = true;
     includes = [ "config.local" ];
-    compression = true;
-    controlMaster = "auto";
-    controlPersist = "10m";
     extraOptionOverrides = {
       # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
       ForwardAgent = "yes";
     };
     matchBlocks = {
+      "*" = {
+        controlPersist = "10m";
+        controlMaster = "auto";
+        compression = true;
+      };
       home.hostname = "home.aiotter.com";
       "home.aiotter.com" = {
         match = ''host home.aiotter.com exec "${pkgs.cloudflared}/bin/cloudflared access ssh-gen --hostname %h"'';

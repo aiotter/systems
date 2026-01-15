@@ -128,32 +128,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1763992789,
-        "narHash": "sha256-WHkdBlw6oyxXIra/vQPYLtqY+3G8dUVZM8bEXk0t8x4=",
+        "lastModified": 1767910483,
+        "narHash": "sha256-MOU5YdVu4DVwuT5ztXgQpPuRRBjSjUGIdUzOQr9iQOY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "44831a7eaba4360fb81f2acc5ea6de5fde90aaa3",
+        "rev": "82fb7dedaad83e5e279127a38ef410bcfac6d77c",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1764845660,
-        "narHash": "sha256-S41bAZvXKcBs342AFerfQFlLLIkYYwiNn/JdUiR18WQ=",
+        "lastModified": 1768455256,
+        "narHash": "sha256-bbwUg9KmGwM34t9IAt+zst1XBhp9Rtxvvgd41fvog6k=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6d0d95e6efb2b8dee1b06f7c7db5fe881a7bdc04",
+        "rev": "0ac615ad4da024ace7fa5e0be5b01a3414c2295f",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -376,11 +376,11 @@
         "youtube-dl": "youtube-dl_2"
       },
       "locked": {
-        "lastModified": 1744426245,
-        "narHash": "sha256-hZ/KJYaDAywLoISRXafVdi1yRWq7dH0FAXvdGgwRO9M=",
+        "lastModified": 1768464732,
+        "narHash": "sha256-nlnQ9s8ar+V550glZCjs5ww6hmyif1iAZBIXDFn1+wc=",
         "owner": "aiotter",
         "repo": "flakes",
-        "rev": "bba8921f6b81620227d452cd464a89b2a5a7aea6",
+        "rev": "3b2d966a4d9f1f6f29f2fe1926d82d3d3990cdb2",
         "type": "github"
       },
       "original": {
@@ -393,11 +393,11 @@
     "youtube-dl_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1744073940,
-        "narHash": "sha256-1dVXKBpidI2mnotAD1SXlx6x0GgejWfVMOjKuv2F6qs=",
+        "lastModified": 1764126156,
+        "narHash": "sha256-/nHyick3/K5/xFxsEuQTjZDeZ/Un+UsiW9S+9fKvtzw=",
         "owner": "ytdl-org",
         "repo": "youtube-dl",
-        "rev": "c052a16f72af7dd7671d4dd62826de71cd99dfb6",
+        "rev": "956b8c585591b401a543e409accb163eeaaa1193",
         "type": "github"
       },
       "original": {
@@ -416,11 +416,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764203689,
-        "narHash": "sha256-ivb0SqCptyIxx5g8ryRrUL0xrJhLrJPlvZbZjxVaui0=",
+        "lastModified": 1768437329,
+        "narHash": "sha256-CSY9uZLEbF+Vqr7SM6hFuu9G/P+ytMrhS96rgHBswVk=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "8f7347545dea59b75e40247cc1ed55a42f64dbbf",
+        "rev": "b33af6496174f8c0f4952e345bc194758243fbb9",
         "type": "github"
       },
       "original": {

@@ -5,43 +5,40 @@
     enable = true;
     lfs.enable = true;
 
-    userName = "aiotter";
-    userEmail = "git@aiotter.com";
-
-    aliases = {
-      delete-merged = ''!f() { git branch --merged ''${1:-master} | grep -v "^[ *]*''${1:-master}$" | xargs git branch -d; }; f'';
-      delete-squashed = ''
-        !f() { local targetBranch=''${1:-master} && git checkout -q $targetBranch && git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done; }; f
-      '';
-      fpush = "push --force-with-lease";
-      get = "!ghq get";
-      graph = "log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative";
-      list = "!ghq list";
-      one = "!git log --oneline --color=always | head";
-      root = "rev-parse --show-toplevel";
-      sync = "!git fetch && git reset --hard origin/$(git branch --show-current)";
-      unstage = "reset HEAD";
-    };
-
-    delta = {
-      enable = true;
-      options = {
-        features = "traditional";
-        traditional = {
-          keep-plus-minus-markers = true;
-          minus-style = "syntax dim strike \"#001930\"";
-          minus-non-emph-style = "syntax dim strike \"#001930\"";
-          minus-emph-style = "syntax strike \"#005099\"";
-          plus-emph-style = "auto bold auto";
-        };
-        side-by-side = {
-          side-by-side = true;
-          line-numbers = true;
-          minus-style = "syntax dim strike \"#001930\"";
-          minus-emph-style = "syntax bold \"#005099\"";
-          plus-emph-style = "auto bold auto";
-        };
+    settings = {
+      user = {
+        name = "aiotter";
+        email = "git@aiotter.com";
+        useConfigOnly = true;
       };
+
+      alias = {
+        delete-merged = ''!f() { git branch --merged ''${1:-master} | grep -v "^[ *]*''${1:-master}$" | xargs git branch -d; }; f'';
+        delete-squashed = ''
+          !f() { local targetBranch=''${1:-master} && git checkout -q $targetBranch && git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done; }; f
+        '';
+        fpush = "push --force-with-lease";
+        get = "!ghq get";
+        graph = "log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative";
+        list = "!ghq list";
+        one = "!git log --oneline --color=always | head";
+        root = "rev-parse --show-toplevel";
+        sync = "!git fetch && git reset --hard origin/$(git branch --show-current)";
+        unstage = "reset HEAD";
+      };
+
+      rebase.autosquash = true;
+      commit.verbose = true;
+      log.date = "iso";
+      ghq = {
+        root = "~/repo";
+        user = "aiotter";
+      };
+      credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";
+      url."git@github.com".pushInsteadOf = [
+        "git://github.com/"
+        "https://github.com/"
+      ];
     };
 
     ignores = [
@@ -68,26 +65,32 @@
       # IntelliJ
       ".idea/"
     ];
-
-    extraConfig = {
-      user.useConfigOnly = true;
-      rebase.autosquash = true;
-      commit.verbose = true;
-      log.date = "iso";
-      ghq = {
-        root = "~/repo";
-        user = "aiotter";
-      };
-      credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";
-      url."git@github.com".pushInsteadOf = [
-        "git://github.com/"
-        "https://github.com/"
-      ];
-    };
   };
 
   home.packages = with pkgs; [
     gh
     git-filter-repo
   ];
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "traditional";
+      traditional = {
+        keep-plus-minus-markers = true;
+        minus-style = "syntax dim strike \"#001930\"";
+        minus-non-emph-style = "syntax dim strike \"#001930\"";
+        minus-emph-style = "syntax strike \"#005099\"";
+        plus-emph-style = "auto bold auto";
+      };
+      side-by-side = {
+        side-by-side = true;
+        line-numbers = true;
+        minus-style = "syntax dim strike \"#001930\"";
+        minus-emph-style = "syntax bold \"#005099\"";
+        plus-emph-style = "auto bold auto";
+      };
+    };
+  };
 }
