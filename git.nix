@@ -1,6 +1,13 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    gh
+    ghq
+    git-filter-repo
+    tig
+  ];
+
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -67,11 +74,6 @@
     ];
   };
 
-  home.packages = with pkgs; [
-    gh
-    git-filter-repo
-  ];
-
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
@@ -90,6 +92,65 @@
         minus-style = "syntax dim strike \"#001930\"";
         minus-emph-style = "syntax bold \"#005099\"";
         plus-emph-style = "auto bold auto";
+      };
+    };
+  };
+
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      customCommands = [
+        {
+          key = "E";
+          context = "commits";
+          description = "Open editor and start interactive rebase";
+          command = "git rebase -i {{.SelectedLocalCommit.Hash}}~";
+          output = "terminal";
+        }
+      ];
+      gui = {
+        theme = {
+          activeBorderColor = [
+            "yellow"
+            "bold"
+          ];
+          inactiveBorderColor = [ "white" ];
+          unstagedChangesColor = [ "default" ];
+        };
+        commitLength.show = true;
+        showFileTree = true;
+        showListFooter = false;
+        showRandomTip = false;
+        timeFormat = "2002/01/06";
+        shortTimeFormat = "15:04";
+        nerdFontsVersion = "3";
+      };
+      git = {
+        autoStageResolvedConflicts = false;
+        autoFetch = false;
+        commit.autoWrapCommitMessage = false;
+        pagers = [
+          {
+            pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
+            colorArg = "always";
+          }
+        ];
+        branchLogCmd = "git log --graph --color=always --decorate --date=relative --pretty=full {{branchName}} --";
+        truncateCopiedCommitHashesTo = 40;
+      };
+      os = {
+        copyToClipboardCmd = ''printf "\033]52;c;$(printf {{text}} | base64)\a" > /dev/tty'';
+      };
+      reporting = "off";
+      disableStartupPopups = true;
+      startuppopupversion = 1;
+      # confirmOnQuit = true;
+
+      keybinding = {
+        universal = {
+          copyToClipboard = "C";
+          fetch = "f";
+        };
       };
     };
   };

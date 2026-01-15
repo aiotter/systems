@@ -14,6 +14,21 @@ in
     };
   };
 
+  k9s =
+    let
+      k9s = prev.k9s.overrideAttrs (old: {
+        patches = old.patches or [ ] ++ [
+          (final.fetchpatch {
+            name = "override-keybinds.patch";
+            url = "https://github.com/derailed/k9s/compare/master...aiotter:k9s:master.patch";
+            hash = "sha256-1CSli1lZdfg3IkDUBZYwYyDoxa6Yk9W0ulM90U++RXY=";
+          })
+        ];
+        postInstall = [ ]; # Avoid sandbox bug
+      });
+    in
+    final.writeShellScriptBin "k9s" "K9S_FEATURE_GATE_NODE_SHELL=true ${k9s}/bin/k9s \"$@\"";
+
   p11-kit = prev.p11-kit.overrideAttrs {
     # https://github.com/NixOS/nixpkgs/issues/72838
     doCheck = !final.stdenv.isDarwin;

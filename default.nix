@@ -27,8 +27,6 @@
   xdg.enable = true;
 
   home.packages = [
-    pkgs.git
-    pkgs.tig
     pkgs.bat
     pkgs.dogdns
     pkgs.jq
@@ -45,8 +43,6 @@
     pkgs.xclip
     pkgs.httpie
     pkgs.youtube-dl
-    pkgs.ghq
-    # pkgs.lazygit
     pkgs.jiq # interactive jq
     # pkgs.bitwarden-cli  # trouble building
     pkgs.coreutils-prefixed
@@ -66,7 +62,6 @@
 
     # Programming
     pkgs.deno
-    # pkgs.nodejs-12_x
     # pkgs.rustc
     # pkgs.cargo
     # pkgs.zig
@@ -76,12 +71,8 @@
     pkgs.python-build
 
     # GUI
-    # pkgs.alacritty
     # pkgs.viewnior  # picture viewer
     pkgs.dive # docker container inspector
-
-    # Japanese man page
-    # pkgs.jaman
   ];
 
   home.sessionPath = [
@@ -196,62 +187,6 @@
     };
   };
 
-  programs.lazygit = {
-    enable = true;
-    settings = {
-      customCommands = [
-        {
-          key = "E";
-          context = "commits";
-          description = "Open editor and start interactive rebase";
-          command = "git rebase -i {{.SelectedLocalCommit.Hash}}~";
-          output = "terminal";
-        }
-      ];
-      gui = {
-        theme = {
-          activeBorderColor = [ "yellow" "bold" ];
-          inactiveBorderColor = [ "white" ];
-          unstagedChangesColor = [ "default" ];
-        };
-        commitLength.show = true;
-        showFileTree = true;
-        showListFooter = false;
-        showRandomTip = false;
-        timeFormat = "2002/01/06";
-        shortTimeFormat = "15:04";
-        nerdFontsVersion = "3";
-      };
-      git = {
-        autoStageResolvedConflicts = false;
-        autoFetch = false;
-        commit.autoWrapCommitMessage = false;
-        pagers = [
-          {
-            pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
-            colorArg = "always";
-          }
-        ];
-        branchLogCmd = "git log --graph --color=always --decorate --date=relative --pretty=full {{branchName}} --";
-        truncateCopiedCommitHashesTo = 40;
-      };
-      os = {
-        copyToClipboardCmd = ''printf "\033]52;c;$(printf {{text}} | base64)\a" > /dev/tty'';
-      };
-      reporting = "off";
-      disableStartupPopups = true;
-      startuppopupversion = 1;
-      # confirmOnQuit = true;
-
-      keybinding = {
-        universal = {
-          copyToClipboard = "C";
-          fetch = "f";
-        };
-      };
-    };
-  };
-
   programs.lazydocker = {
     enable = true;
     settings = {
@@ -263,20 +198,7 @@
 
   programs.k9s = {
     enable = true;
-    package =
-      let
-        k9s = pkgs.k9s.overrideAttrs (prev: {
-          patches = prev.patches or [ ] ++ [
-            (pkgs.fetchpatch {
-              name = "override-keybinds.patch";
-              url = "https://github.com/derailed/k9s/compare/master...aiotter:k9s:master.patch";
-              hash = "sha256-1CSli1lZdfg3IkDUBZYwYyDoxa6Yk9W0ulM90U++RXY=";
-            })
-          ];
-          postInstall = [ ]; # Avoid sandbox bug
-        });
-      in
-      pkgs.writeShellScriptBin "k9s" "K9S_FEATURE_GATE_NODE_SHELL=true ${k9s}/bin/k9s \"$@\"";
+
     settings = {
       k9s = {
         liveViewAutoRefresh = true;
@@ -296,6 +218,7 @@
         };
       };
     };
+
     views = {
       "v1/events" = {
         sortColumn = "LAST_SEEN:asc";
@@ -305,6 +228,7 @@
         columns = [ "IDX" "NAME" "PF" "READY" "STATE" "RESTARTS" "AGE" "PROBES(L:R:S)" "CPU" "MEM" "CPU/RL" "MEM/RL" "%CPU/R" "%CPU/L" "%MEM/R" "%MEM/L" "PORTS" "IMAGE" ];
       };
     };
+
     plugins = {
       hostname = {
         shortCut = "Shift-H";
@@ -327,12 +251,14 @@
       # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
       ForwardAgent = "yes";
     };
+
     matchBlocks = {
       "*" = {
         controlPersist = "10m";
         controlMaster = "auto";
         compression = true;
       };
+
       home.hostname = "home.aiotter.com";
       "home.aiotter.com" = {
         match = ''host home.aiotter.com exec "${pkgs.cloudflared}/bin/cloudflared access ssh-gen --hostname %h"'';
