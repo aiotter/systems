@@ -59,6 +59,7 @@
     pkgs.with-shell
     pkgs.jwt-cli
     pkgs.devbox
+    pkgs.dysk
 
     # Programming
     pkgs.deno
