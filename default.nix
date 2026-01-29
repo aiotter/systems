@@ -11,6 +11,8 @@
     ./ranger.nix
     ./process-compose.nix
 
+    ./homebrew-casks.nix
+
     ./modules/pivy-agent
   ];
 

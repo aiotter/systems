@@ -8,6 +8,14 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.brew-api.follows = "brew-api";
+    };
+    brew-api = {
+      url = "github:BatteredBunny/brew-api";
+      flake = false;
+    };
     # man-pages-ja = {
     #   url = "github:aiotter/man-pages-ja";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -41,7 +49,7 @@
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       overlays = with inputs; [ (import ./overlay.nix) ] ++ map (input: input.overlays.default)
-        [ youtube-dl zig pivy usbutils python-build reload ];
+        [ brew-nix youtube-dl zig pivy usbutils python-build reload ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
