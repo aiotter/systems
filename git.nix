@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
@@ -26,7 +26,8 @@
         '';
         fpush = "push --force-with-lease";
         get = "!ghq get";
-        graph = "log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative";
+        # graph = "log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative";
+        graph = "!${lib.getExe pkgs.serie}";
         list = "!ghq list";
         one = "!git log --oneline --color=always | head";
         root = "rev-parse --show-toplevel";
@@ -50,6 +51,7 @@
 
     ignores = [
       "*.swp"
+      "*.bak"
       "*~"
       ".DS_Store"
 
