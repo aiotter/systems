@@ -5,6 +5,13 @@ let
 in
 
 {
+  devbox =
+    let
+      flake = builtins.getFlake "github:jetify-com/devbox/${rev}";
+      rev = "b589a11e5bef7fd20ebafe4f87d967ed0d5e7c89"; # v0.17.0
+    in
+    flake.packages.${prev.hostPlatform.system}.default;
+
   git-filter-repo = prev.git-filter-repo.overrideAttrs {
     src = final.fetchFromGitHub {
       owner = "newren";
