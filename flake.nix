@@ -24,35 +24,44 @@
       darwinSystems = lib.systems.doubles.darwin;
     in
     {
+      darwinConfigurations = {
+        default = self.darwinConfigurations.aarch64-darwin;
+      }
+      // lib.genAttrs darwinSystems (
+        system:
+        darwin.lib.darwinSystem {
+          inherit system;
+          modules = [
+            determinate.darwinModules.default
+            mac-app-util.darwinModules.default
+            ./.
+          ];
+          specialArgs = { inherit flakeInputs system; };
+        }
+      );
+
       packages = lib.genAttrs darwinSystems (
+        system:
+        {
+          default = self.darwinConfigurations.${system}.system;
+          inherit (darwin.packages.${system}) darwin-option darwin-rebuild darwin-version darwin-uninstaller;
+        }
+      );
+
+      apps = lib.genAttrs darwinSystems (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-
-          darwinConfig = darwin.lib.darwinSystem {
-            inherit system;
-            modules = [
-              determinate.darwinModules.default
-              mac-app-util.darwinModules.default
-              ./.
-            ];
-            specialArgs = { inherit flakeInputs system; };
-          };
+          inherit (darwin.packages.${system}) darwin-rebuild;
+          switch = pkgs.writeShellScriptBin "switch" ''
+            exec sudo "${lib.getExe darwin-rebuild}" switch --flake "${self.outPath}#${system}" "$@"
+          '';
         in
         {
-          default = darwinConfig.system;
-
-          darwinConfigurations.default = darwinConfig;
-
-          inherit (darwin.packages.${system}) darwin-option darwin-rebuild darwin-version darwin-uninstaller;
-
-          # switch = pkgs.writeShellScriptBin "switch" ''
-          #   sudo "${lib.getExe darwin-rebuild}" switch --flake "${self}#default" "$@"
-          # '';
-
-          switch = pkgs.writeShellScriptBin "switch" ''
-            sudo "${darwinConfig.system}/sw/bin/darwin-rebuild" activate "$@"
-          '';
+          switch = {
+            type = "app";
+            program = "${lib.getExe switch}";
+          };
         }
       );
     };
