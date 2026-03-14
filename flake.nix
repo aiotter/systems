@@ -40,27 +40,34 @@
         }
       );
 
-      packages = lib.genAttrs darwinSystems (
-        system:
-        {
-          default = self.darwinConfigurations.${system}.system;
-          inherit (darwin.packages.${system}) darwin-option darwin-rebuild darwin-version darwin-uninstaller;
-        }
-      );
+      packages = lib.genAttrs darwinSystems (system: {
+        default = self.darwinConfigurations.${system}.system;
+      });
 
       apps = lib.genAttrs darwinSystems (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          inherit (darwin.packages.${system}) darwin-rebuild;
-          switch = pkgs.writeShellScriptBin "switch" ''
-            exec sudo "${lib.getExe darwin-rebuild}" switch --flake "${self.outPath}#${system}" "$@"
-          '';
+          darwinPackages = darwin.packages.${system};
         in
         {
+          rebuild = {
+            type = "app";
+            program = builtins.toString (
+              pkgs.writeShellScript "rebuild" ''
+                darwin_rebuild="${lib.getExe darwinPackages.darwin-rebuild}"
+                exec "$darwin_rebuild" --flake "${self.outPath}#${system}" "$@"
+              ''
+            );
+          };
+
           switch = {
             type = "app";
-            program = "${lib.getExe switch}";
+            program = builtins.toString (
+              pkgs.writeShellScript "switch" ''
+                exec sudo "${self.apps.${system}.rebuild.program}" switch "$@"
+              ''
+            );
           };
         }
       );
