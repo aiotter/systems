@@ -9,6 +9,7 @@
     ./mackup
     ./haskell.nix
     ./ranger.nix
+    ./yazi.nix
     ./process-compose.nix
 
     ./homebrew-casks.nix

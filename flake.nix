@@ -44,12 +44,17 @@
       url = "github:aiotter/flakes/reload";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    yazi = {
+      url = "github:sxyazi/yazi/v26.1.22";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       overlays = with inputs; [ (import ./overlay.nix) ] ++ map (input: input.overlays.default)
-        [ brew-nix youtube-dl zig pivy usbutils python-build reload ];
+        [ brew-nix youtube-dl zig pivy usbutils python-build reload yazi ];
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
