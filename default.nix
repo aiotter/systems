@@ -173,6 +173,10 @@
       quit-after-last-window-closed = true;
       window-save-state = "never";
       mouse-hide-while-typing = true;
+      clipboard-paste-protection = false;
+      notify-on-command-finish = "unfocused";
+      notify-on-command-finish-action = "no-bell,notify";
+      quick-terminal-autohide = false;
 
       keybind = [
         "cmd+shift+equal=decrease_font_size:1"
@@ -180,12 +184,11 @@
         "cmd+shift+\\=new_split:left"
         "cmd+-=new_split:down"
         "cmd+shift+-=new_split:up"
-        "cmd+f=write_screen_file:open"
         "cmd+h=goto_split:left"
         "cmd+j=goto_split:down"
         "cmd+k=goto_split:up"
         "cmd+l=goto_split:right"
-        "global:cmd+ctrl+t=toggle_quick_terminal"
+        "global:cmd+backquote=toggle_quick_terminal"
       ];
     };
   };
