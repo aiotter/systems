@@ -1,10 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ callPackage }:
 
-let
-  inherit (pkgs) callPackage;
-in
 {
-  inherit (pkgs) fira-code ricty rictydiminished-with-firacode;
   cica = callPackage ./cica.nix { };
   hackgen-nerd = callPackage ./hackgen-nerd.nix { };
   udev-gothic = callPackage ./udev-gothic.nix { };

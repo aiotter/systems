@@ -1,0 +1,5 @@
+{ callPackage }:
+
+{
+  fonts = callPackage ./fonts { };
+}
