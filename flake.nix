@@ -72,7 +72,10 @@
         extraSpecialArgs.flakeInputs = inputs;
       };
 
-      packages.home-manager = home-manager.packages.${system}.default;
+      packages = {
+        default = self.homeConfigurations.${system}.default.config.home.path;
+        home-manager = home-manager.packages.${system}.default;
+      };
 
       apps.switch = {
         type = "app";
