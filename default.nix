@@ -1,5 +1,9 @@
 { lib, config, pkgs, ... }:
 
+let
+  localPackages = pkgs.callPackage ./packages { };
+in
+
 {
   imports = [
     ./nix.nix
@@ -77,6 +81,9 @@
     # GUI
     # pkgs.viewnior  # picture viewer
     pkgs.dive # docker container inspector
+
+    # local packages
+    localPackages.qr
   ];
 
   home.sessionPath = [
