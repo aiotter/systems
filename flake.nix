@@ -75,7 +75,8 @@
       packages = {
         default = self.homeConfigurations.${system}.default.config.home.path;
         home-manager = home-manager.packages.${system}.default;
-      };
+      }
+      // self.homeConfigurations.${system}.default.pkgs.callPackage ./packages { };
 
       apps.switch = {
         type = "app";
