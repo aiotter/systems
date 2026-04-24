@@ -15,6 +15,7 @@ in
     ./ranger.nix
     ./yazi.nix
     ./process-compose.nix
+    ./pager.nix
 
     ./homebrew-casks.nix
 

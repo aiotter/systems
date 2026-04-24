@@ -2,7 +2,7 @@
   home = {
     sessionVariables = {
       LESS = "--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS";
-      MANPAGER = "less -isr";
+      # MANPAGER = "less -isr";
       EDITOR = "nvim";
     };
 
