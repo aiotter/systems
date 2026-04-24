@@ -78,7 +78,7 @@
 
   programs.delta = {
     enable = true;
-    enableGitIntegration = true;
+    # enableGitIntegration = true;
     options = {
       features = "traditional";
       traditional = {
@@ -95,6 +95,19 @@
         minus-emph-style = "syntax bold \"#005099\"";
         plus-emph-style = "auto bold auto";
       };
+    };
+  };
+
+  programs.mergiraf = {
+    enable = true;
+    # enableGitIntegration = true;
+  };
+
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options = {
+      sort-paths = true;
     };
   };
 
@@ -133,8 +146,10 @@
         commit.autoWrapCommitMessage = false;
         pagers = [
           {
+            externalDiffCommand = "difft --color=always --sort-paths";
+          }
+          {
             pager = "delta --paging=never --features=traditional --minus-style='\"#606060\" \"#001930\"'";
-            colorArg = "always";
           }
         ];
         branchLogCmd = "git log --graph --color=always --decorate --date=relative --pretty=full {{branchName}} --";
