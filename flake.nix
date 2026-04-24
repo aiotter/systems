@@ -2,15 +2,15 @@
   description = "aiotter's user settings";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     brew-nix = {
       url = "github:BatteredBunny/brew-nix";
       inputs.brew-api.follows = "brew-api";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     brew-api = {
       url = "github:BatteredBunny/brew-api";
@@ -18,50 +18,53 @@
     };
     # man-pages-ja = {
     #   url = "github:aiotter/man-pages-ja";
-    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.nixpkgs.follows = "home-manager/nixpkgs";
     # };
     youtube-dl = {
       url = "github:aiotter/flakes/youtube-dl";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     zig = {
       url = "github:mitchellh/zig-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     pivy = {
       url = "github:aiotter/flakes/pivy";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     usbutils = {
       url = "github:aiotter/flakes/usbutils";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     python-build = {
       url = "github:aiotter/flakes/python-build";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     reload = {
       url = "github:aiotter/flakes/reload";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
     };
     yazi = {
       url = "github:sxyazi/yazi/v26.1.22";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "home-manager/nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs-unstable, flake-utils, home-manager, ... }@inputs:
     let
       overlays = with inputs; [ (import ./overlay.nix) ] ++ map (input: input.overlays.default)
         [ brew-nix youtube-dl zig pivy usbutils python-build reload yazi ];
+
+      mkPkgs = input: system: import input {
+        inherit system overlays;
+        config = { allowUnfree = true; };
+      };
     in
     flake-utils.lib.eachDefaultSystem (system: rec {
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs.outPath {
-          inherit system overlays;
-          config = { allowUnfree = true; };
-        };
+        pkgs = mkPkgs home-manager.inputs.nixpkgs.outPath system;
+
         modules = [
           {
             home.username = "aiotter";
@@ -69,7 +72,11 @@
           }
           ./default.nix
         ];
-        extraSpecialArgs.flakeInputs = inputs;
+
+        extraSpecialArgs = {
+          flakeInputs = inputs;
+          pkgsUnstable = mkPkgs nixpkgs-unstable system;
+        };
       };
 
       packages = {

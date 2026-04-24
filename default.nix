@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, pkgsUnstable, ... }:
 
 let
   localPackages = pkgs.callPackage ./packages { };
@@ -33,54 +33,51 @@ in
 
   xdg.enable = true;
 
-  home.packages = [
-    pkgs.bat
-    pkgs.dogdns
-    pkgs.jq
-    pkgs.tree
-    pkgs.zsh
-    pkgs.delta
-    pkgs.universal-ctags
-    pkgs.tmux
-    pkgs.ffmpeg
-    pkgs.wget
-    pkgs.aria2 # download manager
-    pkgs.unp # unpack (almost) everything
-    pkgs.unrar
-    pkgs.xclip
-    pkgs.httpie
-    pkgs.youtube-dl
-    pkgs.jiq # interactive jq
-    # pkgs.bitwarden-cli  # trouble building
-    pkgs.coreutils-prefixed
-    pkgs.gnused
-    pkgs.gnutar
-    pkgs.gnugrep
-    pkgs.gawk
-    pkgs.less
-    pkgs.starship
-    pkgs.fzf
-    pkgs.usbutils
-    pkgs.reload
-    pkgs.tio # serial device I/O tool
-    pkgs.with-shell
-    pkgs.jwt-cli
-    pkgs.devbox
-    pkgs.dysk
+  home.packages = with pkgsUnstable; [
+    bat
+    doggo
+    jq
+    tree
+    universal-ctags
+    tmux
+    ffmpeg
+    wget
+    aria2 # download manager
+    unp # unpack (almost) everything
+    unrar
+    xclip
+    httpie
+    youtube-dl
+    jiq # interactive jq
+    # bitwarden-cli  # trouble building
+    coreutils-prefixed
+    gnused
+    gnutar
+    gnugrep
+    gawk
+    less
+    fzf
+    usbutils
+    reload
+    tio # serial device I/O tool
+    with-shell
+    jwt-cli
+    devbox
+    dysk
 
     # Programming
-    pkgs.deno
-    # pkgs.rustc
-    # pkgs.cargo
-    # pkgs.zig
-    pkgs.zigpkgs.default
-    pkgs.zls
-    pkgs.go
-    pkgs.python-build
+    deno
+    # rustc
+    # cargo
+    # zig
+    zigpkgs.default
+    zls
+    go
+    python-build
 
     # GUI
-    # pkgs.viewnior  # picture viewer
-    pkgs.dive # docker container inspector
+    # viewnior  # picture viewer
+    dive # docker container inspector
 
     # local packages
     localPackages.qr
@@ -165,7 +162,7 @@ in
 
   programs.ghostty = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
+    package = if pkgs.stdenv.isDarwin then null else pkgsUnstable.ghostty;
     settings = {
       config-file = "?config.local";
 
@@ -252,7 +249,7 @@ in
         background = false;
         args = [
           "-c"
-          "kubectl --kubeconfig=$KUBECONFIG get service,ingress --all-namespaces --context=$CONTEXT --sort-by=.metadata.namespace --output=custom-columns=SERVICE:.metadata.name,HOSTNAME:'.metadata.annotations.external-dns\\.alpha\\.kubernetes\\.io/hostname' | awk '$2!=\"<none>\" {print $0}' | column -t | ${pkgs.less}/bin/less --clear-screen --lesskey-content='\\e\\e quit' --tilde --header=1 --no-search-headers --color=H-_"
+          "kubectl --kubeconfig=$KUBECONFIG get service,ingress --all-namespaces --context=$CONTEXT --sort-by=.metadata.namespace --output=custom-columns=SERVICE:.metadata.name,HOSTNAME:'.metadata.annotations.external-dns\\.alpha\\.kubernetes\\.io/hostname' | awk '$2!=\"<none>\" {print $0}' | column -t | ${pkgsUnstable.less}/bin/less --clear-screen --lesskey-content='\\e\\e quit' --tilde --header=1 --no-search-headers --color=H-_"
         ];
       };
     };
@@ -262,7 +259,7 @@ in
     enable = true;
     includes = [ "config.local" ];
     extraOptionOverrides = {
-      # PKCS11Provider = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+      # PKCS11Provider = "${pkgsUnstable.opensc}/lib/opensc-pkcs11.so";
       ForwardAgent = "yes";
     };
 
@@ -275,8 +272,8 @@ in
 
       home.hostname = "home.aiotter.com";
       "home.aiotter.com" = {
-        match = ''host home.aiotter.com exec "${pkgs.cloudflared}/bin/cloudflared access ssh-gen --hostname %h"'';
-        proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+        match = ''host home.aiotter.com exec "${pkgsUnstable.cloudflared}/bin/cloudflared access ssh-gen --hostname %h"'';
+        proxyCommand = "${pkgsUnstable.cloudflared}/bin/cloudflared access ssh --hostname %h";
         # identityFile = "~/.cloudflared/%h-cf_key";
         # certificateFile = "~/.cloudflared/%h-cf_key-cert.pub";
       };
