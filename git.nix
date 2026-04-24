@@ -47,6 +47,13 @@
         "git://github.com/"
         "https://github.com/"
       ];
+
+      color = {
+        diff = {
+          old = "#005099 normal strike";
+          new = "normal normal bold";
+        };
+      };
     };
 
     ignores = [
