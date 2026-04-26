@@ -14,6 +14,29 @@ Make sure to add the following to the local config file (`./configuration.nix`).
 system.stateVersion = "23.11"; # Did you read the comment?
 ```
 
+## Blank NixOS
+
+`master` branch exposes basic configuration for flake-based NixOS configuration.
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    base.url = "github:aiotter/systems/master";
+  };
+
+  outputs = { self, nixpkgs, base }: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        base.nixosModules.default
+        ./configuration.nix # local config
+      ];
+    };
+  };
+}
+```
+
 ## General machine
 
 ```nix
