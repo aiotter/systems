@@ -89,7 +89,7 @@ system.stateVersion = "23.11"; # Did you read the comment?
     nixpkgs.url = "github:NixOS/nixpkgs";
     wsl.url = "github:nix-community/NixOS-WSL";
     aiotter-system.url = "github:aiotter/systems/nixos";
-  }
+  };
 
   outputs = { self, nixpkgs, aiotter-system }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
