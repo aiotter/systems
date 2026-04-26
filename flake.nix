@@ -5,12 +5,10 @@
     inherit (aiotter-systems) lib;
 
     nixosModules =
-      let
-        common-modules = [ aiotter-systems.nixosModules.default ./common.nix ];
-      in
       {
-        raspi.imports = common-modules ++ [ hosts/raspi.nix ];
-        wsl.imports = common-modules ++ [ hosts/wsl.nix ];
+        minimal.imports = [ aiotter-systems.nixosModules.default ./common.nix ];
+        raspi.imports = [ self.nixosModules.minimal hosts/raspi.nix ];
+        wsl.imports = [ self.nixosModules.minimal hosts/wsl.nix ];
       };
   };
 }

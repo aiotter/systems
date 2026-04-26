@@ -14,6 +14,27 @@ Make sure to add the following to the local config file (`./configuration.nix`).
 system.stateVersion = "23.11"; # Did you read the comment?
 ```
 
+## General machine
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    aiotter-system.url = "github:aiotter/systems/nixos";
+  };
+
+  outputs = { self, nixpkgs, aiotter-system }: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        aiotter-system.nixosModules.minimal
+        ./configuration.nix # local config
+      ];
+    };
+  };
+}
+```
+
 ## RasPi
 
 ```nix
