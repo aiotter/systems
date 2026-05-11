@@ -11,8 +11,8 @@ in
     package = mkPackageOption pkgs "pivy" { };
 
     socket = mkOption {
-      type = types.str;
-      default = "${config.home.homeDirectory}/.cache/pivy-agent/agent.sock";
+      type = with types; nullOr str;
+      default = "$SSH_AUTH_SOCK";
     };
 
     guid = mkOption {
@@ -24,16 +24,25 @@ in
     launchd.agents.pivy-agent = {
       enable = true;
       config = {
-        EnvironmentVariables.SSH_ASKPASS = toString ./ssh-askpass;
-        Program = lib.getExe (pkgs.writeShellApplication {
-          name = "pivy-agent";
-          runtimeInputs = [ cfg.package ];
-          text = ''
-            mkdir -p "$(dirname "${cfg.socket}")"
-            [[ -e "${cfg.socket}" ]] && rm "${cfg.socket}"
-            pivy-agent -ig "${cfg.guid}" -a "${cfg.socket}"
-          '';
-        });
+        EnvironmentVariables.SSH_ASKPASS = toString (
+          builtins.path {
+            path = ./ssh-askpass;
+            name = "ssh-askpass";
+          }
+        );
+
+        Program = lib.getExe (
+          pkgs.writeShellApplication {
+            name = "pivy-agent";
+            runtimeInputs = [ cfg.package ];
+            text = ''
+              mkdir -p "$(dirname "${cfg.socket}")"
+              [[ -e "${cfg.socket}" ]] && rm -- "${cfg.socket}"
+              exec pivy-agent -ig "${cfg.guid}" -a "${cfg.socket}"
+            '';
+          }
+        );
+
         # Wait until Nix store is mounted
         KeepAlive.PathState.${builtins.storeDir} = true;
         StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/pivy-agent.log";
@@ -41,13 +50,5 @@ in
     };
 
     # programs.ssh.extraOptionOverrides.IdentityAgent = cfg.socket;
-
-    programs.bash.profileExtra = ''
-      if [[ ! -e "$SSH_AUTH_SOCK" || "$SSH_AUTH_SOCK" == *${if pkgs.stdenv.isDarwin then "launchd" else "/keyring/"}* ]]; then
-        export SSH_AUTH_SOCK="${cfg.socket}"
-      fi
-    '';
-
-    programs.zsh.profileExtra = config.programs.bash.profileExtra;
   };
 }
