@@ -53,8 +53,17 @@
 
   outputs = { self, nixpkgs-unstable, flake-utils, home-manager, ... }@inputs:
     let
-      overlays = with inputs; [ (import ./overlay.nix) ] ++ map (input: input.overlays.default)
-        [ brew-nix youtube-dl zig pivy usbutils python-build reload yazi ];
+      overlays = with inputs; [
+        brew-nix.overlays.default
+        youtube-dl.overlays.default
+        zig.overlays.default
+        pivy.overlays.default
+        usbutils.overlays.default
+        python-build.overlays.default
+        reload.overlays.default
+        yazi.overlays.default
+        (import ./overlay.nix)
+      ];
 
       mkPkgs = input: system: import input {
         inherit system overlays;
