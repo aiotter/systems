@@ -1,8 +1,4 @@
-{ lib, config, pkgs, pkgsUnstable, ... }:
-
-let
-  localPackages = pkgs.callPackage ./packages { };
-in
+{ lib, config, pkgs, pkgsUnstable, localPackages, ... }:
 
 {
   imports = [

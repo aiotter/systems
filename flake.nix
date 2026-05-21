@@ -70,38 +70,46 @@
         config = { allowUnfree = true; };
       };
     in
-    flake-utils.lib.eachDefaultSystem (system: rec {
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
-        pkgs = mkPkgs home-manager.inputs.nixpkgs.outPath system;
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        inherit (self.homeConfigurations.${system}.default) pkgs;
+        pkgsUnstable = mkPkgs nixpkgs-unstable system;
+        localPackages = pkgsUnstable.callPackage ./packages { };
+      in
+      rec {
+        homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
+          pkgs = mkPkgs home-manager.inputs.nixpkgs.outPath system;
 
-        modules = [
+          modules = [
+            {
+              home.username = "aiotter";
+              nixpkgs.overlays = overlays;
+            }
+            ./default.nix
+          ];
+
+          extraSpecialArgs = {
+            inherit localPackages;
+            flakeInputs = inputs;
+            pkgsUnstable = mkPkgs nixpkgs-unstable system;
+          };
+        };
+
+        packages =
           {
-            home.username = "aiotter";
-            nixpkgs.overlays = overlays;
+            default = self.homeConfigurations.${system}.default.config.home.path;
+            home-manager = home-manager.packages.${system}.default;
           }
-          ./default.nix
-        ];
+          // localPackages;
 
-        extraSpecialArgs = {
-          flakeInputs = inputs;
-          pkgsUnstable = mkPkgs nixpkgs-unstable system;
+        apps.switch = {
+          type = "app";
+          program = "${homeConfigurations.default.activationPackage}/activate";
+        };
+      }) // {
+        nixConfig = {
+          extra-substituters = ["https://aiotter.cachix.org"];
+          extra-trusted-public-keys = ["aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="];
         };
       };
-
-      packages = {
-        default = self.homeConfigurations.${system}.default.config.home.path;
-        home-manager = home-manager.packages.${system}.default;
-      }
-      // self.homeConfigurations.${system}.default.pkgs.callPackage ./packages { };
-
-      apps.switch = {
-        type = "app";
-        program = "${homeConfigurations.default.activationPackage}/activate";
-      };
-    }) // {
-      nixConfig = {
-        extra-substituters = ["https://aiotter.cachix.org"];
-        extra-trusted-public-keys = ["aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="];
-      };
-    };
 }
