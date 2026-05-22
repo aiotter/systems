@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
     };
@@ -47,12 +46,14 @@
     yazi = {
       url = "github:sxyazi/yazi/v26.1.22";
       inputs.nixpkgs.follows = "home-manager/nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
-  outputs = { self, nixpkgs-unstable, flake-utils, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs-unstable, home-manager, ... }@inputs:
     let
+      inherit (nixpkgs-unstable) lib;
+      systems = builtins.attrNames home-manager.packages;
+
       overlays = with inputs; [
         brew-nix.overlays.default
         youtube-dl.overlays.default
@@ -69,15 +70,13 @@
         inherit system overlays;
         config = { allowUnfree = true; };
       };
-    in
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        inherit (self.homeConfigurations.${system}.default) pkgs;
-        pkgsUnstable = mkPkgs nixpkgs-unstable system;
-        localPackages = pkgsUnstable.callPackage ./packages { };
-      in
-      rec {
-        homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
+
+      mkHomeConfiguration = system:
+        let
+          pkgsUnstable = mkPkgs nixpkgs-unstable system;
+          localPackages = pkgsUnstable.callPackage ./packages { };
+        in
+        home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs home-manager.inputs.nixpkgs.outPath system;
 
           modules = [
@@ -89,27 +88,33 @@
           ];
 
           extraSpecialArgs = {
-            inherit localPackages;
+            inherit localPackages pkgsUnstable;
             flakeInputs = inputs;
-            pkgsUnstable = mkPkgs nixpkgs-unstable system;
           };
         };
+    in {
+      homeConfigurations = lib.genAttrs systems mkHomeConfiguration;
 
-        packages =
-          {
-            default = self.homeConfigurations.${system}.default.config.home.path;
-            home-manager = home-manager.packages.${system}.default;
-          }
-          // localPackages;
+      packages = lib.genAttrs systems (system:
+        let
+          localPackages = (mkPkgs nixpkgs-unstable system).callPackage ./packages { };
+        in
+        {
+          default = self.homeConfigurations.${system}.config.home.path;
+          home-manager = home-manager.packages.${system}.default;
+        }
+        // localPackages);
 
-        apps.switch = {
+      apps = lib.genAttrs systems (system: {
+        switch = {
           type = "app";
-          program = "${homeConfigurations.default.activationPackage}/activate";
+          program = "${self.homeConfigurations.${system}.activationPackage}/activate";
         };
-      }) // {
-        nixConfig = {
-          extra-substituters = ["https://aiotter.cachix.org"];
-          extra-trusted-public-keys = ["aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="];
-        };
+      });
+    } // {
+      nixConfig = {
+        extra-substituters = ["https://aiotter.cachix.org"];
+        extra-trusted-public-keys = ["aiotter.cachix.org-1:YaYTZbiaiBIUYsJPwhcgG9yXXWd15xPtGmvq7DEmKnE="];
       };
+    };
 }
