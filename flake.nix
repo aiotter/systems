@@ -105,12 +105,31 @@
         }
         // localPackages);
 
-      apps = lib.genAttrs systems (system: {
-        switch = {
-          type = "app";
-          program = "${self.homeConfigurations.${system}.activationPackage}/activate";
-        };
-      });
+      apps = lib.genAttrs systems (
+        system:
+        let
+          pkgs = mkPkgs nixpkgs-unstable system;
+
+          mkApp = drv: {
+            type = "app";
+            program = lib.getExe drv;
+          };
+
+          mkNhHomeScript =
+            subcommand:
+            pkgs.writeShellApplication {
+              name = "nh-home-${subcommand}";
+              runtimeInputs = with pkgs; [ nh ];
+              text = ''
+                exec nh home ${subcommand} path:${self} --configuration ${system} "$@"
+              '';
+            };
+        in
+        {
+          build = mkApp (mkNhHomeScript "build");
+          switch = mkApp (mkNhHomeScript "switch");
+        }
+      );
     } // {
       nixConfig = {
         extra-substituters = ["https://aiotter.cachix.org"];
