@@ -78,6 +78,8 @@
 
     # local packages
     localPackages.qr
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+    apfel-llm
   ];
 
   home.sessionPath = [
@@ -281,5 +283,26 @@
     enable = true;
     # guid = "26C3F8E165B498BCFCFE75B53683401E";  # Yubikey NEO
     guid = "E3ADCCBA7F8C7A0F2BFC6410E8566F95"; # Yubikey 5C NFC
+  };
+
+  launchd.agents.apfel-llm = lib.mkIf pkgs.stdenv.isDarwin {
+    enable = true;
+    config = {
+      ProgramArguments = [
+        (lib.getExe pkgsUnstable.apfel-llm)
+        "--serve"
+        "--host"
+        "127.0.0.1"
+        "--port"
+        "11435"
+        "--permissive"
+      ];
+
+      EnvironmentVariables.HOME = config.home.homeDirectory;
+      RunAtLoad = true;
+      KeepAlive = true;
+      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/apfel-llm.log";
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/apfel-llm.log";
+    };
   };
 }
