@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   pluginListToAttrs =
@@ -8,11 +13,27 @@ let
       value = plugin;
     }) plugins
     |> lib.listToAttrs;
+
+  bashIntegration = ''
+    function ${config.programs.yazi.shellWrapperName}() {
+      local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+      command yazi "$@" --cwd-file="$tmp"
+      if cwd="$(<"$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        # builtin cd -- "$cwd"
+        builtin pushd -- "$cwd"
+      fi
+      rm -f -- "$tmp"
+    }
+  '';
 in
 
 {
   programs.yazi = {
     enable = true;
+
+    shellWrapperName = "yazi";
+    enableZshIntegration = false;
+    enableBashIntegration = false;
 
     plugins =
       with pkgs.yaziPlugins;
@@ -75,4 +96,7 @@ in
       ];
     };
   };
+
+  programs.bash.initExtra = lib.mkIf config.home.shell.enableBashIntegration bashIntegration;
+  programs.zsh.initContent = lib.mkIf config.home.shell.enableZshIntegration bashIntegration;
 }
