@@ -124,10 +124,20 @@
                 exec nh home ${subcommand} path:${self} --configuration ${system} "$@"
               '';
             };
+
+          # https://github.com/nix-community/nh/issues/384
+          replScript = pkgs.writeShellApplication {
+            name = "home-repl";
+            runtimeInputs = with pkgs; [ nix ];
+            text = ''
+              exec nix repl "path:${self}#homeConfigurations.${system}" "$@"
+            '';
+          };
         in
         {
           build = mkApp (mkNhHomeScript "build");
           switch = mkApp (mkNhHomeScript "switch");
+          repl = mkApp replScript;
         }
       );
     } // {
