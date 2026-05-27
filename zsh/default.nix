@@ -1,5 +1,7 @@
 { pkgs, lib, config, ... }: {
   home = {
+    shell.enableZshIntegration = true;
+
     sessionVariables = {
       LESS = "--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS";
       # MANPAGER = "less -isr";

@@ -13,7 +13,7 @@ in
 {
   programs.yazi = {
     enable = true;
-    enableZshIntegration = true;
+
     plugins =
       with pkgs.yaziPlugins;
       [
