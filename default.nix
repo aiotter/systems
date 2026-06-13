@@ -115,6 +115,7 @@
       "LadioCast: sound mixer" = 411213048;
       LilyView = 529490330;
       # "Amphetamine: prevent sleeping" = 937984704;
+      ScreenPosition = 1229498568;
       Shareful = 1522267256;
       # CommandX = 6448461551;
       "Pasteboard Viewer" = 1499215709;
