@@ -11,6 +11,7 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
+    xet.enable = true;
 
     settings = {
       user = {

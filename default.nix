@@ -16,6 +16,7 @@
     ./homebrew-casks.nix
 
     ./modules/pivy-agent
+    ./modules/git-xet
   ];
 
   home.stateVersion = "22.05";
