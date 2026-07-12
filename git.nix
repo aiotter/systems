@@ -1,7 +1,29 @@
 { pkgs, lib, ... }:
 
+let
+  git = pkgs.git.overrideAttrs (old: rec {
+    version = "2.55.0";
+    src = pkgs.fetchurl {
+      url = "https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz";
+      hash = "sha256-RX/bBNyHKOAH1GiGleaRLm9oByeSDypAvxHqzBdQU1c=";
+    };
+
+    patches = lib.filter (p: !(lib.hasInfix "expect-gui--askyesno" (toString p))) old.patches;
+
+    makeFlags = old.makeFlags ++ [ "NO_RUST=1" ];
+  });
+
+  gitCustom = git.override {
+    withManual = true;
+    osxkeychainSupport = false;
+    pythonSupport = false;
+    perlSupport = false;
+    # rustSupport = false;
+    withpcre2 = false;
+  };
+in
+
 {
-  home.packages = with pkgs; [
     gh
     ghq
     git-filter-repo
@@ -10,6 +32,8 @@
 
   programs.git = {
     enable = true;
+    package = gitCustom;
+
     lfs.enable = true;
     xet.enable = true;
 
