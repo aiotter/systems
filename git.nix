@@ -60,9 +60,14 @@ in
         unstage = "reset HEAD";
       };
 
+      pull.ff = "only";
       rebase.autosquash = true;
       commit.verbose = true;
       log.date = "iso";
+
+      # Suppress warning on `git diff --check`
+      core.whitespace = "-space-before-tab";
+
       ghq = {
         root = "~/repo";
         user = "aiotter";
