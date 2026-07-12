@@ -183,6 +183,12 @@
       notify-on-command-finish-action = "no-bell,notify";
       quick-terminal-autohide = false;
 
+      macos-option-as-alt = "right";
+      key-remap = [
+        "left_ctrl=right_alt"
+        "right_alt=left_alt"
+      ];
+
       keybind = [
         "cmd+shift+equal=decrease_font_size:1"
         "cmd+\\=new_split:right"
