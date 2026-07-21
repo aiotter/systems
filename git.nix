@@ -60,6 +60,7 @@ in
         unstage = "reset HEAD";
       };
 
+      diff.algorithm = "histogram";
       pull.ff = "only";
       rebase.autosquash = true;
       commit.verbose = true;
